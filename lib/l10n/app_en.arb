@@ -59,5 +59,58 @@
   "errorCodeAttempts": "Too many attempts. Request a new code.",
   "errorStudentAccount": "This application is for parents. Students sign in with the EcoMind student app.",
   "errorConnection": "Could not connect to the server. Try again.",
-  "errorUnknown": "Something went wrong. Try again."
+  "errorUnknown": "Something went wrong. Try again.",
+  "topBarGems": "{count} gems",
+  "@topBarGems": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "topBarEcopoints": "{count} ecopoints",
+  "@topBarEcopoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "profileTitle": "Your profile",
+  "profileEdit": "Edit",
+  "roleParent": "Parent",
+  "roleStudent": "Student",
+  "profileStatStreak": "Day streak",
+  "profileStatEcopoints": "EcoPoints",
+  "profileStatGems": "Gems",
+  "profileStatDescription": "{value}, {label}",
+  "@profileStatDescription": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "profileShare": "Share",
+  "profileFavorites": "Favorites",
+  "profileTabProfile": "Profile",
+  "profileTabFriends": "Friends",
+  "profileTabFamily": "Family",
+  "profileTryAgain": "Try again",
+  "profileErrorTitle": "Couldn’t load your profile",
+  "profileErrorMessage": "Your information is currently unavailable.\nTry again to reload it.",
+  "signOut": "Sign out",
+  "editProfileTitle": "Edit profile",
+  "editProfileNameLabel": "Name",
+  "editProfileNamePlaceholder": "Write name",
+  "editProfileRoleLabel": "Role",
+  "editProfileSave": "Save changes",
+  "editProfileCancel": "Cancel",
+  "editProfileNameRequired": "Enter your name.",
+  "editProfileNameLength": "The name must have 2 to 120 characters.",
+  "editProfileSaveFailed": "Couldn’t save your changes.",
+  "editProfileSaveFailedHint": "Your text is still here. Try again."
 }

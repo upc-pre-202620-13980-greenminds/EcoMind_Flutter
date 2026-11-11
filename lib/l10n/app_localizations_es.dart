@@ -178,6 +178,102 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorUnknown => 'Ocurrió un problema. Inténtalo de nuevo.';
+
+  @override
+  String topBarGems(int count) {
+    return '$count gemas';
+  }
+
+  @override
+  String topBarEcopoints(int count) {
+    return '$count ecopoints';
+  }
+
+  @override
+  String get profileTitle => 'Tu perfil';
+
+  @override
+  String get profileEdit => 'Editar';
+
+  @override
+  String get roleParent => 'Madre o padre';
+
+  @override
+  String get roleStudent => 'Estudiante';
+
+  @override
+  String get profileStatStreak => 'Días de racha';
+
+  @override
+  String get profileStatEcopoints => 'EcoPoints';
+
+  @override
+  String get profileStatGems => 'Gemas';
+
+  @override
+  String profileStatDescription(int value, String label) {
+    return '$value, $label';
+  }
+
+  @override
+  String get profileShare => 'Compartir';
+
+  @override
+  String get profileFavorites => 'Favoritos';
+
+  @override
+  String get profileTabProfile => 'Perfil';
+
+  @override
+  String get profileTabFriends => 'Amigos';
+
+  @override
+  String get profileTabFamily => 'Familia';
+
+  @override
+  String get profileTryAgain => 'Reintentar';
+
+  @override
+  String get profileErrorTitle => 'No pudimos cargar tu perfil';
+
+  @override
+  String get profileErrorMessage =>
+      'Tu información no está disponible en este momento.\nReintenta para cargarla de nuevo.';
+
+  @override
+  String get signOut => 'Cerrar sesión';
+
+  @override
+  String get editProfileTitle => 'Editar perfil';
+
+  @override
+  String get editProfileNameLabel => 'Nombre';
+
+  @override
+  String get editProfileNamePlaceholder => 'Escribe tu nombre';
+
+  @override
+  String get editProfileRoleLabel => 'Rol';
+
+  @override
+  String get editProfileSave => 'Guardar cambios';
+
+  @override
+  String get editProfileCancel => 'Cancelar';
+
+  @override
+  String get editProfileNameRequired => 'Ingresa tu nombre.';
+
+  @override
+  String get editProfileNameLength =>
+      'El nombre debe tener entre 2 y 120 caracteres.';
+
+  @override
+  String get editProfileSaveFailed => 'No pudimos guardar tus cambios.';
+
+  @override
+  String get editProfileSaveFailedHint =>
+      'Tu texto sigue aquí. Inténtalo de nuevo.';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).
