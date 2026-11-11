@@ -1,0 +1,88 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:ecomind_parents/core/api_config.dart';
+import 'package:ecomind_parents/core/api_exception.dart';
+import 'package:ecomind_parents/features/iam/infrastructure/remote/authentication_dto.dart';
+import 'package:ecomind_parents/features/iam/infrastructure/remote/profile_role_dto.dart';
+import 'package:http/http.dart' as http;
+
+class IamApi {
+  static const Map<String, String> _jsonHeaders = {
+    'Content-Type': 'application/json',
+  };
+
+  Future<AuthenticationDto> signIn(String email, String password) async {
+    final http.Response response = await http
+        .post(
+          ApiConfig.uri('/api/v1/authentication/sign-in'),
+          headers: _jsonHeaders,
+          body: jsonEncode({'email': email, 'password': password}),
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode == HttpStatus.ok) {
+      // Read as UTF-8: without a charset in the response, body would use latin1
+      return AuthenticationDto.fromJson(
+        jsonDecode(utf8.decode(response.bodyBytes)),
+      );
+    }
+    throw ApiException.fromResponse(response);
+  }
+
+  Future<ProfileRoleDto> getProfile(String accessToken, int userId) async {
+    final http.Response response = await http
+        .get(
+          ApiConfig.uri('/api/v1/user/$userId'),
+          headers: {'Authorization': 'Bearer $accessToken'},
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode == HttpStatus.ok) {
+      return ProfileRoleDto.fromJson(
+        jsonDecode(utf8.decode(response.bodyBytes)),
+      );
+    }
+    throw ApiException.fromResponse(response);
+  }
+
+  // The backend stores the registration as pending and sends the code by email
+  Future<void> signUp(
+    String name,
+    String email,
+    String password,
+    String socialRole,
+  ) async {
+    final http.Response response = await http
+        .post(
+          ApiConfig.uri('/api/v1/authentication/sign-up'),
+          headers: _jsonHeaders,
+          body: jsonEncode({
+            'name': name,
+            'email': email,
+            'password': password,
+            'socialRole': socialRole,
+          }),
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode != HttpStatus.created) {
+      throw ApiException.fromResponse(response);
+    }
+  }
+
+  // The account is created only when the code is correct
+  Future<void> verifyEmail(String email, String code) async {
+    final http.Response response = await http
+        .post(
+          ApiConfig.uri('/api/v1/authentication/verify-email'),
+          headers: _jsonHeaders,
+          body: jsonEncode({'email': email, 'code': code}),
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode != HttpStatus.created) {
+      throw ApiException.fromResponse(response);
+    }
+  }
+}

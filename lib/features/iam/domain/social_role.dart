@@ -1,0 +1,1 @@
+enum SocialRole { student, parent }

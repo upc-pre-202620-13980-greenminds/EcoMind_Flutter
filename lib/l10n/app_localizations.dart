@@ -170,6 +170,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This section will be available soon.'**
   String get comingSoonMessage;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get loading;
+
+  /// No description provided for @signInEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get signInEmailLabel;
+
+  /// No description provided for @signInPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get signInPasswordLabel;
+
+  /// No description provided for @signInButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get signInButton;
+
+  /// No description provided for @signInNoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get signInNoAccount;
+
+  /// No description provided for @signInSignUpLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signInSignUpLink;
+
+  /// No description provided for @signInVerifyEmailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'If you just signed up, verify your email first.'**
+  String get signInVerifyEmailHint;
+
+  /// No description provided for @showPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get hidePassword;
+
+  /// No description provided for @signUpNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get signUpNameLabel;
+
+  /// No description provided for @signUpConfirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get signUpConfirmPasswordLabel;
+
+  /// No description provided for @signUpTermsPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the'**
+  String get signUpTermsPrefix;
+
+  /// No description provided for @signUpTermsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'terms & policy'**
+  String get signUpTermsLink;
+
+  /// No description provided for @signUpTermsCheckbox.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the terms and policy'**
+  String get signUpTermsCheckbox;
+
+  /// No description provided for @signUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signUpButton;
+
+  /// No description provided for @signUpHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get signUpHaveAccount;
+
+  /// No description provided for @termsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & policy'**
+  String get termsTitle;
+
+  /// No description provided for @termsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'EcoMind is an educational sustainability project for students and families. Activities, educational materials and progress features support learning about environmental habits.\n\nYour account\nUse your own account information and keep your password private. Your email is used for account verification and password recovery. Sign out when you finish using a shared device.\n\nParticipation\nComplete activities honestly and treat other participants with respect. Points, streaks and achievements represent participation in EcoMind; they do not certify measured environmental savings.\n\nPrivacy\nAvoid sharing sensitive information in community posts or activity evidence. Do not share another person’s personal information without permission.\n\nTerms and privacy information are pending review by the project team.'**
+  String get termsBody;
+
+  /// No description provided for @verifyEmailSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re almost there!'**
+  String get verifyEmailSubtitle;
+
+  /// No description provided for @verifyEmailMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent an email to {email}. Please check your inbox and enter the code.'**
+  String verifyEmailMessage(String email);
+
+  /// No description provided for @verifyEmailCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation code'**
+  String get verifyEmailCodeLabel;
+
+  /// No description provided for @verifyEmailButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm email'**
+  String get verifyEmailButton;
+
+  /// No description provided for @verifyEmailResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get verifyEmailResend;
+
+  /// No description provided for @verifyEmailCodeResent.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent you a new code.'**
+  String get verifyEmailCodeResent;
+
+  /// No description provided for @verifyEmailGoBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get verifyEmailGoBack;
+
+  /// No description provided for @errorEmailRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address.'**
+  String get errorEmailRequired;
+
+  /// No description provided for @errorEmailInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address.'**
+  String get errorEmailInvalid;
+
+  /// No description provided for @errorPasswordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password.'**
+  String get errorPasswordRequired;
+
+  /// No description provided for @errorInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'The email or password is incorrect.'**
+  String get errorInvalidCredentials;
+
+  /// No description provided for @errorNameInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name (2 to 120 characters).'**
+  String get errorNameInvalid;
+
+  /// No description provided for @errorPasswordPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'The password must have 8 to 72 characters, with at least one letter and one digit.'**
+  String get errorPasswordPolicy;
+
+  /// No description provided for @errorPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The passwords do not match.'**
+  String get errorPasswordMismatch;
+
+  /// No description provided for @errorTermsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the terms and policy.'**
+  String get errorTermsRequired;
+
+  /// No description provided for @errorEmailConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This email address is already registered.'**
+  String get errorEmailConflict;
+
+  /// No description provided for @errorCodeFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the 6-digit code.'**
+  String get errorCodeFormat;
+
+  /// No description provided for @errorCodeInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The verification code is not valid.'**
+  String get errorCodeInvalid;
+
+  /// No description provided for @errorCodeExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'The verification code has expired. Request a new one.'**
+  String get errorCodeExpired;
+
+  /// No description provided for @errorCodeAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Request a new code.'**
+  String get errorCodeAttempts;
+
+  /// No description provided for @errorStudentAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'This application is for parents. Students sign in with the EcoMind student app.'**
+  String get errorStudentAccount;
+
+  /// No description provided for @errorConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect to the server. Try again.'**
+  String get errorConnection;
+
+  /// No description provided for @errorUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Try again.'**
+  String get errorUnknown;
 }
 
 class _AppLocalizationsDelegate

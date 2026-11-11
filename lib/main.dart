@@ -1,6 +1,7 @@
 import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/theme.dart';
-import 'package:ecomind_parents/features/main/main_page.dart';
+import 'package:ecomind_parents/features/iam/presentation/splash/splash_page.dart';
+import 'package:ecomind_parents/features/iam/presentation/splash/splash_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      home: const MainPage(),
+      home: SplashPage(viewModel: getIt<SplashViewModel>()),
     );
   }
 }
