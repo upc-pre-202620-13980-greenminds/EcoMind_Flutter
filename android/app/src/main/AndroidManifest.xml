@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="ecomind_parents"
+        android:label="EcoMind Parents"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
