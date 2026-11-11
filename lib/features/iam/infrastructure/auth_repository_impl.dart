@@ -46,6 +46,11 @@ class AuthRepositoryImpl implements AuthRepository {
     return _guard(() => api.verifyEmail(email, code));
   }
 
+  @override
+  Future<void> signOut(Session session) {
+    return _guard(() => api.logout(session.accessToken));
+  }
+
   // Turns the errors of the network and of the backend into errors of the domain
   Future<T> _guard<T>(Future<T> Function() request) async {
     try {
