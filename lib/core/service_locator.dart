@@ -1,6 +1,7 @@
 import 'package:ecomind_parents/core/app_database.dart';
 import 'package:ecomind_parents/features/iam/application/check_session_use_case.dart';
 import 'package:ecomind_parents/features/iam/application/sign_in_use_case.dart';
+import 'package:ecomind_parents/features/iam/application/sign_out_use_case.dart';
 import 'package:ecomind_parents/features/iam/application/sign_up_use_case.dart';
 import 'package:ecomind_parents/features/iam/application/verify_email_use_case.dart';
 import 'package:ecomind_parents/features/iam/domain/auth_repository.dart';
@@ -13,6 +14,13 @@ import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_m
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/splash/splash_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/verify_email/verify_email_view_model.dart';
+import 'package:ecomind_parents/features/users/application/get_current_profile_use_case.dart';
+import 'package:ecomind_parents/features/users/application/update_profile_name_use_case.dart';
+import 'package:ecomind_parents/features/users/domain/user_profile_repository.dart';
+import 'package:ecomind_parents/features/users/infrastructure/remote/user_api.dart';
+import 'package:ecomind_parents/features/users/infrastructure/user_profile_repository_impl.dart';
+import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -51,6 +59,44 @@ void setupDependencies() {
 
   getIt.registerLazySingleton<VerifyEmailUseCase>(
     () => VerifyEmailUseCase(repository: getIt<AuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<SignOutUseCase>(
+    () => SignOutUseCase(
+      authRepository: getIt<AuthRepository>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<UserApi>(() => UserApi());
+
+  getIt.registerLazySingleton<UserProfileRepository>(
+    () => UserProfileRepositoryImpl(
+      api: getIt<UserApi>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetCurrentProfileUseCase>(
+    () => GetCurrentProfileUseCase(repository: getIt<UserProfileRepository>()),
+  );
+
+  getIt.registerLazySingleton<UpdateProfileNameUseCase>(
+    () => UpdateProfileNameUseCase(repository: getIt<UserProfileRepository>()),
+  );
+
+  // Shared by MainPage, the top bar and the Profile tab
+  getIt.registerLazySingleton<ProfileViewModel>(
+    () => ProfileViewModel(
+      getCurrentProfile: getIt<GetCurrentProfileUseCase>(),
+      signOutUseCase: getIt<SignOutUseCase>(),
+    ),
+  );
+
+  getIt.registerFactory<EditProfileViewModel>(
+    () => EditProfileViewModel(
+      updateProfileName: getIt<UpdateProfileNameUseCase>(),
+    ),
   );
 
   getIt.registerLazySingleton<SplashViewModel>(

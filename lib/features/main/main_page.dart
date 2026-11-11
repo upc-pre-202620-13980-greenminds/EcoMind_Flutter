@@ -1,6 +1,10 @@
-import 'package:ecomind_parents/core/widgets/coming_soon_page.dart';
+import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/widgets/coming_soon_view.dart';
-import 'package:ecomind_parents/core/widgets/eco_top_bar.dart';
+import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
+import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
+import 'package:ecomind_parents/features/main/main_top_bar.dart';
+import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
+import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -15,22 +19,43 @@ class _MainPageState extends State<MainPage> {
   // The parent application opens on the Profile section
   int selectedIndex = 5;
 
-  // Store, Ranking, Main menu, Progress and Community belong to other members;
-  // Profile is replaced when its screen is implemented
-  final List<Widget> pages = const [
-    ComingSoonView(),
-    ComingSoonView(),
-    ComingSoonView(),
-    ComingSoonView(),
-    ComingSoonView(),
-    ComingSoonView(),
+  final ProfileViewModel profileViewModel = getIt<ProfileViewModel>();
+
+  // Store, Ranking, Main menu, Progress and Community belong to other members
+  late final List<Widget> pages = [
+    const ComingSoonView(),
+    const ComingSoonView(),
+    const ComingSoonView(),
+    const ComingSoonView(),
+    const ComingSoonView(),
+    ProfilePage(viewModel: profileViewModel),
   ];
 
-  void openComingSoon() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ComingSoonPage()),
-    );
+  @override
+  void initState() {
+    super.initState();
+    profileViewModel.addListener(onProfileChanged);
+    // The top bar needs the balances even when another tab is open
+    profileViewModel.loadProfile();
+  }
+
+  @override
+  void dispose() {
+    profileViewModel.removeListener(onProfileChanged);
+    super.dispose();
+  }
+
+  // An expired token sends the parent back to Sign in
+  void onProfileChanged() {
+    if (profileViewModel.state.isSessionExpired && mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignInPage(viewModel: getIt<SignInViewModel>()),
+        ),
+        (route) => false,
+      );
+    }
   }
 
   @override
@@ -42,10 +67,7 @@ class _MainPageState extends State<MainPage> {
         bottom: false,
         child: Column(
           children: [
-            EcoTopBar(
-              onNotificationsTap: openComingSoon,
-              onSettingsTap: openComingSoon,
-            ),
+            const MainTopBar(),
             Expanded(child: pages[selectedIndex]),
           ],
         ),
