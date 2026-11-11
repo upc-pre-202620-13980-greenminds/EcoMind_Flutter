@@ -12,4 +12,5 @@ abstract class AuthRepository {
     SocialRole role,
   );
   Future<void> verifyEmail(String email, String code);
+  Future<void> signOut(Session session);
 }

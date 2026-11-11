@@ -416,6 +416,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Try again.'**
   String get errorUnknown;
+
+  /// No description provided for @topBarGems.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} gems'**
+  String topBarGems(int count);
+
+  /// No description provided for @topBarEcopoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} ecopoints'**
+  String topBarEcopoints(int count);
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get profileTitle;
+
+  /// No description provided for @profileEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get profileEdit;
+
+  /// No description provided for @roleParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get roleParent;
+
+  /// No description provided for @roleStudent.
+  ///
+  /// In en, this message translates to:
+  /// **'Student'**
+  String get roleStudent;
+
+  /// No description provided for @profileStatStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day streak'**
+  String get profileStatStreak;
+
+  /// No description provided for @profileStatEcopoints.
+  ///
+  /// In en, this message translates to:
+  /// **'EcoPoints'**
+  String get profileStatEcopoints;
+
+  /// No description provided for @profileStatGems.
+  ///
+  /// In en, this message translates to:
+  /// **'Gems'**
+  String get profileStatGems;
+
+  /// No description provided for @profileStatDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}, {label}'**
+  String profileStatDescription(int value, String label);
+
+  /// No description provided for @profileShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get profileShare;
+
+  /// No description provided for @profileFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get profileFavorites;
+
+  /// No description provided for @profileTabProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTabProfile;
+
+  /// No description provided for @profileTabFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get profileTabFriends;
+
+  /// No description provided for @profileTabFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get profileTabFamily;
+
+  /// No description provided for @profileTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get profileTryAgain;
+
+  /// No description provided for @profileErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load your profile'**
+  String get profileErrorTitle;
+
+  /// No description provided for @profileErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your information is currently unavailable.\nTry again to reload it.'**
+  String get profileErrorMessage;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
+  /// No description provided for @editProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get editProfileTitle;
+
+  /// No description provided for @editProfileNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get editProfileNameLabel;
+
+  /// No description provided for @editProfileNamePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write name'**
+  String get editProfileNamePlaceholder;
+
+  /// No description provided for @editProfileRoleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get editProfileRoleLabel;
+
+  /// No description provided for @editProfileSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get editProfileSave;
+
+  /// No description provided for @editProfileCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get editProfileCancel;
+
+  /// No description provided for @editProfileNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name.'**
+  String get editProfileNameRequired;
+
+  /// No description provided for @editProfileNameLength.
+  ///
+  /// In en, this message translates to:
+  /// **'The name must have 2 to 120 characters.'**
+  String get editProfileNameLength;
+
+  /// No description provided for @editProfileSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your changes.'**
+  String get editProfileSaveFailed;
+
+  /// No description provided for @editProfileSaveFailedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your text is still here. Try again.'**
+  String get editProfileSaveFailedHint;
 }
 
 class _AppLocalizationsDelegate

@@ -174,4 +174,98 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUnknown => 'Something went wrong. Try again.';
+
+  @override
+  String topBarGems(int count) {
+    return '$count gems';
+  }
+
+  @override
+  String topBarEcopoints(int count) {
+    return '$count ecopoints';
+  }
+
+  @override
+  String get profileTitle => 'Your profile';
+
+  @override
+  String get profileEdit => 'Edit';
+
+  @override
+  String get roleParent => 'Parent';
+
+  @override
+  String get roleStudent => 'Student';
+
+  @override
+  String get profileStatStreak => 'Day streak';
+
+  @override
+  String get profileStatEcopoints => 'EcoPoints';
+
+  @override
+  String get profileStatGems => 'Gems';
+
+  @override
+  String profileStatDescription(int value, String label) {
+    return '$value, $label';
+  }
+
+  @override
+  String get profileShare => 'Share';
+
+  @override
+  String get profileFavorites => 'Favorites';
+
+  @override
+  String get profileTabProfile => 'Profile';
+
+  @override
+  String get profileTabFriends => 'Friends';
+
+  @override
+  String get profileTabFamily => 'Family';
+
+  @override
+  String get profileTryAgain => 'Try again';
+
+  @override
+  String get profileErrorTitle => 'Couldn’t load your profile';
+
+  @override
+  String get profileErrorMessage =>
+      'Your information is currently unavailable.\nTry again to reload it.';
+
+  @override
+  String get signOut => 'Sign out';
+
+  @override
+  String get editProfileTitle => 'Edit profile';
+
+  @override
+  String get editProfileNameLabel => 'Name';
+
+  @override
+  String get editProfileNamePlaceholder => 'Write name';
+
+  @override
+  String get editProfileRoleLabel => 'Role';
+
+  @override
+  String get editProfileSave => 'Save changes';
+
+  @override
+  String get editProfileCancel => 'Cancel';
+
+  @override
+  String get editProfileNameRequired => 'Enter your name.';
+
+  @override
+  String get editProfileNameLength => 'The name must have 2 to 120 characters.';
+
+  @override
+  String get editProfileSaveFailed => 'Couldn’t save your changes.';
+
+  @override
+  String get editProfileSaveFailedHint => 'Your text is still here. Try again.';
 }

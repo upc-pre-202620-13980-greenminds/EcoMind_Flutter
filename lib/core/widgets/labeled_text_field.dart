@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Label above a gray field, as in the Sign in and Sign up frames
+// Label above a field. The gray version is the one of Sign in and Sign up;
+// the bordered version, with a green label, is the one of the profile and family screens
 class LabeledTextField extends StatelessWidget {
   const new({
     super.key,
     required this.label,
     required this.onChanged,
+    this.initialValue,
+    this.hintText,
     this.errorText,
+    this.bordered = false,
     this.obscureText = false,
     this.keyboardType,
     this.textInputAction,
@@ -20,7 +24,10 @@ class LabeledTextField extends StatelessWidget {
   });
   final String label;
   final ValueChanged<String> onChanged;
+  final String? initialValue;
+  final String? hintText;
   final String? errorText;
+  final bool bordered;
   final bool obscureText;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
@@ -34,27 +41,39 @@ class LabeledTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     final border = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(11),
-      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(bordered ? 12 : 11),
+      borderSide: bordered
+          ? BorderSide(color: colorScheme.outlineVariant)
+          : BorderSide.none,
     );
+    final labelStyle = bordered
+        ? textTheme.labelLarge?.copyWith(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: colorScheme.primary,
+          )
+        : textTheme.labelMedium;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 4,
+      spacing: bordered ? 8 : 4,
       children: [
         // The field already tells its label to the screen reader
         ExcludeSemantics(
           child: Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Text(label, style: Theme.of(context).textTheme.labelMedium),
+            padding: EdgeInsets.only(left: bordered ? 0 : 4),
+            child: Text(label, style: labelStyle),
           ),
         ),
         Semantics(
           label: label,
-          child: TextField(
+          child: TextFormField(
+            initialValue: initialValue,
             onChanged: onChanged,
-            onSubmitted: onSubmitted,
+            onFieldSubmitted: onSubmitted,
             enabled: enabled,
             obscureText: obscureText,
             keyboardType: keyboardType,
@@ -62,10 +81,16 @@ class LabeledTextField extends StatelessWidget {
             textCapitalization: textCapitalization,
             autofillHints: autofillHints,
             inputFormatters: inputFormatters,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: textTheme.bodyLarge,
             decoration: InputDecoration(
               filled: true,
-              fillColor: colorScheme.surfaceContainerHighest,
+              fillColor: bordered
+                  ? colorScheme.surface
+                  : colorScheme.surfaceContainerHighest,
+              hintText: hintText,
+              hintStyle: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
               border: border,
               enabledBorder: border,
               disabledBorder: border,
@@ -78,8 +103,8 @@ class LabeledTextField extends StatelessWidget {
               focusedErrorBorder: border.copyWith(
                 borderSide: BorderSide(color: colorScheme.error),
               ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 12,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: bordered ? 14 : 12,
                 vertical: 12,
               ),
               errorText: errorText,

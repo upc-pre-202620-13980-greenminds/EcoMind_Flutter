@@ -71,6 +71,20 @@ class IamApi {
     }
   }
 
+  // The token is not revoked on the server; the application deletes it afterwards
+  Future<void> logout(String accessToken) async {
+    final http.Response response = await http
+        .post(
+          ApiConfig.uri('/api/v1/authentication/logout'),
+          headers: {'Authorization': 'Bearer $accessToken'},
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode != HttpStatus.noContent) {
+      throw ApiException.fromResponse(response);
+    }
+  }
+
   // The account is created only when the code is correct
   Future<void> verifyEmail(String email, String code) async {
     final http.Response response = await http

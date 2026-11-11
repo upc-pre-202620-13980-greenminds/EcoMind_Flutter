@@ -1,19 +1,26 @@
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-// Header of the main screens: logo and shortcuts
+// Header of the main screens: logo, balances and shortcuts
 class EcoTopBar extends StatelessWidget {
   const new({
     super.key,
     required this.onNotificationsTap,
     required this.onSettingsTap,
+    this.gemBalance,
+    this.ecopoints,
   });
   final VoidCallback onNotificationsTap;
   final VoidCallback onSettingsTap;
+  // Null while the profile is not loaded: the counters are hidden
+  final int? gemBalance;
+  final int? ecopoints;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final gems = gemBalance;
+    final points = ecopoints;
 
     return Column(
       children: [
@@ -30,6 +37,25 @@ class EcoTopBar extends StatelessWidget {
                   semanticLabel: l10n.logoDescription,
                 ),
                 const Spacer(),
+                if (gems != null)
+                  _BalanceCounter(
+                    asset: 'assets/images/ic_gem.png',
+                    iconWidth: 22,
+                    iconHeight: 22,
+                    value: gems,
+                    color: Theme.of(context).colorScheme.tertiary,
+                    description: l10n.topBarGems(gems),
+                  ),
+                const SizedBox(width: 6),
+                if (points != null)
+                  _BalanceCounter(
+                    asset: 'assets/images/ic_ecopoints.png',
+                    iconWidth: 30,
+                    iconHeight: 26,
+                    value: points,
+                    color: Theme.of(context).colorScheme.primary,
+                    description: l10n.topBarEcopoints(points),
+                  ),
                 IconButton(
                   onPressed: onNotificationsTap,
                   tooltip: l10n.topBarNotifications,
@@ -60,6 +86,44 @@ class EcoTopBar extends StatelessWidget {
           color: Theme.of(context).colorScheme.outlineVariant,
         ),
       ],
+    );
+  }
+}
+
+class _BalanceCounter extends StatelessWidget {
+  const new({
+    required this.asset,
+    required this.iconWidth,
+    required this.iconHeight,
+    required this.value,
+    required this.color,
+    required this.description,
+  });
+  final String asset;
+  final double iconWidth;
+  final double iconHeight;
+  final int value;
+  final Color color;
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    // The screen reader says "360 gems" instead of reading icon and number apart
+    return Semantics(
+      label: description,
+      excludeSemantics: true,
+      child: Row(
+        spacing: 2,
+        children: [
+          Image.asset(asset, width: iconWidth, height: iconHeight),
+          Text(
+            value.toString(),
+            maxLines: 1,
+            style: Theme.of(context).textTheme.titleSmall
+                ?.copyWith(color: color),
+          ),
+        ],
+      ),
     );
   }
 }
