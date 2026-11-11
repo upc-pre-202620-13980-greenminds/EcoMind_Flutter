@@ -1,0 +1,15 @@
+{
+  "@@locale": "es",
+  "appTitle": "EcoMind",
+  "logoDescription": "Logotipo de EcoMind",
+  "navStore": "Tienda",
+  "navRanking": "Ranking",
+  "navMainMenu": "Menú principal",
+  "navProgress": "Progreso",
+  "navCommunity": "Comunidad",
+  "navProfile": "Perfil",
+  "topBarNotifications": "Notificaciones",
+  "topBarSettings": "Ajustes",
+  "comingSoonTitle": "Próximamente",
+  "comingSoonMessage": "Esta sección estará disponible pronto."
+}
