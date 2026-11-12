@@ -4,10 +4,11 @@ import 'package:ecomind_parents/core/widgets/person_row.dart';
 import 'package:ecomind_parents/core/widgets/text_link.dart';
 import 'package:ecomind_parents/features/users/domain/family.dart';
 import 'package:ecomind_parents/features/users/presentation/family/create_family/create_family_page.dart';
-import 'package:ecomind_parents/features/users/presentation/family/create_family/create_family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_messages.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/family/manage_family/manage_family_page.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_page.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -16,17 +17,14 @@ class FamilyTabContent extends StatelessWidget {
   final FamilyViewModel viewModel;
   const new({super.key, required this.viewModel});
 
-  Future<void> openCreateFamily(BuildContext context) async {
-    final Family? created = await Navigator.push(
+  void openWeeklyReport(BuildContext context) {
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            CreateFamilyPage(viewModel: getIt<CreateFamilyViewModel>()),
+            WeeklyReportPage(viewModel: getIt<WeeklyReportViewModel>()),
       ),
     );
-    if (created != null) {
-      viewModel.onFamilyChanged(created);
-    }
   }
 
   void openManageFamily(BuildContext context) {
@@ -69,7 +67,7 @@ class FamilyTabContent extends StatelessWidget {
               TextLink(
                 text: l10n.familyCreate,
                 fontSize: 14,
-                onPressed: () => openCreateFamily(context),
+                onPressed: () => CreateFamilyPage.open(context, viewModel),
               ),
             ],
           );
@@ -77,6 +75,7 @@ class FamilyTabContent extends StatelessWidget {
         return _FamilyContent(
           family: family,
           onManage: () => openManageFamily(context),
+          onWeeklyReport: () => openWeeklyReport(context),
         );
       },
     );
@@ -84,9 +83,14 @@ class FamilyTabContent extends StatelessWidget {
 }
 
 class _FamilyContent extends StatelessWidget {
-  const new({required this.family, required this.onManage});
+  const new({
+    required this.family,
+    required this.onManage,
+    required this.onWeeklyReport,
+  });
   final Family family;
   final VoidCallback onManage;
+  final VoidCallback onWeeklyReport;
 
   @override
   Widget build(BuildContext context) {
@@ -124,18 +128,24 @@ class _FamilyContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        // "Weekly report" is added next to this title with HU-021
-        Semantics(
-          header: true,
-          child: Text(
-            l10n.familyMembersCount(family.members.length),
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w700,
-              fontSize: 16,
-              color: colorScheme.primary,
+        Row(
+          children: [
+            Expanded(
+              child: Semantics(
+                header: true,
+                child: Text(
+                  l10n.familyMembersCount(family.members.length),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                    color: colorScheme.primary,
+                  ),
+                ),
+              ),
             ),
-          ),
+            TextLink(text: l10n.weeklyReportLink, onPressed: onWeeklyReport),
+          ],
         ),
         const SizedBox(height: 4),
         for (final member in family.members)

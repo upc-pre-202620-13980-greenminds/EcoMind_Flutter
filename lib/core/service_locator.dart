@@ -19,6 +19,12 @@ import 'package:ecomind_parents/features/users/application/create_family_use_cas
 import 'package:ecomind_parents/features/users/application/get_current_profile_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_invitable_friends_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_my_family_use_case.dart';
+import 'package:ecomind_parents/features/users/application/get_weekly_report_use_case.dart';
+import 'package:ecomind_parents/features/users/domain/family_report_repository.dart';
+import 'package:ecomind_parents/features/users/infrastructure/family_report_repository_impl.dart';
+import 'package:ecomind_parents/features/users/infrastructure/local/weekly_quests_local_data_source.dart';
+import 'package:ecomind_parents/features/users/infrastructure/remote/gamification_api.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_view_model.dart';
 import 'package:ecomind_parents/features/users/application/remove_family_member_use_case.dart';
 import 'package:ecomind_parents/features/users/domain/family_repository.dart';
 import 'package:ecomind_parents/features/users/infrastructure/family_repository_impl.dart';
@@ -161,6 +167,30 @@ void setupDependencies() {
     () => RemoveMemberViewModel(
       removeFamilyMember: getIt<RemoveFamilyMemberUseCase>(),
     ),
+  );
+
+  getIt.registerLazySingleton<WeeklyQuestsLocalDataSource>(
+    () => WeeklyQuestsLocalDataSource(),
+  );
+
+  getIt.registerLazySingleton<GamificationApi>(() => GamificationApi());
+
+  getIt.registerLazySingleton<FamilyReportRepository>(
+    () => FamilyReportRepositoryImpl(
+      questsDataSource: getIt<WeeklyQuestsLocalDataSource>(),
+      gamificationApi: getIt<GamificationApi>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetWeeklyReportUseCase>(
+    () => GetWeeklyReportUseCase(repository: getIt<FamilyReportRepository>()),
+  );
+
+  // Shared by the report card of the Profile tab and the report screen
+  getIt.registerLazySingleton<WeeklyReportViewModel>(
+    () =>
+        WeeklyReportViewModel(getWeeklyReport: getIt<GetWeeklyReportUseCase>()),
   );
 
   getIt.registerLazySingleton<SplashViewModel>(
