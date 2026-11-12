@@ -470,6 +470,150 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get weeklyReportNoFamily =>
       'Crea tu familia para ver su reporte semanal.';
+
+  @override
+  String topBarNotificationsUnread(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Notificaciones, $count sin leer',
+      one: 'Notificaciones, 1 sin leer',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationsTitle => 'Notificaciones';
+
+  @override
+  String notificationsUnread(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sin leer',
+      one: '1 sin leer',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationsAllRead => 'Estás al día';
+
+  @override
+  String get notificationsMarkAll => 'Marcar todo como leído';
+
+  @override
+  String get notificationsEmptyTitle => 'Aún no tienes notificaciones';
+
+  @override
+  String get notificationsEmptyMessage =>
+      'Te avisaremos sobre los logros de tu familia, los reportes semanales y los eventos de la comunidad.';
+
+  @override
+  String get notificationsErrorTitle =>
+      'No se pudieron cargar tus notificaciones';
+
+  @override
+  String get notificationsErrorMessage =>
+      'Tus notificaciones no están disponibles en este momento. Inténtalo de nuevo para volver a cargarlas.';
+
+  @override
+  String get notificationsActionFailed =>
+      'No se pudieron actualizar tus notificaciones. Inténtalo de nuevo.';
+
+  @override
+  String get notificationsLabelAchievements => 'LOGROS';
+
+  @override
+  String get notificationsLabelProgress => 'PROGRESO';
+
+  @override
+  String get notificationsLabelEvents => 'EVENTOS';
+
+  @override
+  String get notificationsLabelCommunity => 'COMUNIDAD';
+
+  @override
+  String notificationsTimeMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String notificationsTimeHours(int hours) {
+    return '$hours h';
+  }
+
+  @override
+  String get notificationsTimeYesterday => 'Ayer';
+
+  @override
+  String notificationsTimeDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days días',
+      one: '1 día',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String notificationsRowUnread(
+    String category,
+    String title,
+    String message,
+    String time,
+  ) {
+    return 'Sin leer. $category. $title. $message. $time';
+  }
+
+  @override
+  String notificationsRowRead(
+    String category,
+    String title,
+    String message,
+    String time,
+  ) {
+    return '$category. $title. $message. $time';
+  }
+
+  @override
+  String get preferencesTitle => 'Preferencias de notificaciones';
+
+  @override
+  String get preferencesDescription =>
+      'Elige qué notificaciones quieres recibir.';
+
+  @override
+  String get preferencesAchievements => 'Logros e insignias';
+
+  @override
+  String get preferencesAchievementsDescription =>
+      'Insignias y logros de la familia';
+
+  @override
+  String get preferencesWeekly => 'Resumen semanal de progreso';
+
+  @override
+  String get preferencesWeeklyDescription => 'El reporte semanal de tu familia';
+
+  @override
+  String get preferencesEvents => 'Eventos comunitarios para familias';
+
+  @override
+  String get preferencesEventsDescription =>
+      'Eventos para familias publicados en tu comunidad';
+
+  @override
+  String get preferencesActivity => 'Actividad de la comunidad';
+
+  @override
+  String get preferencesActivityDescription =>
+      'Reacciones, logros compartidos y metas de la comunidad';
+
+  @override
+  String get preferencesSaveFailed =>
+      'No se pudo guardar tu preferencia. Inténtalo de nuevo.';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

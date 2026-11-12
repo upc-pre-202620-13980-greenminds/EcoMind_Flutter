@@ -926,6 +926,202 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create your family to see its weekly report.'**
   String get weeklyReportNoFamily;
+
+  /// No description provided for @topBarNotificationsUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Notifications, 1 unread} other{Notifications, {count} unread}}'**
+  String topBarNotificationsUnread(int count);
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTitle;
+
+  /// No description provided for @notificationsUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 unread} other{{count} unread}}'**
+  String notificationsUnread(int count);
+
+  /// No description provided for @notificationsAllRead.
+  ///
+  /// In en, this message translates to:
+  /// **'All caught up'**
+  String get notificationsAllRead;
+
+  /// No description provided for @notificationsMarkAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get notificationsMarkAll;
+
+  /// No description provided for @notificationsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet'**
+  String get notificationsEmptyTitle;
+
+  /// No description provided for @notificationsEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ll be notified about family achievements, weekly reports and community events.'**
+  String get notificationsEmptyMessage;
+
+  /// No description provided for @notificationsErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load your notifications'**
+  String get notificationsErrorTitle;
+
+  /// No description provided for @notificationsErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notifications are currently unavailable. Try again to reload them.'**
+  String get notificationsErrorMessage;
+
+  /// No description provided for @notificationsActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t update your notifications. Try again.'**
+  String get notificationsActionFailed;
+
+  /// No description provided for @notificationsLabelAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'ACHIEVEMENTS'**
+  String get notificationsLabelAchievements;
+
+  /// No description provided for @notificationsLabelProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'PROGRESS'**
+  String get notificationsLabelProgress;
+
+  /// No description provided for @notificationsLabelEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'EVENTS'**
+  String get notificationsLabelEvents;
+
+  /// No description provided for @notificationsLabelCommunity.
+  ///
+  /// In en, this message translates to:
+  /// **'COMMUNITY'**
+  String get notificationsLabelCommunity;
+
+  /// No description provided for @notificationsTimeMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String notificationsTimeMinutes(int minutes);
+
+  /// No description provided for @notificationsTimeHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h'**
+  String notificationsTimeHours(int hours);
+
+  /// No description provided for @notificationsTimeYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get notificationsTimeYesterday;
+
+  /// No description provided for @notificationsTimeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day} other{{days} days}}'**
+  String notificationsTimeDays(int days);
+
+  /// No description provided for @notificationsRowUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread. {category}. {title}. {message}. {time}'**
+  String notificationsRowUnread(
+    String category,
+    String title,
+    String message,
+    String time,
+  );
+
+  /// No description provided for @notificationsRowRead.
+  ///
+  /// In en, this message translates to:
+  /// **'{category}. {title}. {message}. {time}'**
+  String notificationsRowRead(
+    String category,
+    String title,
+    String message,
+    String time,
+  );
+
+  /// No description provided for @preferencesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification preferences'**
+  String get preferencesTitle;
+
+  /// No description provided for @preferencesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose which notifications you want to receive.'**
+  String get preferencesDescription;
+
+  /// No description provided for @preferencesAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements and badges'**
+  String get preferencesAchievements;
+
+  /// No description provided for @preferencesAchievementsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Family badges and achievements'**
+  String get preferencesAchievementsDescription;
+
+  /// No description provided for @preferencesWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly progress summary'**
+  String get preferencesWeekly;
+
+  /// No description provided for @preferencesWeeklyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your family weekly report'**
+  String get preferencesWeeklyDescription;
+
+  /// No description provided for @preferencesEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'Family community events'**
+  String get preferencesEvents;
+
+  /// No description provided for @preferencesEventsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Events for families published in your community'**
+  String get preferencesEventsDescription;
+
+  /// No description provided for @preferencesActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Community activity'**
+  String get preferencesActivity;
+
+  /// No description provided for @preferencesActivityDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactions, shared achievements and community goals'**
+  String get preferencesActivityDescription;
+
+  /// No description provided for @preferencesSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your preference. Try again.'**
+  String get preferencesSaveFailed;
 }
 
 class _AppLocalizationsDelegate
