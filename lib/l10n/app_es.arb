@@ -129,13 +129,13 @@
   "conflictHeading": "Ya pertenece a una familia",
   "conflictMessage": "Un usuario solo puede pertenecer a una familia activa a la vez.",
   "conflictBack": "Volver a los miembros",
-  "weeklyReportTitle": "Informe semanal de la familia",
-  "weeklyReportView": "Ver informe",
-  "weeklyReportLink": "Informe semanal",
+  "weeklyReportTitle": "Reporte semanal familiar",
+  "weeklyReportView": "Ver reporte",
+  "weeklyReportLink": "Reporte semanal",
   "weeklyReportThisWeek": "Esta semana",
   "weeklyReportProgress": "Progreso semanal",
   "weeklyReportQuests": "{completed} de {total} retos completados",
   "weeklyReportAchievements": "{count, plural, =1{1 logro obtenido esta semana} other{{count} logros obtenidos esta semana}}",
   "weeklyReportNoData": "No hay datos suficientes para generar un reporte esta semana.",
-  "weeklyReportNoFamily": "Crea tu familia para ver su informe semanal."
+  "weeklyReportNoFamily": "Crea tu familia para ver su reporte semanal."
 }
