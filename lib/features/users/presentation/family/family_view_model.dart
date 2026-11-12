@@ -15,24 +15,34 @@ class FamilyViewModel extends ChangeNotifier {
   FamilyState get state => _state;
 
   Future<void> loadFamily() async {
-    // Starts empty, so the family of a previous parent is never shown
-    _state = FamilyState(isLoading: true);
+    // A new initial state, so the family of a previous parent is never shown
+    _state = FamilyState().copyWith(isLoading: true);
     notifyListeners();
 
     try {
       final family = await getMyFamily.execute();
-      _state = FamilyState(family: family, hasLoaded: true);
+      _state = _state.copyWith(
+        family: family,
+        isLoading: false,
+        hasLoaded: true,
+      );
     } on UsersException catch (e) {
-      _state = FamilyState(errorMessage: e.error);
+      _state = _state.copyWith(isLoading: false, errorMessage: e.error);
     } catch (e) {
-      _state = FamilyState(errorMessage: UsersError.unknown);
+      _state = _state.copyWith(
+        isLoading: false,
+        errorMessage: UsersError.unknown,
+      );
     }
     notifyListeners();
   }
 
   // Called after creating the family or adding and removing members
   void onFamilyChanged(Family? family) {
-    _state = FamilyState(family: family, hasLoaded: true);
+    // copyWith cannot set the family back to null, so that case starts from a new state
+    _state = family == null
+        ? FamilyState(hasLoaded: true)
+        : _state.copyWith(family: family, isLoading: false, hasLoaded: true);
     notifyListeners();
   }
 }
