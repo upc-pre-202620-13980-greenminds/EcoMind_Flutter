@@ -3,9 +3,11 @@ import 'package:ecomind_parents/core/widgets/coming_soon_page.dart';
 import 'package:ecomind_parents/core/widgets/coming_soon_view.dart';
 import 'package:ecomind_parents/core/widgets/initials_avatar.dart';
 import 'package:ecomind_parents/core/widgets/pill_button.dart';
+import 'package:ecomind_parents/core/widgets/text_link.dart';
 import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
+import 'package:ecomind_parents/features/iam/presentation/terms/terms_page.dart';
 import 'package:ecomind_parents/features/users/domain/user_profile.dart';
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_page.dart';
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_view_model.dart';
@@ -125,6 +127,15 @@ class ProfilePage extends StatelessWidget {
                       onViewReport: () => openWeeklyReport(context),
                       onCreateFamily: () =>
                           CreateFamilyPage.open(context, familyViewModel),
+                    ),
+                    TextLink(
+                      text: AppLocalizations.of(context).termsTitle,
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TermsPage(),
+                        ),
+                      ),
                     ),
                     _SignOutButton(onPressed: () => signOut(context)),
                   ],
