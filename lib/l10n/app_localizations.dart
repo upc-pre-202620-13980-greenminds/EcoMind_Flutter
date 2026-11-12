@@ -872,6 +872,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to members'**
   String get conflictBack;
+
+  /// No description provided for @weeklyReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Family weekly report'**
+  String get weeklyReportTitle;
+
+  /// No description provided for @weeklyReportView.
+  ///
+  /// In en, this message translates to:
+  /// **'View report'**
+  String get weeklyReportView;
+
+  /// No description provided for @weeklyReportLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report'**
+  String get weeklyReportLink;
+
+  /// No description provided for @weeklyReportThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get weeklyReportThisWeek;
+
+  /// No description provided for @weeklyReportProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly progress'**
+  String get weeklyReportProgress;
+
+  /// No description provided for @weeklyReportQuests.
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {total} quests completed'**
+  String weeklyReportQuests(int completed, int total);
+
+  /// No description provided for @weeklyReportAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 achievement earned this week} other{{count} achievements earned this week}}'**
+  String weeklyReportAchievements(int count);
+
+  /// No description provided for @weeklyReportNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'There is not enough data to generate a report this week.'**
+  String get weeklyReportNoData;
+
+  /// No description provided for @weeklyReportNoFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your family to see its weekly report.'**
+  String get weeklyReportNoFamily;
 }
 
 class _AppLocalizationsDelegate

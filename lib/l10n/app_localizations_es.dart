@@ -431,6 +431,45 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get conflictBack => 'Volver a los miembros';
+
+  @override
+  String get weeklyReportTitle => 'Informe semanal de la familia';
+
+  @override
+  String get weeklyReportView => 'Ver informe';
+
+  @override
+  String get weeklyReportLink => 'Informe semanal';
+
+  @override
+  String get weeklyReportThisWeek => 'Esta semana';
+
+  @override
+  String get weeklyReportProgress => 'Progreso semanal';
+
+  @override
+  String weeklyReportQuests(int completed, int total) {
+    return '$completed de $total retos completados';
+  }
+
+  @override
+  String weeklyReportAchievements(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count logros obtenidos esta semana',
+      one: '1 logro obtenido esta semana',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get weeklyReportNoData =>
+      'No hay datos suficientes para generar un reporte esta semana.';
+
+  @override
+  String get weeklyReportNoFamily =>
+      'Crea tu familia para ver su informe semanal.';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

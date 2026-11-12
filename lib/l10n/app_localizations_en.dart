@@ -424,4 +424,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get conflictBack => 'Back to members';
+
+  @override
+  String get weeklyReportTitle => 'Family weekly report';
+
+  @override
+  String get weeklyReportView => 'View report';
+
+  @override
+  String get weeklyReportLink => 'Weekly report';
+
+  @override
+  String get weeklyReportThisWeek => 'This week';
+
+  @override
+  String get weeklyReportProgress => 'Weekly progress';
+
+  @override
+  String weeklyReportQuests(int completed, int total) {
+    return '$completed of $total quests completed';
+  }
+
+  @override
+  String weeklyReportAchievements(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count achievements earned this week',
+      one: '1 achievement earned this week',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get weeklyReportNoData =>
+      'There is not enough data to generate a report this week.';
+
+  @override
+  String get weeklyReportNoFamily =>
+      'Create your family to see its weekly report.';
 }
