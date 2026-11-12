@@ -4,9 +4,18 @@ import 'package:flutter/material.dart';
 
 // Frame of the secondary screens: top bar and "‹" header, without the bottom bar
 class SecondaryScaffold extends StatelessWidget {
-  const new({super.key, required this.title, required this.body});
+  const new({
+    super.key,
+    required this.title,
+    required this.body,
+    this.headerAction,
+    this.isInsideInbox = false,
+  });
   final String title;
   final Widget body;
+  final Widget? headerAction;
+  // True for the inbox and its preferences, so the bell has no action there
+  final bool isInsideInbox;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +23,8 @@ class SecondaryScaffold extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const MainTopBar(),
-            ScreenHeader(title: title),
+            MainTopBar(isInsideInbox: isInsideInbox),
+            ScreenHeader(title: title, action: headerAction),
             Expanded(child: body),
           ],
         ),

@@ -223,5 +223,104 @@
     }
   },
   "weeklyReportNoData": "There is not enough data to generate a report this week.",
-  "weeklyReportNoFamily": "Create your family to see its weekly report."
+  "weeklyReportNoFamily": "Create your family to see its weekly report.",
+  "topBarNotificationsUnread": "{count, plural, =1{Notifications, 1 unread} other{Notifications, {count} unread}}",
+  "@topBarNotificationsUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "topBarNotificationsCurrent": "Notifications. You are already in Notifications.",
+  "notificationsTitle": "Notifications",
+  "notificationsUnread": "{count, plural, =1{1 unread} other{{count} unread}}",
+  "@notificationsUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsAllRead": "All caught up",
+  "notificationsMarkAll": "Mark all as read",
+  "notificationsEmptyTitle": "No notifications yet",
+  "notificationsEmptyMessage": "You’ll be notified about family achievements, weekly reports and community events.",
+  "notificationsErrorTitle": "Couldn’t load your notifications",
+  "notificationsErrorMessage": "Your notifications are currently unavailable. Try again to reload them.",
+  "notificationsActionFailed": "Couldn’t update your notifications. Try again.",
+  "notificationsLabelAchievements": "ACHIEVEMENTS",
+  "notificationsLabelProgress": "PROGRESS",
+  "notificationsLabelEvents": "EVENTS",
+  "notificationsLabelCommunity": "COMMUNITY",
+  "notificationsTimeMinutes": "{minutes} min",
+  "@notificationsTimeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsTimeHours": "{hours} h",
+  "@notificationsTimeHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsTimeYesterday": "Yesterday",
+  "notificationsTimeDays": "{days, plural, =1{1 day} other{{days} days}}",
+  "@notificationsTimeDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsRowUnread": "Unread. {category}. {title}. {message}. {time}",
+  "@notificationsRowUnread": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationsRowRead": "{category}. {title}. {message}. {time}",
+  "@notificationsRowRead": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "preferencesTitle": "Notification preferences",
+  "preferencesDescription": "Choose which notifications you want to receive.",
+  "preferencesAchievements": "Achievements and badges",
+  "preferencesAchievementsDescription": "Family badges and achievements",
+  "preferencesWeekly": "Weekly progress summary",
+  "preferencesWeeklyDescription": "Your family weekly report",
+  "preferencesEvents": "Family community events",
+  "preferencesEventsDescription": "Events for families published in your community",
+  "preferencesActivity": "Community activity",
+  "preferencesActivityDescription": "Reactions, shared achievements and community goals",
+  "preferencesSaveFailed": "Couldn’t save your preference. Try again."
 }

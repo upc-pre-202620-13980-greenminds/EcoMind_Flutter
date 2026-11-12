@@ -19,6 +19,19 @@ import 'package:ecomind_parents/features/users/application/create_family_use_cas
 import 'package:ecomind_parents/features/users/application/get_current_profile_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_invitable_friends_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_my_family_use_case.dart';
+import 'package:ecomind_parents/features/users/application/get_notification_preferences_use_case.dart';
+import 'package:ecomind_parents/features/users/application/get_visible_notifications_use_case.dart';
+import 'package:ecomind_parents/features/users/application/mark_all_notifications_read_use_case.dart';
+import 'package:ecomind_parents/features/users/application/mark_notification_read_use_case.dart';
+import 'package:ecomind_parents/features/users/application/update_notification_preferences_use_case.dart';
+import 'package:ecomind_parents/features/users/domain/notification_preferences_repository.dart';
+import 'package:ecomind_parents/features/users/domain/notification_repository.dart';
+import 'package:ecomind_parents/features/users/infrastructure/local/notification_preferences_dao.dart';
+import 'package:ecomind_parents/features/users/infrastructure/notification_preferences_repository_impl.dart';
+import 'package:ecomind_parents/features/users/infrastructure/notification_repository_impl.dart';
+import 'package:ecomind_parents/features/users/infrastructure/remote/notification_api.dart';
+import 'package:ecomind_parents/features/users/presentation/notification_preferences/notification_preferences_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
 import 'package:ecomind_parents/features/users/application/get_weekly_report_use_case.dart';
 import 'package:ecomind_parents/features/users/domain/family_report_repository.dart';
 import 'package:ecomind_parents/features/users/infrastructure/family_report_repository_impl.dart';
@@ -191,6 +204,73 @@ void setupDependencies() {
   getIt.registerLazySingleton<WeeklyReportViewModel>(
     () =>
         WeeklyReportViewModel(getWeeklyReport: getIt<GetWeeklyReportUseCase>()),
+  );
+
+  getIt.registerLazySingleton<NotificationApi>(() => NotificationApi());
+
+  getIt.registerLazySingleton<NotificationRepository>(
+    () => NotificationRepositoryImpl(
+      api: getIt<NotificationApi>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<NotificationPreferencesDao>(
+    () => NotificationPreferencesDao(appDatabase: getIt<AppDatabase>()),
+  );
+
+  getIt.registerLazySingleton<NotificationPreferencesRepository>(
+    () => NotificationPreferencesRepositoryImpl(
+      dao: getIt<NotificationPreferencesDao>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetVisibleNotificationsUseCase>(
+    () => GetVisibleNotificationsUseCase(
+      notificationRepository: getIt<NotificationRepository>(),
+      preferencesRepository: getIt<NotificationPreferencesRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<MarkNotificationReadUseCase>(
+    () => MarkNotificationReadUseCase(
+      repository: getIt<NotificationRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<MarkAllNotificationsReadUseCase>(
+    () => MarkAllNotificationsReadUseCase(
+      repository: getIt<NotificationRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetNotificationPreferencesUseCase>(
+    () => GetNotificationPreferencesUseCase(
+      repository: getIt<NotificationPreferencesRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<UpdateNotificationPreferencesUseCase>(
+    () => UpdateNotificationPreferencesUseCase(
+      repository: getIt<NotificationPreferencesRepository>(),
+    ),
+  );
+
+  // Shared by the inbox and the badge of the bell
+  getIt.registerLazySingleton<NotificationsViewModel>(
+    () => NotificationsViewModel(
+      getVisibleNotifications: getIt<GetVisibleNotificationsUseCase>(),
+      markNotificationRead: getIt<MarkNotificationReadUseCase>(),
+      markAllNotificationsRead: getIt<MarkAllNotificationsReadUseCase>(),
+    ),
+  );
+
+  getIt.registerFactory<NotificationPreferencesViewModel>(
+    () => NotificationPreferencesViewModel(
+      getPreferences: getIt<GetNotificationPreferencesUseCase>(),
+      updatePreferences: getIt<UpdateNotificationPreferencesUseCase>(),
+    ),
   );
 
   getIt.registerLazySingleton<SplashViewModel>(
