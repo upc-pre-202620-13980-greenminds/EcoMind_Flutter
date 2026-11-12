@@ -433,13 +433,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get conflictBack => 'Volver a los miembros';
 
   @override
-  String get weeklyReportTitle => 'Informe semanal de la familia';
+  String get weeklyReportTitle => 'Reporte semanal familiar';
 
   @override
-  String get weeklyReportView => 'Ver informe';
+  String get weeklyReportView => 'Ver reporte';
 
   @override
-  String get weeklyReportLink => 'Informe semanal';
+  String get weeklyReportLink => 'Reporte semanal';
 
   @override
   String get weeklyReportThisWeek => 'Esta semana';
@@ -469,7 +469,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get weeklyReportNoFamily =>
-      'Crea tu familia para ver su informe semanal.';
+      'Crea tu familia para ver su reporte semanal.';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).
