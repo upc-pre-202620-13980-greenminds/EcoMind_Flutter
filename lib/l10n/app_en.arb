@@ -232,6 +232,7 @@
       }
     }
   },
+  "topBarNotificationsCurrent": "Notifications. You are already in Notifications.",
   "notificationsTitle": "Notifications",
   "notificationsUnread": "{count, plural, =1{1 unread} other{{count} unread}}",
   "@notificationsUnread": {

@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 // EcoTopBar with the balances and the unread notifications of the parent;
 // used by the tabs and the secondary screens
 class MainTopBar extends StatelessWidget {
-  const new({super.key});
+  const new({super.key, this.isInsideInbox = false});
+  // True in the inbox and its preferences: the bell must not open another inbox
+  final bool isInsideInbox;
 
   void openNotifications(
     BuildContext context,
@@ -44,8 +46,9 @@ class MainTopBar extends StatelessWidget {
           ecopoints: profile?.ecopoints,
           // Only the unread notifications that pass the preferences of the parent
           unreadNotifications: notificationsViewModel.state.unreadCount,
-          onNotificationsTap: () =>
-              openNotifications(context, notificationsViewModel),
+          onNotificationsTap: isInsideInbox
+              ? null
+              : () => openNotifications(context, notificationsViewModel),
           // Settings belongs to another member
           onSettingsTap: () => openComingSoon(context),
         );

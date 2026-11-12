@@ -476,6 +476,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get topBarNotificationsCurrent =>
+      'Notifications. You are already in Notifications.';
+
+  @override
   String get notificationsTitle => 'Notifications';
 
   @override

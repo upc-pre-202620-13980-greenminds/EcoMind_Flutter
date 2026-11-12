@@ -483,6 +483,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get topBarNotificationsCurrent =>
+      'Notificaciones. Ya estás en Notificaciones.';
+
+  @override
   String get notificationsTitle => 'Notificaciones';
 
   @override
