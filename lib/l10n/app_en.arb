@@ -197,5 +197,31 @@
   "conflictTitle": "Add family member",
   "conflictHeading": "Already in a family",
   "conflictMessage": "A user can belong to only one active family at a time.",
-  "conflictBack": "Back to members"
+  "conflictBack": "Back to members",
+  "weeklyReportTitle": "Family weekly report",
+  "weeklyReportView": "View report",
+  "weeklyReportLink": "Weekly report",
+  "weeklyReportThisWeek": "This week",
+  "weeklyReportProgress": "Weekly progress",
+  "weeklyReportQuests": "{completed} of {total} quests completed",
+  "@weeklyReportQuests": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyReportAchievements": "{count, plural, =1{1 achievement earned this week} other{{count} achievements earned this week}}",
+  "@weeklyReportAchievements": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyReportNoData": "There is not enough data to generate a report this week.",
+  "weeklyReportNoFamily": "Create your family to see its weekly report."
 }

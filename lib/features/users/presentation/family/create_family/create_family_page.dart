@@ -1,7 +1,10 @@
+import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/widgets/form_error_text.dart';
 import 'package:ecomind_parents/core/widgets/labeled_text_field.dart';
 import 'package:ecomind_parents/core/widgets/pill_button.dart';
 import 'package:ecomind_parents/features/main/secondary_scaffold.dart';
+import 'package:ecomind_parents/features/users/domain/family.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/family/create_family/create_family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_messages.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
@@ -12,6 +15,23 @@ import 'package:flutter/services.dart';
 class CreateFamilyPage extends StatefulWidget {
   final CreateFamilyViewModel viewModel;
   const new({super.key, required this.viewModel});
+
+  // Opened from the Family tab and from the report card of the Profile tab
+  static Future<void> open(
+    BuildContext context,
+    FamilyViewModel familyViewModel,
+  ) async {
+    final Family? created = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            CreateFamilyPage(viewModel: getIt<CreateFamilyViewModel>()),
+      ),
+    );
+    if (created != null) {
+      familyViewModel.onFamilyChanged(created);
+    }
+  }
 
   @override
   State<CreateFamilyPage> createState() => _CreateFamilyPageState();

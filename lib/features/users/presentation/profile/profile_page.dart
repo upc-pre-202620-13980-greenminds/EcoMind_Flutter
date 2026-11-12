@@ -11,7 +11,11 @@ import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_pr
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_state.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_stat.dart';
+import 'package:ecomind_parents/features/users/presentation/family/create_family/create_family_page.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_tab_content.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_card.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_page.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
@@ -20,11 +24,23 @@ import 'package:flutter/material.dart';
 class ProfilePage extends StatelessWidget {
   final ProfileViewModel viewModel;
   final FamilyViewModel familyViewModel;
+  final WeeklyReportViewModel weeklyReportViewModel;
   const new({
     super.key,
     required this.viewModel,
     required this.familyViewModel,
+    required this.weeklyReportViewModel,
   });
+
+  void openWeeklyReport(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            WeeklyReportPage(viewModel: weeklyReportViewModel),
+      ),
+    );
+  }
 
   void openComingSoon(BuildContext context) {
     Navigator.push(
@@ -102,9 +118,16 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               switch (state.selectedTab) {
-                // The weekly report card is added with HU-021
-                ProfileTab.profile => _SignOutButton(
-                  onPressed: () => signOut(context),
+                ProfileTab.profile => Column(
+                  children: [
+                    WeeklyReportCard(
+                      viewModel: weeklyReportViewModel,
+                      onViewReport: () => openWeeklyReport(context),
+                      onCreateFamily: () =>
+                          CreateFamilyPage.open(context, familyViewModel),
+                    ),
+                    _SignOutButton(onPressed: () => signOut(context)),
+                  ],
                 ),
                 // Friends belongs to another member
                 ProfileTab.friends => const ComingSoonView(),

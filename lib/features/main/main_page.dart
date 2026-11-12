@@ -6,6 +6,7 @@ import 'package:ecomind_parents/features/main/main_top_bar.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/report/weekly_report_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,8 @@ class _MainPageState extends State<MainPage> {
 
   final ProfileViewModel profileViewModel = getIt<ProfileViewModel>();
   final FamilyViewModel familyViewModel = getIt<FamilyViewModel>();
+  final WeeklyReportViewModel weeklyReportViewModel =
+      getIt<WeeklyReportViewModel>();
 
   // Store, Ranking, Main menu, Progress and Community belong to other members
   late final List<Widget> pages = [
@@ -30,13 +33,18 @@ class _MainPageState extends State<MainPage> {
     const ComingSoonView(),
     const ComingSoonView(),
     const ComingSoonView(),
-    ProfilePage(viewModel: profileViewModel, familyViewModel: familyViewModel),
+    ProfilePage(
+      viewModel: profileViewModel,
+      familyViewModel: familyViewModel,
+      weeklyReportViewModel: weeklyReportViewModel,
+    ),
   ];
 
   @override
   void initState() {
     super.initState();
     profileViewModel.addListener(onProfileChanged);
+    familyViewModel.addListener(onFamilyChanged);
     // The top bar needs the balances even when another tab is open
     profileViewModel.loadProfile();
     // Loaded on every start, so a new parent never sees the previous family
@@ -46,7 +54,15 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     profileViewModel.removeListener(onProfileChanged);
+    familyViewModel.removeListener(onFamilyChanged);
     super.dispose();
+  }
+
+  // The report depends on the members, so it is asked again when the family changes
+  void onFamilyChanged() {
+    if (!familyViewModel.state.isLoading) {
+      weeklyReportViewModel.loadReport(familyViewModel.state.family);
+    }
   }
 
   // An expired token sends the parent back to Sign in
