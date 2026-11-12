@@ -38,6 +38,8 @@ extension AuthErrorText on AuthError {
       AuthError.codeInvalid => l10n.errorCodeInvalid,
       AuthError.codeExpired => l10n.errorCodeExpired,
       AuthError.tooManyAttempts => l10n.errorCodeAttempts,
+      AuthError.resetTokenInvalid => l10n.errorResetTokenInvalid,
+      AuthError.emailDelivery => l10n.errorEmailDelivery,
       AuthError.connection => l10n.errorConnection,
       AuthError.unknown => l10n.errorUnknown,
     };

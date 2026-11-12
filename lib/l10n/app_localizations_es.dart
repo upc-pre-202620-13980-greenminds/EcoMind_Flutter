@@ -618,6 +618,81 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get preferencesSaveFailed =>
       'No se pudo guardar tu preferencia. Inténtalo de nuevo.';
+
+  @override
+  String get errorResetTokenInvalid =>
+      'Este enlace para restablecer la contraseña venció o ya se usó. Solicita un enlace nuevo.';
+
+  @override
+  String get errorEmailDelivery =>
+      'No pudimos enviar el correo en este momento. Inténtalo de nuevo en unos minutos.';
+
+  @override
+  String get signInForgotPassword => '¿Olvidaste tu contraseña?';
+
+  @override
+  String get recoveryTitle => 'Restablece tu contraseña';
+
+  @override
+  String get recoveryMessage =>
+      'Ingresa el correo de tu cuenta de padre o madre y te enviaremos un enlace para crear una contraseña nueva.';
+
+  @override
+  String get recoveryButton => 'Enviar enlace';
+
+  @override
+  String get recoveryBackToSignIn => 'Volver a iniciar sesión';
+
+  @override
+  String get recoverySentTitle => 'Revisa tu correo';
+
+  @override
+  String recoverySentMessage(String email) {
+    return 'Si $email pertenece a una cuenta de padre o madre de EcoMind, recibirás un enlace para restablecer tu contraseña. Ábrelo en este dispositivo. Si no lo ves, revisa tu carpeta de spam.';
+  }
+
+  @override
+  String get recoveryResend => 'Enviar el enlace de nuevo';
+
+  @override
+  String get recoveryLinkResent =>
+      'Si la cuenta existe, te enviamos un enlace nuevo.';
+
+  @override
+  String get recoveryChangeEmail => 'Usar otro correo';
+
+  @override
+  String get resetTitle => 'Crea una contraseña nueva';
+
+  @override
+  String get resetMessage =>
+      'Elige una contraseña nueva para tu cuenta de EcoMind.';
+
+  @override
+  String get resetPasswordLabel => 'Contraseña nueva';
+
+  @override
+  String get resetConfirmPasswordLabel => 'Confirmar contraseña nueva';
+
+  @override
+  String get resetButton => 'Guardar contraseña nueva';
+
+  @override
+  String get resetInvalidTitle => 'Este enlace no es válido';
+
+  @override
+  String get resetInvalidMessage =>
+      'El enlace está incompleto o dañado. Solicita un enlace nuevo para restablecer tu contraseña.';
+
+  @override
+  String get resetRequestNewLink => 'Solicitar un enlace nuevo';
+
+  @override
+  String get resetSuccessTitle => 'Contraseña actualizada';
+
+  @override
+  String get resetSuccessMessage =>
+      'Tu contraseña se cambió. Inicia sesión con tu contraseña nueva.';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

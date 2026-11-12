@@ -34,6 +34,12 @@ class _SplashPageState extends State<SplashPage> {
     if (destination == null || !mounted) {
       return;
     }
+    // A reset link may have replaced the splash while the session was checked;
+    // the route can still be mounted during the transition, so it must not
+    // replace the screen that is now on top
+    if (!(ModalRoute.of(context)?.isCurrent ?? false)) {
+      return;
+    }
     final Widget nextPage = switch (destination) {
       SplashDestination.main => const MainPage(),
       SplashDestination.signIn => SignInPage(

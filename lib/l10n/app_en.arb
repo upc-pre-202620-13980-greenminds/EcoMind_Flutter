@@ -322,5 +322,34 @@
   "preferencesEventsDescription": "Events for families published in your community",
   "preferencesActivity": "Community activity",
   "preferencesActivityDescription": "Reactions, shared achievements and community goals",
-  "preferencesSaveFailed": "Couldn’t save your preference. Try again."
+  "preferencesSaveFailed": "Couldn’t save your preference. Try again.",
+  "errorResetTokenInvalid": "This reset link has expired or was already used. Request a new link to reset your password.",
+  "errorEmailDelivery": "We couldn't send the email right now. Try again in a few minutes.",
+  "signInForgotPassword": "Forgot your password?",
+  "recoveryTitle": "Reset your password",
+  "recoveryMessage": "Enter the email of your parent account and we'll send you a link to create a new password.",
+  "recoveryButton": "Send link",
+  "recoveryBackToSignIn": "Back to sign in",
+  "recoverySentTitle": "Check your email",
+  "recoverySentMessage": "If {email} belongs to an EcoMind parent account, you'll receive a link to reset your password. Open it on this device. If you don't see it, check your spam folder.",
+  "@recoverySentMessage": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "recoveryResend": "Send the link again",
+  "recoveryLinkResent": "If the account exists, we sent a new link.",
+  "recoveryChangeEmail": "Use a different email",
+  "resetTitle": "Create a new password",
+  "resetMessage": "Choose a new password for your EcoMind account.",
+  "resetPasswordLabel": "New password",
+  "resetConfirmPasswordLabel": "Confirm new password",
+  "resetButton": "Save new password",
+  "resetInvalidTitle": "This link isn't valid",
+  "resetInvalidMessage": "The link is incomplete or damaged. Request a new link to reset your password.",
+  "resetRequestNewLink": "Request a new link",
+  "resetSuccessTitle": "Password updated",
+  "resetSuccessMessage": "Your password was changed. Sign in with your new password."
 }

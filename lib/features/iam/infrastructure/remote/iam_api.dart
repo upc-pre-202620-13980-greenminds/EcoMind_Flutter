@@ -99,4 +99,41 @@ class IamApi {
       throw ApiException.fromResponse(response);
     }
   }
+
+  // Same answer for known and unknown emails, so the account cannot be guessed
+  Future<void> requestPasswordRecovery(
+    String email, {
+    String? languageTag,
+  }) async {
+    final http.Response response = await http
+        .post(
+          ApiConfig.uri('/api/v1/authentication/password-recovery/request'),
+          headers: {
+            ..._jsonHeaders,
+            // The backend may write the email in this language
+            'Accept-Language': ?languageTag,
+          },
+          body: jsonEncode({'email': email}),
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw ApiException.fromResponse(response);
+    }
+  }
+
+  // The token comes from the emailed link and can be used only once
+  Future<void> confirmPasswordRecovery(String token, String newPassword) async {
+    final http.Response response = await http
+        .post(
+          ApiConfig.uri('/api/v1/authentication/password-recovery/confirm'),
+          headers: _jsonHeaders,
+          body: jsonEncode({'token': token, 'newPassword': newPassword}),
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode != HttpStatus.noContent) {
+      throw ApiException.fromResponse(response);
+    }
+  }
 }

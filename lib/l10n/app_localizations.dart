@@ -1128,6 +1128,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn’t save your preference. Try again.'**
   String get preferencesSaveFailed;
+
+  /// No description provided for @errorResetTokenInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'This reset link has expired or was already used. Request a new link to reset your password.'**
+  String get errorResetTokenInvalid;
+
+  /// No description provided for @errorEmailDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t send the email right now. Try again in a few minutes.'**
+  String get errorEmailDelivery;
+
+  /// No description provided for @signInForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get signInForgotPassword;
+
+  /// No description provided for @recoveryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get recoveryTitle;
+
+  /// No description provided for @recoveryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the email of your parent account and we\'ll send you a link to create a new password.'**
+  String get recoveryMessage;
+
+  /// No description provided for @recoveryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send link'**
+  String get recoveryButton;
+
+  /// No description provided for @recoveryBackToSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to sign in'**
+  String get recoveryBackToSignIn;
+
+  /// No description provided for @recoverySentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your email'**
+  String get recoverySentTitle;
+
+  /// No description provided for @recoverySentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'If {email} belongs to an EcoMind parent account, you\'ll receive a link to reset your password. Open it on this device. If you don\'t see it, check your spam folder.'**
+  String recoverySentMessage(String email);
+
+  /// No description provided for @recoveryResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the link again'**
+  String get recoveryResend;
+
+  /// No description provided for @recoveryLinkResent.
+  ///
+  /// In en, this message translates to:
+  /// **'If the account exists, we sent a new link.'**
+  String get recoveryLinkResent;
+
+  /// No description provided for @recoveryChangeEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a different email'**
+  String get recoveryChangeEmail;
+
+  /// No description provided for @resetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new password'**
+  String get resetTitle;
+
+  /// No description provided for @resetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a new password for your EcoMind account.'**
+  String get resetMessage;
+
+  /// No description provided for @resetPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get resetPasswordLabel;
+
+  /// No description provided for @resetConfirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get resetConfirmPasswordLabel;
+
+  /// No description provided for @resetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save new password'**
+  String get resetButton;
+
+  /// No description provided for @resetInvalidTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This link isn\'t valid'**
+  String get resetInvalidTitle;
+
+  /// No description provided for @resetInvalidMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The link is incomplete or damaged. Request a new link to reset your password.'**
+  String get resetInvalidMessage;
+
+  /// No description provided for @resetRequestNewLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Request a new link'**
+  String get resetRequestNewLink;
+
+  /// No description provided for @resetSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated'**
+  String get resetSuccessTitle;
+
+  /// No description provided for @resetSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password was changed. Sign in with your new password.'**
+  String get resetSuccessMessage;
 }
 
 class _AppLocalizationsDelegate

@@ -610,4 +610,77 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get preferencesSaveFailed =>
       'Couldn’t save your preference. Try again.';
+
+  @override
+  String get errorResetTokenInvalid =>
+      'This reset link has expired or was already used. Request a new link to reset your password.';
+
+  @override
+  String get errorEmailDelivery =>
+      'We couldn\'t send the email right now. Try again in a few minutes.';
+
+  @override
+  String get signInForgotPassword => 'Forgot your password?';
+
+  @override
+  String get recoveryTitle => 'Reset your password';
+
+  @override
+  String get recoveryMessage =>
+      'Enter the email of your parent account and we\'ll send you a link to create a new password.';
+
+  @override
+  String get recoveryButton => 'Send link';
+
+  @override
+  String get recoveryBackToSignIn => 'Back to sign in';
+
+  @override
+  String get recoverySentTitle => 'Check your email';
+
+  @override
+  String recoverySentMessage(String email) {
+    return 'If $email belongs to an EcoMind parent account, you\'ll receive a link to reset your password. Open it on this device. If you don\'t see it, check your spam folder.';
+  }
+
+  @override
+  String get recoveryResend => 'Send the link again';
+
+  @override
+  String get recoveryLinkResent => 'If the account exists, we sent a new link.';
+
+  @override
+  String get recoveryChangeEmail => 'Use a different email';
+
+  @override
+  String get resetTitle => 'Create a new password';
+
+  @override
+  String get resetMessage => 'Choose a new password for your EcoMind account.';
+
+  @override
+  String get resetPasswordLabel => 'New password';
+
+  @override
+  String get resetConfirmPasswordLabel => 'Confirm new password';
+
+  @override
+  String get resetButton => 'Save new password';
+
+  @override
+  String get resetInvalidTitle => 'This link isn\'t valid';
+
+  @override
+  String get resetInvalidMessage =>
+      'The link is incomplete or damaged. Request a new link to reset your password.';
+
+  @override
+  String get resetRequestNewLink => 'Request a new link';
+
+  @override
+  String get resetSuccessTitle => 'Password updated';
+
+  @override
+  String get resetSuccessMessage =>
+      'Your password was changed. Sign in with your new password.';
 }
