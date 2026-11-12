@@ -29,6 +29,7 @@ class _NotificationPreferencesPageState
 
     return SecondaryScaffold(
       title: l10n.preferencesTitle,
+      isInsideInbox: true,
       body: ListenableBuilder(
         listenable: viewModel,
         builder: (context, child) {

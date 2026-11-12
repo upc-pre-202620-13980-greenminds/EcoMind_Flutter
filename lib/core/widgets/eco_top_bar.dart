@@ -5,19 +5,35 @@ import 'package:flutter/material.dart';
 class EcoTopBar extends StatelessWidget {
   const new({
     super.key,
-    required this.onNotificationsTap,
+    this.onNotificationsTap,
     required this.onSettingsTap,
     this.gemBalance,
     this.ecopoints,
     this.unreadNotifications = 0,
   });
-  final VoidCallback onNotificationsTap;
+  // Null inside the inbox: the bell is shown but does not open anything
+  final VoidCallback? onNotificationsTap;
   final VoidCallback onSettingsTap;
   // Null while the profile is not loaded: the counters are hidden
   final int? gemBalance;
   final int? ecopoints;
   // 0 hides the badge of the bell
   final int unreadNotifications;
+
+  Widget bell(BuildContext context) {
+    return Badge(
+      isLabelVisible: unreadNotifications > 0,
+      backgroundColor: Theme.of(context).colorScheme.error,
+      // Bigger numbers are shown as "99+" so the badge keeps its size
+      label: Text(unreadNotifications > 99 ? '99+' : '$unreadNotifications'),
+      child: Image.asset(
+        'assets/images/ic_notifications.png',
+        width: 24,
+        height: 24,
+        excludeFromSemantics: true,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,27 +75,26 @@ class EcoTopBar extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                     description: l10n.topBarEcopoints(points),
                   ),
-                IconButton(
-                  onPressed: onNotificationsTap,
-                  // The screen reader says "Notifications, 2 unread"
-                  tooltip: unreadNotifications > 0
-                      ? l10n.topBarNotificationsUnread(unreadNotifications)
-                      : l10n.topBarNotifications,
-                  icon: Badge(
-                    isLabelVisible: unreadNotifications > 0,
-                    backgroundColor: Theme.of(context).colorScheme.error,
-                    // Bigger numbers are shown as "99+" so the badge keeps its size
-                    label: Text(
-                      unreadNotifications > 99 ? '99+' : '$unreadNotifications',
-                    ),
-                    child: Image.asset(
-                      'assets/images/ic_notifications.png',
-                      width: 24,
-                      height: 24,
-                      excludeFromSemantics: true,
+                if (onNotificationsTap != null)
+                  IconButton(
+                    onPressed: onNotificationsTap,
+                    // The screen reader says "Notifications, 2 unread"
+                    tooltip: unreadNotifications > 0
+                        ? l10n.topBarNotificationsUnread(unreadNotifications)
+                        : l10n.topBarNotifications,
+                    icon: bell(context),
+                  )
+                else
+                  // Inside the inbox the bell has no action, so it is not a button
+                  Semantics(
+                    label: l10n.topBarNotificationsCurrent,
+                    excludeSemantics: true,
+                    child: SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: Center(child: bell(context)),
                     ),
                   ),
-                ),
                 IconButton(
                   onPressed: onSettingsTap,
                   tooltip: l10n.topBarSettings,

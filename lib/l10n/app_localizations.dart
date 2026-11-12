@@ -933,6 +933,12 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{Notifications, 1 unread} other{Notifications, {count} unread}}'**
   String topBarNotificationsUnread(int count);
 
+  /// No description provided for @topBarNotificationsCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications. You are already in Notifications.'**
+  String get topBarNotificationsCurrent;
+
   /// No description provided for @notificationsTitle.
   ///
   /// In en, this message translates to:

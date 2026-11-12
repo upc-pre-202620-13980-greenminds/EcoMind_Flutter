@@ -139,6 +139,7 @@
   "weeklyReportNoData": "No hay datos suficientes para generar un reporte esta semana.",
   "weeklyReportNoFamily": "Crea tu familia para ver su reporte semanal.",
   "topBarNotificationsUnread": "{count, plural, =1{Notificaciones, 1 sin leer} other{Notificaciones, {count} sin leer}}",
+  "topBarNotificationsCurrent": "Notificaciones. Ya estás en Notificaciones.",
   "notificationsTitle": "Notificaciones",
   "notificationsUnread": "{count, plural, =1{1 sin leer} other{{count} sin leer}}",
   "notificationsAllRead": "Estás al día",

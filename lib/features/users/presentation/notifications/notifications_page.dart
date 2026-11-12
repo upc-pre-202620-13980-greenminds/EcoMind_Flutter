@@ -35,6 +35,7 @@ class NotificationsPage extends StatelessWidget {
 
     return SecondaryScaffold(
       title: l10n.notificationsTitle,
+      isInsideInbox: true,
       headerAction: IconButton(
         onPressed: () => openPreferences(context),
         tooltip: l10n.preferencesTitle,
