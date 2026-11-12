@@ -21,6 +21,8 @@ class LabeledTextField extends StatelessWidget {
     this.suffixIcon,
     this.onSubmitted,
     this.enabled = true,
+    this.readOnly = false,
+    this.maxLines = 1,
   });
   final String label;
   final ValueChanged<String> onChanged;
@@ -37,6 +39,9 @@ class LabeledTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final ValueChanged<String>? onSubmitted;
   final bool enabled;
+  // Shows a value that cannot be changed, keeping the normal colors
+  final bool readOnly;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +80,9 @@ class LabeledTextField extends StatelessWidget {
             onChanged: onChanged,
             onFieldSubmitted: onSubmitted,
             enabled: enabled,
+            readOnly: readOnly,
+            maxLines: maxLines,
+            minLines: maxLines > 1 ? maxLines : null,
             obscureText: obscureText,
             keyboardType: keyboardType,
             textInputAction: textInputAction,

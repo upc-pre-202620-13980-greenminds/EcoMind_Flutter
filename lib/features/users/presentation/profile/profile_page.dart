@@ -11,13 +11,20 @@ import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_pr
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_state.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_stat.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_tab_content.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
   final ProfileViewModel viewModel;
-  const new({super.key, required this.viewModel});
+  final FamilyViewModel familyViewModel;
+  const new({
+    super.key,
+    required this.viewModel,
+    required this.familyViewModel,
+  });
 
   void openComingSoon(BuildContext context) {
     Navigator.push(
@@ -99,9 +106,11 @@ class ProfilePage extends StatelessWidget {
                 ProfileTab.profile => _SignOutButton(
                   onPressed: () => signOut(context),
                 ),
-                // Friends belongs to another member; Family arrives with HU-019
+                // Friends belongs to another member
                 ProfileTab.friends => const ComingSoonView(),
-                ProfileTab.family => const ComingSoonView(),
+                ProfileTab.family => FamilyTabContent(
+                  viewModel: familyViewModel,
+                ),
               },
               const SizedBox(height: 24),
             ],

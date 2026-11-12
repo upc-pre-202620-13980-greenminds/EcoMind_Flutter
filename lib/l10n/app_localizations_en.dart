@@ -268,4 +268,160 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editProfileSaveFailedHint => 'Your text is still here. Try again.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get tabError => 'This information could not be loaded.';
+
+  @override
+  String get familyEmptyTitle => 'No family yet';
+
+  @override
+  String get familyEmptyMessage =>
+      'Create your family to bring everyone together.';
+
+  @override
+  String get familyCreate => 'Create family';
+
+  @override
+  String get familyManage => 'Manage';
+
+  @override
+  String familyMembersCount(int count) {
+    return 'Members · $count';
+  }
+
+  @override
+  String get familyManagerRole => 'Parent · family manager';
+
+  @override
+  String get familyRoleParent => 'Parent';
+
+  @override
+  String get familyRoleChild => 'Child';
+
+  @override
+  String get familyYou => 'You';
+
+  @override
+  String get createFamilyTitle => 'Create family';
+
+  @override
+  String get familyNameLabel => 'Family name';
+
+  @override
+  String get familyNamePlaceholder => 'Write family name';
+
+  @override
+  String get familyCommitmentLabel => 'Family commitment';
+
+  @override
+  String get familyCommitmentPlaceholder => 'Write family commitment';
+
+  @override
+  String get familyNameRequired => 'Enter a family name.';
+
+  @override
+  String get familyCommitmentRequired => 'Enter a family commitment.';
+
+  @override
+  String get familyRequiredInfo => 'Complete the required information.';
+
+  @override
+  String get createFamilySave => 'Save changes';
+
+  @override
+  String get errorCreatorNotParent =>
+      'Only a parent account can create a family.';
+
+  @override
+  String get errorAlreadyInFamily => 'You already belong to a family.';
+
+  @override
+  String get errorFamilyFull => 'A family can have up to 5 members.';
+
+  @override
+  String get manageFamilyTitle => 'Manage family';
+
+  @override
+  String get manageMembersTitle => 'Members';
+
+  @override
+  String get manageAddMember => 'Add member';
+
+  @override
+  String get manageEditMember => 'Edit';
+
+  @override
+  String manageEditMemberDescription(String name) {
+    return 'Open $name';
+  }
+
+  @override
+  String get manageNoMembers => 'No other members yet.';
+
+  @override
+  String get inviteTitle => 'Invite a friend';
+
+  @override
+  String get inviteChooseFriend => 'Choose a friend';
+
+  @override
+  String get inviteSearchHint => 'Search your friends';
+
+  @override
+  String get inviteFriendSubtitle => 'Friend';
+
+  @override
+  String get inviteButton => 'Invite';
+
+  @override
+  String inviteButtonDescription(String name) {
+    return 'Add $name to the family';
+  }
+
+  @override
+  String get inviteEmpty =>
+      'None of your friends can join right now. Friends who already belong to a family are not shown.';
+
+  @override
+  String inviteAdded(String name) {
+    return '$name was added to the family.';
+  }
+
+  @override
+  String get memberTitle => 'Family member';
+
+  @override
+  String get memberRoleLabel => 'Role in the family';
+
+  @override
+  String get memberRoleHelp =>
+      'This describes their place in the family.\nIt does not change their account role.';
+
+  @override
+  String get removeMemberAction => 'Remove member';
+
+  @override
+  String get removeMemberTitle => 'Remove member';
+
+  @override
+  String removeMemberMessage(String name, String family) {
+    return 'Remove $name from $family?\nThey will no longer belong to this family.';
+  }
+
+  @override
+  String get conflictTitle => 'Add family member';
+
+  @override
+  String get conflictHeading => 'Already in a family';
+
+  @override
+  String get conflictMessage =>
+      'A user can belong to only one active family at a time.';
+
+  @override
+  String get conflictBack => 'Back to members';
 }

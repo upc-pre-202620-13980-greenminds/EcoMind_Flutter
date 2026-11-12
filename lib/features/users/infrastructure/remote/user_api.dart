@@ -7,6 +7,22 @@ import 'package:ecomind_parents/features/users/infrastructure/remote/user_profil
 import 'package:http/http.dart' as http;
 
 class UserApi {
+  // Every profile; the family screens use it to show the names of the members
+  Future<List<UserProfileDto>> getUsers(String accessToken) async {
+    final http.Response response = await http
+        .get(
+          ApiConfig.uri('/api/v1/user'),
+          headers: {'Authorization': 'Bearer $accessToken'},
+        )
+        .timeout(ApiConfig.timeout);
+
+    if (response.statusCode == HttpStatus.ok) {
+      final List jsons = jsonDecode(utf8.decode(response.bodyBytes));
+      return jsons.map((e) => UserProfileDto.fromJson(e)).toList();
+    }
+    throw ApiException.fromResponse(response);
+  }
+
   Future<UserProfileDto> getUser(String accessToken, int id) async {
     final http.Response response = await http
         .get(

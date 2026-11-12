@@ -3,6 +3,7 @@ import 'package:ecomind_parents/core/widgets/coming_soon_view.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/main/main_top_bar.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
@@ -20,6 +21,7 @@ class _MainPageState extends State<MainPage> {
   int selectedIndex = 5;
 
   final ProfileViewModel profileViewModel = getIt<ProfileViewModel>();
+  final FamilyViewModel familyViewModel = getIt<FamilyViewModel>();
 
   // Store, Ranking, Main menu, Progress and Community belong to other members
   late final List<Widget> pages = [
@@ -28,7 +30,7 @@ class _MainPageState extends State<MainPage> {
     const ComingSoonView(),
     const ComingSoonView(),
     const ComingSoonView(),
-    ProfilePage(viewModel: profileViewModel),
+    ProfilePage(viewModel: profileViewModel, familyViewModel: familyViewModel),
   ];
 
   @override
@@ -37,6 +39,8 @@ class _MainPageState extends State<MainPage> {
     profileViewModel.addListener(onProfileChanged);
     // The top bar needs the balances even when another tab is open
     profileViewModel.loadProfile();
+    // Loaded on every start, so a new parent never sees the previous family
+    familyViewModel.loadFamily();
   }
 
   @override

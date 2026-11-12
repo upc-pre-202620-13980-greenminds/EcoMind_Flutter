@@ -14,7 +14,19 @@ import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_m
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/splash/splash_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/verify_email/verify_email_view_model.dart';
+import 'package:ecomind_parents/features/users/application/add_family_member_use_case.dart';
+import 'package:ecomind_parents/features/users/application/create_family_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_current_profile_use_case.dart';
+import 'package:ecomind_parents/features/users/application/get_invitable_friends_use_case.dart';
+import 'package:ecomind_parents/features/users/application/get_my_family_use_case.dart';
+import 'package:ecomind_parents/features/users/application/remove_family_member_use_case.dart';
+import 'package:ecomind_parents/features/users/domain/family_repository.dart';
+import 'package:ecomind_parents/features/users/infrastructure/family_repository_impl.dart';
+import 'package:ecomind_parents/features/users/infrastructure/remote/family_api.dart';
+import 'package:ecomind_parents/features/users/presentation/family/create_family/create_family_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/family/invite_friend/invite_friend_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/family/remove_member/remove_member_view_model.dart';
 import 'package:ecomind_parents/features/users/application/update_profile_name_use_case.dart';
 import 'package:ecomind_parents/features/users/domain/user_profile_repository.dart';
 import 'package:ecomind_parents/features/users/infrastructure/remote/user_api.dart';
@@ -96,6 +108,58 @@ void setupDependencies() {
   getIt.registerFactory<EditProfileViewModel>(
     () => EditProfileViewModel(
       updateProfileName: getIt<UpdateProfileNameUseCase>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<FamilyApi>(() => FamilyApi());
+
+  getIt.registerLazySingleton<FamilyRepository>(
+    () => FamilyRepositoryImpl(
+      familyApi: getIt<FamilyApi>(),
+      userApi: getIt<UserApi>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetMyFamilyUseCase>(
+    () => GetMyFamilyUseCase(repository: getIt<FamilyRepository>()),
+  );
+
+  getIt.registerLazySingleton<CreateFamilyUseCase>(
+    () => CreateFamilyUseCase(repository: getIt<FamilyRepository>()),
+  );
+
+  getIt.registerLazySingleton<GetInvitableFriendsUseCase>(
+    () => GetInvitableFriendsUseCase(repository: getIt<FamilyRepository>()),
+  );
+
+  getIt.registerLazySingleton<AddFamilyMemberUseCase>(
+    () => AddFamilyMemberUseCase(repository: getIt<FamilyRepository>()),
+  );
+
+  getIt.registerLazySingleton<RemoveFamilyMemberUseCase>(
+    () => RemoveFamilyMemberUseCase(repository: getIt<FamilyRepository>()),
+  );
+
+  // Shared by the Family tab and the screens that change the family
+  getIt.registerLazySingleton<FamilyViewModel>(
+    () => FamilyViewModel(getMyFamily: getIt<GetMyFamilyUseCase>()),
+  );
+
+  getIt.registerFactory<CreateFamilyViewModel>(
+    () => CreateFamilyViewModel(createFamily: getIt<CreateFamilyUseCase>()),
+  );
+
+  getIt.registerFactory<InviteFriendViewModel>(
+    () => InviteFriendViewModel(
+      getInvitableFriends: getIt<GetInvitableFriendsUseCase>(),
+      addFamilyMember: getIt<AddFamilyMemberUseCase>(),
+    ),
+  );
+
+  getIt.registerFactory<RemoveMemberViewModel>(
+    () => RemoveMemberViewModel(
+      removeFamilyMember: getIt<RemoveFamilyMemberUseCase>(),
     ),
   );
 

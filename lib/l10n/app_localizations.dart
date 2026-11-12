@@ -590,6 +590,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your text is still here. Try again.'**
   String get editProfileSaveFailedHint;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @tabError.
+  ///
+  /// In en, this message translates to:
+  /// **'This information could not be loaded.'**
+  String get tabError;
+
+  /// No description provided for @familyEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No family yet'**
+  String get familyEmptyTitle;
+
+  /// No description provided for @familyEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your family to bring everyone together.'**
+  String get familyEmptyMessage;
+
+  /// No description provided for @familyCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create family'**
+  String get familyCreate;
+
+  /// No description provided for @familyManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get familyManage;
+
+  /// No description provided for @familyMembersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Members · {count}'**
+  String familyMembersCount(int count);
+
+  /// No description provided for @familyManagerRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent · family manager'**
+  String get familyManagerRole;
+
+  /// No description provided for @familyRoleParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get familyRoleParent;
+
+  /// No description provided for @familyRoleChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get familyRoleChild;
+
+  /// No description provided for @familyYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get familyYou;
+
+  /// No description provided for @createFamilyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create family'**
+  String get createFamilyTitle;
+
+  /// No description provided for @familyNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Family name'**
+  String get familyNameLabel;
+
+  /// No description provided for @familyNamePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write family name'**
+  String get familyNamePlaceholder;
+
+  /// No description provided for @familyCommitmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Family commitment'**
+  String get familyCommitmentLabel;
+
+  /// No description provided for @familyCommitmentPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write family commitment'**
+  String get familyCommitmentPlaceholder;
+
+  /// No description provided for @familyNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a family name.'**
+  String get familyNameRequired;
+
+  /// No description provided for @familyCommitmentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a family commitment.'**
+  String get familyCommitmentRequired;
+
+  /// No description provided for @familyRequiredInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the required information.'**
+  String get familyRequiredInfo;
+
+  /// No description provided for @createFamilySave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get createFamilySave;
+
+  /// No description provided for @errorCreatorNotParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Only a parent account can create a family.'**
+  String get errorCreatorNotParent;
+
+  /// No description provided for @errorAlreadyInFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'You already belong to a family.'**
+  String get errorAlreadyInFamily;
+
+  /// No description provided for @errorFamilyFull.
+  ///
+  /// In en, this message translates to:
+  /// **'A family can have up to 5 members.'**
+  String get errorFamilyFull;
+
+  /// No description provided for @manageFamilyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage family'**
+  String get manageFamilyTitle;
+
+  /// No description provided for @manageMembersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get manageMembersTitle;
+
+  /// No description provided for @manageAddMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Add member'**
+  String get manageAddMember;
+
+  /// No description provided for @manageEditMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get manageEditMember;
+
+  /// No description provided for @manageEditMemberDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Open {name}'**
+  String manageEditMemberDescription(String name);
+
+  /// No description provided for @manageNoMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'No other members yet.'**
+  String get manageNoMembers;
+
+  /// No description provided for @inviteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite a friend'**
+  String get inviteTitle;
+
+  /// No description provided for @inviteChooseFriend.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a friend'**
+  String get inviteChooseFriend;
+
+  /// No description provided for @inviteSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search your friends'**
+  String get inviteSearchHint;
+
+  /// No description provided for @inviteFriendSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend'**
+  String get inviteFriendSubtitle;
+
+  /// No description provided for @inviteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite'**
+  String get inviteButton;
+
+  /// No description provided for @inviteButtonDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add {name} to the family'**
+  String inviteButtonDescription(String name);
+
+  /// No description provided for @inviteEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'None of your friends can join right now. Friends who already belong to a family are not shown.'**
+  String get inviteEmpty;
+
+  /// No description provided for @inviteAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} was added to the family.'**
+  String inviteAdded(String name);
+
+  /// No description provided for @memberTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Family member'**
+  String get memberTitle;
+
+  /// No description provided for @memberRoleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Role in the family'**
+  String get memberRoleLabel;
+
+  /// No description provided for @memberRoleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'This describes their place in the family.\nIt does not change their account role.'**
+  String get memberRoleHelp;
+
+  /// No description provided for @removeMemberAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove member'**
+  String get removeMemberAction;
+
+  /// No description provided for @removeMemberTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove member'**
+  String get removeMemberTitle;
+
+  /// No description provided for @removeMemberMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from {family}?\nThey will no longer belong to this family.'**
+  String removeMemberMessage(String name, String family);
+
+  /// No description provided for @conflictTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add family member'**
+  String get conflictTitle;
+
+  /// No description provided for @conflictHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in a family'**
+  String get conflictHeading;
+
+  /// No description provided for @conflictMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A user can belong to only one active family at a time.'**
+  String get conflictMessage;
+
+  /// No description provided for @conflictBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to members'**
+  String get conflictBack;
 }
 
 class _AppLocalizationsDelegate

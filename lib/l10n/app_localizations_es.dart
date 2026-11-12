@@ -274,6 +274,163 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get editProfileSaveFailedHint =>
       'Tu texto sigue aquí. Inténtalo de nuevo.';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get tabError => 'No se pudo cargar esta información.';
+
+  @override
+  String get familyEmptyTitle => 'Aún no tienes familia';
+
+  @override
+  String get familyEmptyMessage => 'Crea tu familia para reunir a todos.';
+
+  @override
+  String get familyCreate => 'Crear familia';
+
+  @override
+  String get familyManage => 'Gestionar';
+
+  @override
+  String familyMembersCount(int count) {
+    return 'Miembros · $count';
+  }
+
+  @override
+  String get familyManagerRole => 'Madre o padre · gestiona la familia';
+
+  @override
+  String get familyRoleParent => 'Madre o padre';
+
+  @override
+  String get familyRoleChild => 'Hija o hijo';
+
+  @override
+  String get familyYou => 'Tú';
+
+  @override
+  String get createFamilyTitle => 'Crear familia';
+
+  @override
+  String get familyNameLabel => 'Nombre de la familia';
+
+  @override
+  String get familyNamePlaceholder => 'Escribe el nombre de la familia';
+
+  @override
+  String get familyCommitmentLabel => 'Compromiso de la familia';
+
+  @override
+  String get familyCommitmentPlaceholder =>
+      'Escribe el compromiso de la familia';
+
+  @override
+  String get familyNameRequired => 'Ingresa un nombre para la familia.';
+
+  @override
+  String get familyCommitmentRequired =>
+      'Ingresa un compromiso para la familia.';
+
+  @override
+  String get familyRequiredInfo => 'Completa la información obligatoria.';
+
+  @override
+  String get createFamilySave => 'Guardar cambios';
+
+  @override
+  String get errorCreatorNotParent =>
+      'Solo una cuenta de madre o padre puede crear una familia.';
+
+  @override
+  String get errorAlreadyInFamily => 'Ya perteneces a una familia.';
+
+  @override
+  String get errorFamilyFull => 'Una familia puede tener hasta 5 miembros.';
+
+  @override
+  String get manageFamilyTitle => 'Gestionar familia';
+
+  @override
+  String get manageMembersTitle => 'Miembros';
+
+  @override
+  String get manageAddMember => 'Agregar miembro';
+
+  @override
+  String get manageEditMember => 'Editar';
+
+  @override
+  String manageEditMemberDescription(String name) {
+    return 'Abrir a $name';
+  }
+
+  @override
+  String get manageNoMembers => 'Aún no hay otros miembros.';
+
+  @override
+  String get inviteTitle => 'Invitar a un amigo';
+
+  @override
+  String get inviteChooseFriend => 'Elige a un amigo';
+
+  @override
+  String get inviteSearchHint => 'Busca entre tus amigos';
+
+  @override
+  String get inviteFriendSubtitle => 'Amigo';
+
+  @override
+  String get inviteButton => 'Invitar';
+
+  @override
+  String inviteButtonDescription(String name) {
+    return 'Agregar a $name a la familia';
+  }
+
+  @override
+  String get inviteEmpty =>
+      'Ninguno de tus amigos puede unirse ahora. No se muestran los amigos que ya pertenecen a una familia.';
+
+  @override
+  String inviteAdded(String name) {
+    return '$name se agregó a la familia.';
+  }
+
+  @override
+  String get memberTitle => 'Miembro de la familia';
+
+  @override
+  String get memberRoleLabel => 'Rol en la familia';
+
+  @override
+  String get memberRoleHelp =>
+      'Describe su lugar en la familia.\nNo cambia el rol de su cuenta.';
+
+  @override
+  String get removeMemberAction => 'Quitar miembro';
+
+  @override
+  String get removeMemberTitle => 'Quitar miembro';
+
+  @override
+  String removeMemberMessage(String name, String family) {
+    return '¿Quitar a $name de $family?\nYa no pertenecerá a esta familia.';
+  }
+
+  @override
+  String get conflictTitle => 'Agregar miembro';
+
+  @override
+  String get conflictHeading => 'Ya pertenece a una familia';
+
+  @override
+  String get conflictMessage =>
+      'Un usuario solo puede pertenecer a una familia activa a la vez.';
+
+  @override
+  String get conflictBack => 'Volver a los miembros';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).
