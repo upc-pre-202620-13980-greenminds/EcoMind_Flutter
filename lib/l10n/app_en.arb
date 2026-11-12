@@ -112,5 +112,90 @@
   "editProfileNameRequired": "Enter your name.",
   "editProfileNameLength": "The name must have 2 to 120 characters.",
   "editProfileSaveFailed": "Couldn’t save your changes.",
-  "editProfileSaveFailedHint": "Your text is still here. Try again."
+  "editProfileSaveFailedHint": "Your text is still here. Try again.",
+  "cancel": "Cancel",
+  "tabError": "This information could not be loaded.",
+  "familyEmptyTitle": "No family yet",
+  "familyEmptyMessage": "Create your family to bring everyone together.",
+  "familyCreate": "Create family",
+  "familyManage": "Manage",
+  "familyMembersCount": "Members · {count}",
+  "@familyMembersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "familyManagerRole": "Parent · family manager",
+  "familyRoleParent": "Parent",
+  "familyRoleChild": "Child",
+  "familyYou": "You",
+  "createFamilyTitle": "Create family",
+  "familyNameLabel": "Family name",
+  "familyNamePlaceholder": "Write family name",
+  "familyCommitmentLabel": "Family commitment",
+  "familyCommitmentPlaceholder": "Write family commitment",
+  "familyNameRequired": "Enter a family name.",
+  "familyCommitmentRequired": "Enter a family commitment.",
+  "familyRequiredInfo": "Complete the required information.",
+  "createFamilySave": "Save changes",
+  "errorCreatorNotParent": "Only a parent account can create a family.",
+  "errorAlreadyInFamily": "You already belong to a family.",
+  "errorFamilyFull": "A family can have up to 5 members.",
+  "manageFamilyTitle": "Manage family",
+  "manageMembersTitle": "Members",
+  "manageAddMember": "Add member",
+  "manageEditMember": "Edit",
+  "manageEditMemberDescription": "Open {name}",
+  "@manageEditMemberDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "manageNoMembers": "No other members yet.",
+  "inviteTitle": "Invite a friend",
+  "inviteChooseFriend": "Choose a friend",
+  "inviteSearchHint": "Search your friends",
+  "inviteFriendSubtitle": "Friend",
+  "inviteButton": "Invite",
+  "inviteButtonDescription": "Add {name} to the family",
+  "@inviteButtonDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteEmpty": "None of your friends can join right now. Friends who already belong to a family are not shown.",
+  "inviteAdded": "{name} was added to the family.",
+  "@inviteAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "memberTitle": "Family member",
+  "memberRoleLabel": "Role in the family",
+  "memberRoleHelp": "This describes their place in the family.\nIt does not change their account role.",
+  "removeMemberAction": "Remove member",
+  "removeMemberTitle": "Remove member",
+  "removeMemberMessage": "Remove {name} from {family}?\nThey will no longer belong to this family.",
+  "@removeMemberMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "family": {
+        "type": "String"
+      }
+    }
+  },
+  "conflictTitle": "Add family member",
+  "conflictHeading": "Already in a family",
+  "conflictMessage": "A user can belong to only one active family at a time.",
+  "conflictBack": "Back to members"
 }
