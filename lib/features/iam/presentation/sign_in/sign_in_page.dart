@@ -35,7 +35,9 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void onStateChanged() {
-    if (widget.viewModel.state.isAuthenticated && mounted) {
+    if (widget.viewModel.state.isAuthenticated &&
+        mounted &&
+        ModalRoute.of(context)?.isCurrent == true) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MainPage()),
