@@ -1,4 +1,14 @@
-enum UsersError { sessionExpired, forbidden, notFound, connection, unknown }
+enum UsersError {
+  sessionExpired,
+  forbidden,
+  notFound,
+  creatorNotParent,
+  membershipConflict,
+  familyFull,
+  parentSelfRemoval,
+  connection,
+  unknown,
+}
 
 class UsersException implements Exception {
   final UsersError error;
