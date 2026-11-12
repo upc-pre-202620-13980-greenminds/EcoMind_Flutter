@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 // "‹" and green title of the secondary screens, such as Edit profile
 class ScreenHeader extends StatelessWidget {
-  const new({super.key, required this.title});
+  const new({super.key, required this.title, this.action});
   final String title;
+  // Optional button on the right, such as the preferences of the inbox
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,8 @@ class ScreenHeader extends StatelessWidget {
               ),
             ),
           ),
+          if (action != null)
+            Align(alignment: AlignmentDirectional.centerEnd, child: action),
         ],
       ),
     );

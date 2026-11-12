@@ -9,12 +9,15 @@ class EcoTopBar extends StatelessWidget {
     required this.onSettingsTap,
     this.gemBalance,
     this.ecopoints,
+    this.unreadNotifications = 0,
   });
   final VoidCallback onNotificationsTap;
   final VoidCallback onSettingsTap;
   // Null while the profile is not loaded: the counters are hidden
   final int? gemBalance;
   final int? ecopoints;
+  // 0 hides the badge of the bell
+  final int unreadNotifications;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +61,23 @@ class EcoTopBar extends StatelessWidget {
                   ),
                 IconButton(
                   onPressed: onNotificationsTap,
-                  tooltip: l10n.topBarNotifications,
-                  icon: Image.asset(
-                    'assets/images/ic_notifications.png',
-                    width: 24,
-                    height: 24,
-                    excludeFromSemantics: true,
+                  // The screen reader says "Notifications, 2 unread"
+                  tooltip: unreadNotifications > 0
+                      ? l10n.topBarNotificationsUnread(unreadNotifications)
+                      : l10n.topBarNotifications,
+                  icon: Badge(
+                    isLabelVisible: unreadNotifications > 0,
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    // Bigger numbers are shown as "99+" so the badge keeps its size
+                    label: Text(
+                      unreadNotifications > 99 ? '99+' : '$unreadNotifications',
+                    ),
+                    child: Image.asset(
+                      'assets/images/ic_notifications.png',
+                      width: 24,
+                      height: 24,
+                      excludeFromSemantics: true,
+                    ),
                   ),
                 ),
                 IconButton(

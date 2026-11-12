@@ -4,6 +4,7 @@ import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.d
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/main/main_top_bar.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/report/weekly_report_view_model.dart';
@@ -25,6 +26,10 @@ class _MainPageState extends State<MainPage> {
   final FamilyViewModel familyViewModel = getIt<FamilyViewModel>();
   final WeeklyReportViewModel weeklyReportViewModel =
       getIt<WeeklyReportViewModel>();
+  final NotificationsViewModel notificationsViewModel =
+      getIt<NotificationsViewModel>();
+  // Language used to load the inbox; it is loaded again if the language changes
+  String? loadedLanguageTag;
 
   // Store, Ranking, Main menu, Progress and Community belong to other members
   late final List<Widget> pages = [
@@ -49,6 +54,17 @@ class _MainPageState extends State<MainPage> {
     profileViewModel.loadProfile();
     // Loaded on every start, so a new parent never sees the previous family
     familyViewModel.loadFamily();
+  }
+
+  // The inbox needs the language of the application, which initState cannot read yet
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final languageTag = Localizations.localeOf(context).toLanguageTag();
+    if (languageTag != loadedLanguageTag) {
+      loadedLanguageTag = languageTag;
+      notificationsViewModel.loadNotifications(languageTag);
+    }
   }
 
   @override

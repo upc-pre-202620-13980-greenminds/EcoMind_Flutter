@@ -4,9 +4,15 @@ import 'package:flutter/material.dart';
 
 // Frame of the secondary screens: top bar and "‹" header, without the bottom bar
 class SecondaryScaffold extends StatelessWidget {
-  const new({super.key, required this.title, required this.body});
+  const new({
+    super.key,
+    required this.title,
+    required this.body,
+    this.headerAction,
+  });
   final String title;
   final Widget body;
+  final Widget? headerAction;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class SecondaryScaffold extends StatelessWidget {
         child: Column(
           children: [
             const MainTopBar(),
-            ScreenHeader(title: title),
+            ScreenHeader(title: title, action: headerAction),
             Expanded(child: body),
           ],
         ),
