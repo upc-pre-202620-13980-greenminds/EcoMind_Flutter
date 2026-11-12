@@ -1,5 +1,7 @@
 import 'package:ecomind_parents/core/app_database.dart';
 import 'package:ecomind_parents/features/iam/application/check_session_use_case.dart';
+import 'package:ecomind_parents/features/iam/application/confirm_password_recovery_use_case.dart';
+import 'package:ecomind_parents/features/iam/application/request_password_recovery_use_case.dart';
 import 'package:ecomind_parents/features/iam/application/sign_in_use_case.dart';
 import 'package:ecomind_parents/features/iam/application/sign_out_use_case.dart';
 import 'package:ecomind_parents/features/iam/application/sign_up_use_case.dart';
@@ -10,6 +12,8 @@ import 'package:ecomind_parents/features/iam/infrastructure/auth_repository_impl
 import 'package:ecomind_parents/features/iam/infrastructure/remote/iam_api.dart';
 import 'package:ecomind_parents/features/iam/infrastructure/session_dao.dart';
 import 'package:ecomind_parents/features/iam/infrastructure/session_repository_impl.dart';
+import 'package:ecomind_parents/features/iam/presentation/recovery_request/password_recovery_view_model.dart';
+import 'package:ecomind_parents/features/iam/presentation/reset_password/reset_password_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/splash/splash_view_model.dart';
@@ -94,6 +98,17 @@ void setupDependencies() {
 
   getIt.registerLazySingleton<SignOutUseCase>(
     () => SignOutUseCase(
+      authRepository: getIt<AuthRepository>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<RequestPasswordRecoveryUseCase>(
+    () => RequestPasswordRecoveryUseCase(repository: getIt<AuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<ConfirmPasswordRecoveryUseCase>(
+    () => ConfirmPasswordRecoveryUseCase(
       authRepository: getIt<AuthRepository>(),
       sessionRepository: getIt<SessionRepository>(),
     ),
@@ -291,6 +306,19 @@ void setupDependencies() {
       verifyEmail: getIt<VerifyEmailUseCase>(),
       signUp: getIt<SignUpUseCase>(),
       signIn: getIt<SignInUseCase>(),
+    ),
+  );
+
+  // Disposed by their pages, so the typed email, passwords and token do not outlive them
+  getIt.registerFactory<PasswordRecoveryViewModel>(
+    () => PasswordRecoveryViewModel(
+      requestPasswordRecovery: getIt<RequestPasswordRecoveryUseCase>(),
+    ),
+  );
+
+  getIt.registerFactory<ResetPasswordViewModel>(
+    () => ResetPasswordViewModel(
+      confirmPasswordRecovery: getIt<ConfirmPasswordRecoveryUseCase>(),
     ),
   );
 }

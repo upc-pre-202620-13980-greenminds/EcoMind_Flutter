@@ -276,7 +276,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsBody.
   ///
   /// In en, this message translates to:
-  /// **'EcoMind is an educational sustainability project for students and families. Activities, educational materials and progress features support learning about environmental habits.\n\nYour account\nUse your own account information and keep your password private. Your email is used for account verification and password recovery. Sign out when you finish using a shared device.\n\nParticipation\nComplete activities honestly and treat other participants with respect. Points, streaks and achievements represent participation in EcoMind; they do not certify measured environmental savings.\n\nPrivacy\nAvoid sharing sensitive information in community posts or activity evidence. Do not share another person’s personal information without permission.\n\nTerms and privacy information are pending review by the project team.'**
+  /// **'Version 1.2 · Updated November 12, 2026\n\n1. About EcoMind\nEcoMind is an academic sustainability and learning application developed by the GreenMinds project team as part of a UPC university course. These terms cover account access and the activities, family, community, learning and reward features available in this build. Availability may vary while the project is developed.\n\n2. Accounts and acceptance\nRegister with information you are authorized to use. Read these terms and the privacy information below before selecting the acceptance checkbox. Keep your password, email verification codes and recovery links private. Your email is used to verify registration and recover access. Sign out after using a shared device. Stopping use of the app does not delete your account; see section 7. If you do not agree, do not complete registration or stop using the account.\n\n3. Children and responsible adults\nChildren may participate only with the involvement and any legally required authorization of a parent or guardian. School use should be coordinated by a responsible adult. Linking accounts as a family does not verify that a participant is a legal parent or guardian. Selecting Student or Parent is a profile choice; it does not verify age, guardianship or parental authorization. Do not provide information about another child without the necessary authority.\n\n4. Information used by the app\nRegistration uses a name, email, password and profile role. The server stores a password hash; the app keeps session credentials on the device while you are signed in. Depending on the features you use, the server also keeps profile details, family and friendship relationships, commitments, activity and progress records, points and achievements, community participation, learning preferences and purchase or gem transaction records. Only provide information needed for the activity you choose.\n\n5. Purpose and visibility\nThese records support account access, verification and recovery, the features you request, progress and rewards, and project validation. Your name, avatar, posts, reactions, shared achievements or participation may be visible to other participants through the relevant family, friend or community features. Do not treat community content as private. Do not publish passwords, recovery links, precise home locations, sensitive information or images of other people without permission. Accepting these terms does not authorize unrelated marketing or unrestricted use of personal images.\n\n6. Service providers and payments\nAzure hosts the configured backend and database and processes stored app records. Azure Communication Services Email processes the recipient address and verification or recovery message. Resend may be used if configured in another project environment. Cloudinary processes event images uploaded through the community features. Development versions may record verification codes and recovery tokens in server logs visible to the project team; use test accounts for shared demonstrations. The payment screens in this academic build use a sandbox and have not been validated for real purchases. Do not enter real card or bank account details; use only designated payment test data. Minors must involve their responsible adult. Never send payment details through community posts or support messages.\n\n7. Control of your information\nSigning out removes session credentials from this device; it does not erase the server account or shared records. It does not end sessions on other devices or invalidate access credentials already issued by the server before they expire. Contact the project team if you suspect your account or device is compromised. Uninstalling the app also does not erase backend data. This build does not provide a self-service account deletion or data export screen. You may request access, correction or deletion of your information, or object to a use of your information, through the GreenMinds project contact who provided this academic build, using that private course or project channel. Identify the account email, but never send a password, code or recovery link. Requests require manual handling and appropriate identity verification. App data is used for the stated features and academic validation; no fixed automatic deletion schedule for account records is implemented in this build.\n\n8. Participation, content and safety\nTreat other participants respectfully. Do not harass, impersonate others, manipulate activity results, misuse accounts or attempt unauthorized access. Complete activities honestly and choose actions that are safe and appropriate for your age and surroundings. Respect the authors, sources and licenses of educational materials and content you share. Activities are educational guidance and do not replace professional safety advice or emergency services.\n\n9. Points, rewards and environmental claims\nEcoPoints, gems, streaks, rankings and achievements describe participation within EcoMind. They are not cash, investments or proof of measured environmental savings. Completing an activity does not by itself certify a reduction in water, energy, emissions or waste. Any stated estimate must be interpreted with its source and limitations.\n\n10. Project availability and updates\nEcoMind is an academic project and may contain incomplete features, interruptions or errors. Do not use it as the only record of essential information. Updates to these terms will identify their version and date and can be read from registration or your account. Nothing in these terms removes rights that cannot be waived under applicable law. Contact the GreenMinds team through the private project channel used to receive this build for account, privacy or content concerns.'**
   String get termsBody;
 
   /// No description provided for @verifyEmailSubtitle.
@@ -1128,6 +1128,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn’t save your preference. Try again.'**
   String get preferencesSaveFailed;
+
+  /// No description provided for @errorResetTokenInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'This reset link has expired or was already used. Request a new link to reset your password.'**
+  String get errorResetTokenInvalid;
+
+  /// No description provided for @errorEmailDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t send the email right now. Try again in a few minutes.'**
+  String get errorEmailDelivery;
+
+  /// No description provided for @signInForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get signInForgotPassword;
+
+  /// No description provided for @recoveryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get recoveryTitle;
+
+  /// No description provided for @recoveryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the email of your parent account and we\'ll send you a link to create a new password.'**
+  String get recoveryMessage;
+
+  /// No description provided for @recoveryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send link'**
+  String get recoveryButton;
+
+  /// No description provided for @recoveryBackToSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to sign in'**
+  String get recoveryBackToSignIn;
+
+  /// No description provided for @recoverySentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your email'**
+  String get recoverySentTitle;
+
+  /// No description provided for @recoverySentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'If {email} belongs to an EcoMind parent account, you\'ll receive a link to reset your password. Open it on this device. If you don\'t see it, check your spam folder.'**
+  String recoverySentMessage(String email);
+
+  /// No description provided for @recoveryResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the link again'**
+  String get recoveryResend;
+
+  /// No description provided for @recoveryLinkResent.
+  ///
+  /// In en, this message translates to:
+  /// **'If the account exists, we sent a new link.'**
+  String get recoveryLinkResent;
+
+  /// No description provided for @recoveryChangeEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a different email'**
+  String get recoveryChangeEmail;
+
+  /// No description provided for @resetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a new password'**
+  String get resetTitle;
+
+  /// No description provided for @resetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a new password for your EcoMind account.'**
+  String get resetMessage;
+
+  /// No description provided for @resetPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get resetPasswordLabel;
+
+  /// No description provided for @resetConfirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get resetConfirmPasswordLabel;
+
+  /// No description provided for @resetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save new password'**
+  String get resetButton;
+
+  /// No description provided for @resetInvalidTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This link isn\'t valid'**
+  String get resetInvalidTitle;
+
+  /// No description provided for @resetInvalidMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The link is incomplete or damaged. Request a new link to reset your password.'**
+  String get resetInvalidMessage;
+
+  /// No description provided for @resetRequestNewLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Request a new link'**
+  String get resetRequestNewLink;
+
+  /// No description provided for @resetSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated'**
+  String get resetSuccessTitle;
+
+  /// No description provided for @resetSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password was changed. Sign in with your new password.'**
+  String get resetSuccessMessage;
 }
 
 class _AppLocalizationsDelegate

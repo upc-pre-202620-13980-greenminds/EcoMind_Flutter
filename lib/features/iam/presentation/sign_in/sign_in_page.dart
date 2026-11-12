@@ -4,6 +4,8 @@ import 'package:ecomind_parents/core/widgets/labeled_text_field.dart';
 import 'package:ecomind_parents/core/widgets/primary_button.dart';
 import 'package:ecomind_parents/features/iam/domain/auth_exception.dart';
 import 'package:ecomind_parents/features/iam/presentation/auth_messages.dart';
+import 'package:ecomind_parents/features/iam/presentation/recovery_request/password_recovery_page.dart';
+import 'package:ecomind_parents/features/iam/presentation/recovery_request/password_recovery_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_view_model.dart';
@@ -33,7 +35,9 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void onStateChanged() {
-    if (widget.viewModel.state.isAuthenticated && mounted) {
+    if (widget.viewModel.state.isAuthenticated &&
+        mounted &&
+        ModalRoute.of(context)?.isCurrent == true) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MainPage()),
@@ -46,6 +50,19 @@ class _SignInPageState extends State<SignInPage> {
       context,
       MaterialPageRoute(
         builder: (context) => SignUpPage(viewModel: getIt<SignUpViewModel>()),
+      ),
+    );
+  }
+
+  // Push and not replace: going back from the request returns to Sign in
+  void openPasswordRecovery() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PasswordRecoveryPage(
+          viewModel: getIt<PasswordRecoveryViewModel>(),
+          initialEmail: widget.viewModel.state.email.trim(),
+        ),
       ),
     );
   }
@@ -122,7 +139,17 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
-                    const SizedBox(height: 32),
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: TextButton(
+                        onPressed: state.isLoading ? null : openPasswordRecovery,
+                        child: Text(
+                          l10n.signInForgotPassword,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     PrimaryButton(
                       text: l10n.signInButton,
                       onPressed: viewModel.submit,

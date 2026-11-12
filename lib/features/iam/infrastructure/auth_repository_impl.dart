@@ -51,6 +51,18 @@ class AuthRepositoryImpl implements AuthRepository {
     return _guard(() => api.logout(session.accessToken));
   }
 
+  @override
+  Future<void> requestPasswordRecovery(String email, {String? languageTag}) {
+    return _guard(
+      () => api.requestPasswordRecovery(email, languageTag: languageTag),
+    );
+  }
+
+  @override
+  Future<void> confirmPasswordRecovery(String token, String newPassword) {
+    return _guard(() => api.confirmPasswordRecovery(token, newPassword));
+  }
+
   // Turns the errors of the network and of the backend into errors of the domain
   Future<T> _guard<T>(Future<T> Function() request) async {
     try {
@@ -74,6 +86,8 @@ class AuthRepositoryImpl implements AuthRepository {
       'VERIFICATION_CODE_INVALID' => AuthError.codeInvalid,
       'VERIFICATION_CODE_EXPIRED' => AuthError.codeExpired,
       'VERIFICATION_ATTEMPTS_EXCEEDED' => AuthError.tooManyAttempts,
+      'PASSWORD_RESET_TOKEN_INVALID' => AuthError.resetTokenInvalid,
+      'EMAIL_DELIVERY_FAILED' => AuthError.emailDelivery,
       _ => AuthError.unknown,
     };
   }
