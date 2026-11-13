@@ -332,8 +332,10 @@ class _BoostersList extends StatelessWidget {
     final items = <Widget>[
       ...state.catalog.multipliers.map(
         (item) => _WideProductCard(
-          title: item.name,
-          description: '${item.factor}x por ${item.durationMinutes} minutos',
+          title: 'Multiplicador x${_formatFactor(item.factor)}',
+          description:
+              'Recibe ${_formatFactor(item.factor)}x más EcoPoints durante '
+              '${item.durationMinutes} minutos.',
           price: item.priceInGems,
           icon: Icons.auto_graph,
           busy: state.busyItemId == item.id,
@@ -342,8 +344,8 @@ class _BoostersList extends StatelessWidget {
       ),
       ...state.catalog.streakProtectors.map(
         (item) => _WideProductCard(
-          title: item.name,
-          description: item.description,
+          title: 'Protector de racha',
+          description: 'Evita perder tu racha durante un día.',
           price: item.priceInGems,
           icon: Icons.shield_outlined,
           busy: state.busyItemId == item.id,
@@ -510,21 +512,28 @@ class _ProductCard extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.w600),
               ),
             if (actionLabel != null)
-              SizedBox(
-                height: 34,
-                child: FilledButton(
-                  onPressed: busy ? null : onAction,
-                  style: FilledButton.styleFrom(
-                    minimumSize: const Size(96, 30),
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
-                    textStyle: const TextStyle(fontSize: 11),
+              Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: SizedBox(
+                  height: 30,
+                  child: FilledButton(
+                    onPressed: busy ? null : onAction,
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size(72, 26),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      textStyle: const TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      shape: const StadiumBorder(),
+                    ),
+                    child: busy
+                        ? const SizedBox.square(
+                            dimension: 16,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(actionLabel!),
                   ),
-                  child: busy
-                      ? const SizedBox.square(
-                          dimension: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(actionLabel!),
                 ),
               ),
           ],
@@ -619,16 +628,30 @@ class _WideProductCard extends StatelessWidget {
                     Text(' $price'),
                   ],
                 ),
-                SizedBox(
-                  height: 34,
-                  child: FilledButton(
-                    onPressed: busy ? null : onBuy,
-                    child: busy
-                        ? const SizedBox.square(
-                            dimension: 14,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Text('Comprar', style: TextStyle(fontSize: 10)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: SizedBox(
+                    height: 30,
+                    child: FilledButton(
+                      onPressed: busy ? null : onBuy,
+                      style: FilledButton.styleFrom(
+                        minimumSize: const Size(74, 26),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        shape: const StadiumBorder(),
+                      ),
+                      child: busy
+                          ? const SizedBox.square(
+                              dimension: 14,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Text(
+                              'Comprar',
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                    ),
                   ),
                 ),
               ],
@@ -684,3 +707,9 @@ IconData _cosmeticIcon(CosmeticType type) => switch (type) {
   CosmeticType.accessory => Icons.auto_awesome,
   CosmeticType.unknown => Icons.redeem,
 };
+
+String _formatFactor(double factor) {
+  return factor == factor.roundToDouble()
+      ? factor.toInt().toString()
+      : factor.toStringAsFixed(1);
+}
