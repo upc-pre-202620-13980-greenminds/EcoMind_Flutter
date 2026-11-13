@@ -4,7 +4,7 @@ import 'package:ecomind_parents/features/users/presentation/notification_prefere
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-// Frame 83
+// Frame 83 for a parent and frame 70 for a student
 class NotificationPreferencesPage extends StatefulWidget {
   final NotificationPreferencesViewModel viewModel;
   const new({super.key, required this.viewModel});
@@ -67,6 +67,26 @@ class _NotificationPreferencesPageState
                   ),
                   child: Column(
                     children: [
+                      if (state.isStudent) ...[
+                        _PreferenceRow(
+                          title: l10n.preferencesQuests,
+                          description: l10n.preferencesQuestsDescription,
+                          value: preferences.newQuests,
+                          onChanged: (value) => viewModel.update(
+                            preferences.copyWith(newQuests: value),
+                          ),
+                        ),
+                        const _RowDivider(),
+                        _PreferenceRow(
+                          title: l10n.preferencesLearning,
+                          description: l10n.preferencesLearningDescription,
+                          value: preferences.learningReminders,
+                          onChanged: (value) => viewModel.update(
+                            preferences.copyWith(learningReminders: value),
+                          ),
+                        ),
+                        const _RowDivider(),
+                      ],
                       _PreferenceRow(
                         title: l10n.preferencesAchievements,
                         description: l10n.preferencesAchievementsDescription,

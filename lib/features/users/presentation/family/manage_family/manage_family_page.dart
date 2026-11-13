@@ -125,6 +125,7 @@ class ManageFamilyPage extends StatelessWidget {
                   PersonRow(
                     name: member.name,
                     subtitle: member.role.text(l10n),
+                    avatarImageReference: member.avatarImageReference,
                     trailing: TextLink(
                       text: l10n.manageEditMember,
                       semanticLabel: l10n.manageEditMemberDescription(

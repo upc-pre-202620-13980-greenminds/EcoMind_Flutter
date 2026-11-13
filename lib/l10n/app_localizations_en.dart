@@ -22,10 +22,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navRanking => 'Ranking';
 
   @override
-  String get navMainMenu => 'Main menu';
+  String get navMainMenu => 'Quests';
 
   @override
   String get navProgress => 'Progress';
+
+  @override
+  String get progressActive => 'In Progress';
+
+  @override
+  String get progressFamily => 'Family Quest';
+
+  @override
+  String get progressFinished => 'Finished';
+
+  @override
+  String get progressSeeMore => 'See more';
+
+  @override
+  String get progressViewHistory => 'View history';
+
+  @override
+  String get progressHistory => 'Quest history';
+
+  @override
+  String get progressEmptyActive => 'You have no active activities.';
+
+  @override
+  String get progressEmptyFamily => 'Create a family plan to start!';
+
+  @override
+  String get progressEmptyFinished =>
+      'You haven’t completed any activities yet. Start one!';
+
+  @override
+  String get progressUnavailableQuest => 'Unavailable quest';
+
+  @override
+  String get progressMissingDate => 'Completion date unavailable';
+
+  @override
+  String progressCompletedOn(String date) {
+    return 'Completed on $date';
+  }
+
+  @override
+  String get progressLoadError =>
+      'We couldn’t update your progress. Pull down or try again.';
+
+  @override
+  String get progressCreateFamilyPlan => 'Create family plan';
+
+  @override
+  String get progressShowCompletions => 'Show other completions';
+
+  @override
+  String get progressHideCompletions => 'Hide other completions';
 
   @override
   String get navCommunity => 'Community';
@@ -166,8 +218,92 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorCodeAttempts => 'Too many attempts. Request a new code.';
 
   @override
-  String get errorStudentAccount =>
-      'This application is for parents. Students sign in with the EcoMind student app.';
+  String get signUpRoleLabel => 'I am a';
+
+  @override
+  String get errorRoleRequired => 'Select a role.';
+
+  @override
+  String get commitmentTitle => 'My commitment';
+
+  @override
+  String get commitmentEmpty => 'Set a personal commitment to keep you going.';
+
+  @override
+  String get commitmentAdd => 'Add commitment';
+
+  @override
+  String get commitmentAddTitle => 'Add commitment';
+
+  @override
+  String get commitmentEditTitle => 'Edit commitment';
+
+  @override
+  String get commitmentSubtitle =>
+      'What sustainable habit do you want to keep?';
+
+  @override
+  String get commitmentLabel => 'My commitment';
+
+  @override
+  String get commitmentPlaceholder => 'Write your commitment';
+
+  @override
+  String get commitmentSave => 'Save commitment';
+
+  @override
+  String get commitmentRetry => 'Retry';
+
+  @override
+  String get commitmentCancel => 'Cancel';
+
+  @override
+  String get commitmentRequired => 'Write a commitment before saving.';
+
+  @override
+  String commitmentLength(int max) {
+    return 'Your commitment can have up to $max characters.';
+  }
+
+  @override
+  String commitmentCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
+  String commitmentCounterDescription(int count, int max) {
+    return '$count of $max characters';
+  }
+
+  @override
+  String get commitmentSaveFailed => 'Couldn’t save your commitment.';
+
+  @override
+  String get commitmentSaveFailedHint => 'Your text is still here. Try again.';
+
+  @override
+  String get medalsTitle => 'Medals and achievements';
+
+  @override
+  String get medalsEmpty => 'You have no medals yet.';
+
+  @override
+  String get familyEmptyStudentMessage =>
+      'A parent can create a family and add you as a member.';
+
+  @override
+  String get preferencesQuests => 'New and daily quests';
+
+  @override
+  String get preferencesQuestsDescription =>
+      'New quests available and daily quests';
+
+  @override
+  String get preferencesLearning => 'Learning reminders';
+
+  @override
+  String get preferencesLearningDescription =>
+      'Pending materials you haven’t reviewed';
 
   @override
   String get errorResetOutcomeUnknown =>
@@ -687,4 +823,173 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resetSuccessMessage =>
       'Your password was changed. Sign in with your new password.';
+
+  @override
+  String get questsWelcome => 'Welcome back';
+
+  @override
+  String questsWelcomeName(String name) {
+    return 'Welcome back, $name';
+  }
+
+  @override
+  String get questsPickUp => 'Pick up where you left off';
+
+  @override
+  String get questsContinue => 'Continue quest';
+
+  @override
+  String get questsRecommended => 'Recommended quests';
+
+  @override
+  String get questsSearch => 'Search';
+
+  @override
+  String get questsSearchHint => 'Search by title';
+
+  @override
+  String questsMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String questsAge(int age) {
+    return 'Ages $age+';
+  }
+
+  @override
+  String get questsRetry => 'Try again';
+
+  @override
+  String get questsEmpty => 'There are no recommendations right now.';
+
+  @override
+  String get questsNoResults => 'No quests found.';
+
+  @override
+  String get questsPendingError => 'Could not load your pending quest.';
+
+  @override
+  String get questsCatalogError => 'Could not load the recommendations.';
+
+  @override
+  String get questsResponse => 'Your answer';
+
+  @override
+  String questsMinCharacters(int count) {
+    return 'Minimum $count characters';
+  }
+
+  @override
+  String get questsStart => 'Start quest';
+
+  @override
+  String get questsFinish => 'Finish quest';
+
+  @override
+  String get questsCompleted => 'Quest completed';
+
+  @override
+  String get questsDetailLabel => 'QUEST';
+
+  @override
+  String get questsEnergy => 'energy';
+
+  @override
+  String get questsWater => 'water';
+
+  @override
+  String get questsRecycle => 'recycling';
+
+  @override
+  String get questsCollaborative => 'collaborative';
+
+  @override
+  String questsRewardPoints(int count) {
+    return '$count EcoPoints';
+  }
+
+  @override
+  String questsRewardGems(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gems',
+      one: '1 gem',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String questsPercentCompleted(int percent) {
+    return '$percent% completed';
+  }
+
+  @override
+  String questsAnswerCount(int count, int minimum) {
+    return '$count / $minimum characters minimum';
+  }
+
+  @override
+  String get questsAnswerSaved => 'Saved';
+
+  @override
+  String get questsViewSaved => 'View saved answers';
+
+  @override
+  String get questsRestart => 'Restart quest';
+
+  @override
+  String get questsActivitiesUnavailable =>
+      'These activities are unavailable here.';
+
+  @override
+  String get questsStarting => 'Ready... set...\nQuest started!';
+
+  @override
+  String get questsCelebration => 'Quest completed!\nGood job!';
+
+  @override
+  String get questsNice => 'Nice!';
+
+  @override
+  String get questsDaily => 'Daily quest';
+
+  @override
+  String get questsPending => 'Quest in progress';
+
+  @override
+  String get questsFilters => 'Filters';
+
+  @override
+  String get questsFilterCategory => 'Category';
+
+  @override
+  String get questsFilterType => 'Quest type';
+
+  @override
+  String get questsFilterAge => 'Recommended age';
+
+  @override
+  String get questsFilterTime => 'Estimated time';
+
+  @override
+  String get questsFilterApply => 'Apply';
+
+  @override
+  String get questsFilterMinigame => 'Minigame';
+
+  @override
+  String get questsFilterActivities => 'Activities';
+
+  @override
+  String questsFilterAgeRange(String range) {
+    return 'Ages $range';
+  }
+
+  @override
+  String get questsFilterUpTo15 => 'Up to 15 min';
+
+  @override
+  String get questsFilterOver60 => 'More than 60 min';
 }

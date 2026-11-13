@@ -22,10 +22,62 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navRanking => 'Ranking';
 
   @override
-  String get navMainMenu => 'Menú principal';
+  String get navMainMenu => 'Retos';
 
   @override
   String get navProgress => 'Progreso';
+
+  @override
+  String get progressActive => 'En curso';
+
+  @override
+  String get progressFamily => 'Reto familiar';
+
+  @override
+  String get progressFinished => 'Terminados';
+
+  @override
+  String get progressSeeMore => 'Ver más';
+
+  @override
+  String get progressViewHistory => 'Ver historial';
+
+  @override
+  String get progressHistory => 'Historial de retos';
+
+  @override
+  String get progressEmptyActive => 'No tienes ninguna actividad activa.';
+
+  @override
+  String get progressEmptyFamily => '¡Crea un plan familiar para empezar!';
+
+  @override
+  String get progressEmptyFinished =>
+      'No has completado ninguna actividad. ¡Empieza una!';
+
+  @override
+  String get progressUnavailableQuest => 'Reto no disponible';
+
+  @override
+  String get progressMissingDate => 'Fecha de finalización no disponible';
+
+  @override
+  String progressCompletedOn(String date) {
+    return 'Completado el $date';
+  }
+
+  @override
+  String get progressLoadError =>
+      'No pudimos actualizar tu progreso. Desliza hacia abajo o vuelve a intentarlo.';
+
+  @override
+  String get progressCreateFamilyPlan => 'Crear plan familiar';
+
+  @override
+  String get progressShowCompletions => 'Mostrar otras finalizaciones';
+
+  @override
+  String get progressHideCompletions => 'Ocultar otras finalizaciones';
 
   @override
   String get navCommunity => 'Comunidad';
@@ -169,8 +221,93 @@ class AppLocalizationsEs extends AppLocalizations {
       'Demasiados intentos. Solicita un código nuevo.';
 
   @override
-  String get errorStudentAccount =>
-      'Esta aplicación es para madres y padres. Los estudiantes inician sesión en la aplicación EcoMind para estudiantes.';
+  String get signUpRoleLabel => 'Soy';
+
+  @override
+  String get errorRoleRequired => 'Selecciona un rol.';
+
+  @override
+  String get commitmentTitle => 'Mi compromiso';
+
+  @override
+  String get commitmentEmpty =>
+      'Define un compromiso personal que te mantenga en marcha.';
+
+  @override
+  String get commitmentAdd => 'Añadir compromiso';
+
+  @override
+  String get commitmentAddTitle => 'Añadir compromiso';
+
+  @override
+  String get commitmentEditTitle => 'Editar compromiso';
+
+  @override
+  String get commitmentSubtitle => '¿Qué hábito sostenible quieres mantener?';
+
+  @override
+  String get commitmentLabel => 'Mi compromiso';
+
+  @override
+  String get commitmentPlaceholder => 'Escribe tu compromiso';
+
+  @override
+  String get commitmentSave => 'Guardar compromiso';
+
+  @override
+  String get commitmentRetry => 'Reintentar';
+
+  @override
+  String get commitmentCancel => 'Cancelar';
+
+  @override
+  String get commitmentRequired => 'Escribe un compromiso antes de guardar.';
+
+  @override
+  String commitmentLength(int max) {
+    return 'Tu compromiso puede tener hasta $max caracteres.';
+  }
+
+  @override
+  String commitmentCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
+  String commitmentCounterDescription(int count, int max) {
+    return '$count de $max caracteres';
+  }
+
+  @override
+  String get commitmentSaveFailed => 'No se pudo guardar tu compromiso.';
+
+  @override
+  String get commitmentSaveFailedHint =>
+      'Tu texto sigue aquí. Inténtalo de nuevo.';
+
+  @override
+  String get medalsTitle => 'Medallas y logros';
+
+  @override
+  String get medalsEmpty => 'Aún no tienes medallas.';
+
+  @override
+  String get familyEmptyStudentMessage =>
+      'Tu madre o tu padre puede crear una familia y añadirte como miembro.';
+
+  @override
+  String get preferencesQuests => 'Misiones nuevas y diarias';
+
+  @override
+  String get preferencesQuestsDescription =>
+      'Misiones nuevas disponibles y misiones diarias';
+
+  @override
+  String get preferencesLearning => 'Recordatorios de aprendizaje';
+
+  @override
+  String get preferencesLearningDescription =>
+      'Materiales pendientes que aún no revisas';
 
   @override
   String get errorResetOutcomeUnknown =>
@@ -697,6 +834,175 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get resetSuccessMessage =>
       'Tu contraseña se cambió. Inicia sesión con tu contraseña nueva.';
+
+  @override
+  String get questsWelcome => 'Bienvenido de vuelta';
+
+  @override
+  String questsWelcomeName(String name) {
+    return 'Bienvenido de vuelta, $name';
+  }
+
+  @override
+  String get questsPickUp => 'Continúa donde te quedaste';
+
+  @override
+  String get questsContinue => 'Continuar reto';
+
+  @override
+  String get questsRecommended => 'Retos recomendados';
+
+  @override
+  String get questsSearch => 'Buscar';
+
+  @override
+  String get questsSearchHint => 'Buscar por título';
+
+  @override
+  String questsMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String questsAge(int age) {
+    return 'Desde $age años';
+  }
+
+  @override
+  String get questsRetry => 'Reintentar';
+
+  @override
+  String get questsEmpty => 'Por ahora no hay retos recomendados.';
+
+  @override
+  String get questsNoResults => 'No encontramos retos.';
+
+  @override
+  String get questsPendingError => 'No pudimos cargar tu reto pendiente.';
+
+  @override
+  String get questsCatalogError => 'No pudimos cargar los retos recomendados.';
+
+  @override
+  String get questsResponse => 'Tu respuesta';
+
+  @override
+  String questsMinCharacters(int count) {
+    return 'Mínimo $count caracteres';
+  }
+
+  @override
+  String get questsStart => 'Empezar reto';
+
+  @override
+  String get questsFinish => 'Finalizar reto';
+
+  @override
+  String get questsCompleted => 'Reto completado';
+
+  @override
+  String get questsDetailLabel => 'RETO';
+
+  @override
+  String get questsEnergy => 'energía';
+
+  @override
+  String get questsWater => 'agua';
+
+  @override
+  String get questsRecycle => 'reciclaje';
+
+  @override
+  String get questsCollaborative => 'colaborativo';
+
+  @override
+  String questsRewardPoints(int count) {
+    return '$count EcoPoints';
+  }
+
+  @override
+  String questsRewardGems(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gemas',
+      one: '1 gema',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String questsPercentCompleted(int percent) {
+    return '$percent % completado';
+  }
+
+  @override
+  String questsAnswerCount(int count, int minimum) {
+    return '$count / $minimum caracteres como mínimo';
+  }
+
+  @override
+  String get questsAnswerSaved => 'Guardado';
+
+  @override
+  String get questsViewSaved => 'Ver respuestas guardadas';
+
+  @override
+  String get questsRestart => 'Reiniciar reto';
+
+  @override
+  String get questsActivitiesUnavailable =>
+      'Estas actividades no están disponibles aquí.';
+
+  @override
+  String get questsStarting => '¡Preparados, listos…\ncomenzó el reto!';
+
+  @override
+  String get questsCelebration => '¡Reto completado!\n¡Buen trabajo!';
+
+  @override
+  String get questsNice => '¡Genial!';
+
+  @override
+  String get questsDaily => 'Reto diario';
+
+  @override
+  String get questsPending => 'Reto en curso';
+
+  @override
+  String get questsFilters => 'Filtros';
+
+  @override
+  String get questsFilterCategory => 'Categoría';
+
+  @override
+  String get questsFilterType => 'Tipo de reto';
+
+  @override
+  String get questsFilterAge => 'Edad recomendada';
+
+  @override
+  String get questsFilterTime => 'Tiempo estimado';
+
+  @override
+  String get questsFilterApply => 'Aplicar';
+
+  @override
+  String get questsFilterMinigame => 'Minijuego';
+
+  @override
+  String get questsFilterActivities => 'Actividades';
+
+  @override
+  String questsFilterAgeRange(String range) {
+    return '$range años';
+  }
+
+  @override
+  String get questsFilterUpTo15 => 'Hasta 15 min';
+
+  @override
+  String get questsFilterOver60 => 'Más de 60 min';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

@@ -1,4 +1,4 @@
-// Categories of the backend; the parent only sees the last four
+// Categories of the backend; a parent only sees the last four
 enum NotificationCategory {
   newAndDailyQuests,
   learningReminders,

@@ -13,9 +13,13 @@ extension FamilyRoleText on FamilyRole {
 }
 
 extension FamilyMemberSubtitle on FamilyMember {
-  // "Parent · family manager" for the parent who is signed in, the role for the rest
+  // "Parent · family manager" for a parent who is signed in, the role for the rest.
+  // A student who is signed in only sees their role, as in the student app.
   String subtitle(AppLocalizations l10n) {
-    return isCurrentUser ? l10n.familyManagerRole : role.text(l10n);
+    if (isCurrentUser && role == FamilyRole.parent) {
+      return l10n.familyManagerRole;
+    }
+    return role.text(l10n);
   }
 }
 

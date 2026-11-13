@@ -126,7 +126,7 @@ abstract class AppLocalizations {
   /// No description provided for @navMainMenu.
   ///
   /// In en, this message translates to:
-  /// **'Main menu'**
+  /// **'Quests'**
   String get navMainMenu;
 
   /// No description provided for @navProgress.
@@ -134,6 +134,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Progress'**
   String get navProgress;
+
+  /// No description provided for @progressActive.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get progressActive;
+
+  /// No description provided for @progressFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Quest'**
+  String get progressFamily;
+
+  /// No description provided for @progressFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get progressFinished;
+
+  /// No description provided for @progressSeeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'See more'**
+  String get progressSeeMore;
+
+  /// No description provided for @progressViewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View history'**
+  String get progressViewHistory;
+
+  /// No description provided for @progressHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest history'**
+  String get progressHistory;
+
+  /// No description provided for @progressEmptyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no active activities.'**
+  String get progressEmptyActive;
+
+  /// No description provided for @progressEmptyFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a family plan to start!'**
+  String get progressEmptyFamily;
+
+  /// No description provided for @progressEmptyFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven’t completed any activities yet. Start one!'**
+  String get progressEmptyFinished;
+
+  /// No description provided for @progressUnavailableQuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable quest'**
+  String get progressUnavailableQuest;
+
+  /// No description provided for @progressMissingDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion date unavailable'**
+  String get progressMissingDate;
+
+  /// No description provided for @progressCompletedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed on {date}'**
+  String progressCompletedOn(String date);
+
+  /// No description provided for @progressLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t update your progress. Pull down or try again.'**
+  String get progressLoadError;
+
+  /// No description provided for @progressCreateFamilyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Create family plan'**
+  String get progressCreateFamilyPlan;
+
+  /// No description provided for @progressShowCompletions.
+  ///
+  /// In en, this message translates to:
+  /// **'Show other completions'**
+  String get progressShowCompletions;
+
+  /// No description provided for @progressHideCompletions.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide other completions'**
+  String get progressHideCompletions;
 
   /// No description provided for @navCommunity.
   ///
@@ -399,11 +495,161 @@ abstract class AppLocalizations {
   /// **'Too many attempts. Request a new code.'**
   String get errorCodeAttempts;
 
-  /// No description provided for @errorStudentAccount.
+  /// No description provided for @signUpRoleLabel.
   ///
   /// In en, this message translates to:
-  /// **'This application is for parents. Students sign in with the EcoMind student app.'**
-  String get errorStudentAccount;
+  /// **'I am a'**
+  String get signUpRoleLabel;
+
+  /// No description provided for @errorRoleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a role.'**
+  String get errorRoleRequired;
+
+  /// No description provided for @commitmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My commitment'**
+  String get commitmentTitle;
+
+  /// No description provided for @commitmentEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a personal commitment to keep you going.'**
+  String get commitmentEmpty;
+
+  /// No description provided for @commitmentAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add commitment'**
+  String get commitmentAdd;
+
+  /// No description provided for @commitmentAddTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add commitment'**
+  String get commitmentAddTitle;
+
+  /// No description provided for @commitmentEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit commitment'**
+  String get commitmentEditTitle;
+
+  /// No description provided for @commitmentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What sustainable habit do you want to keep?'**
+  String get commitmentSubtitle;
+
+  /// No description provided for @commitmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'My commitment'**
+  String get commitmentLabel;
+
+  /// No description provided for @commitmentPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your commitment'**
+  String get commitmentPlaceholder;
+
+  /// No description provided for @commitmentSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save commitment'**
+  String get commitmentSave;
+
+  /// No description provided for @commitmentRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get commitmentRetry;
+
+  /// No description provided for @commitmentCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commitmentCancel;
+
+  /// No description provided for @commitmentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a commitment before saving.'**
+  String get commitmentRequired;
+
+  /// No description provided for @commitmentLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Your commitment can have up to {max} characters.'**
+  String commitmentLength(int max);
+
+  /// No description provided for @commitmentCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{max}'**
+  String commitmentCounter(int count, int max);
+
+  /// No description provided for @commitmentCounterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {max} characters'**
+  String commitmentCounterDescription(int count, int max);
+
+  /// No description provided for @commitmentSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your commitment.'**
+  String get commitmentSaveFailed;
+
+  /// No description provided for @commitmentSaveFailedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your text is still here. Try again.'**
+  String get commitmentSaveFailedHint;
+
+  /// No description provided for @medalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Medals and achievements'**
+  String get medalsTitle;
+
+  /// No description provided for @medalsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no medals yet.'**
+  String get medalsEmpty;
+
+  /// No description provided for @familyEmptyStudentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A parent can create a family and add you as a member.'**
+  String get familyEmptyStudentMessage;
+
+  /// No description provided for @preferencesQuests.
+  ///
+  /// In en, this message translates to:
+  /// **'New and daily quests'**
+  String get preferencesQuests;
+
+  /// No description provided for @preferencesQuestsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'New quests available and daily quests'**
+  String get preferencesQuestsDescription;
+
+  /// No description provided for @preferencesLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning reminders'**
+  String get preferencesLearning;
+
+  /// No description provided for @preferencesLearningDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending materials you haven’t reviewed'**
+  String get preferencesLearningDescription;
 
   /// No description provided for @errorResetOutcomeUnknown.
   ///
@@ -1266,6 +1512,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your password was changed. Sign in with your new password.'**
   String get resetSuccessMessage;
+
+  /// No description provided for @questsWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get questsWelcome;
+
+  /// No description provided for @questsWelcomeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back, {name}'**
+  String questsWelcomeName(String name);
+
+  /// No description provided for @questsPickUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up where you left off'**
+  String get questsPickUp;
+
+  /// No description provided for @questsContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue quest'**
+  String get questsContinue;
+
+  /// No description provided for @questsRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended quests'**
+  String get questsRecommended;
+
+  /// No description provided for @questsSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get questsSearch;
+
+  /// No description provided for @questsSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by title'**
+  String get questsSearchHint;
+
+  /// No description provided for @questsMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String questsMinutes(int minutes);
+
+  /// No description provided for @questsAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Ages {age}+'**
+  String questsAge(int age);
+
+  /// No description provided for @questsRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get questsRetry;
+
+  /// No description provided for @questsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no recommendations right now.'**
+  String get questsEmpty;
+
+  /// No description provided for @questsNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No quests found.'**
+  String get questsNoResults;
+
+  /// No description provided for @questsPendingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your pending quest.'**
+  String get questsPendingError;
+
+  /// No description provided for @questsCatalogError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the recommendations.'**
+  String get questsCatalogError;
+
+  /// No description provided for @questsResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get questsResponse;
+
+  /// No description provided for @questsMinCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum {count} characters'**
+  String questsMinCharacters(int count);
+
+  /// No description provided for @questsStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start quest'**
+  String get questsStart;
+
+  /// No description provided for @questsFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish quest'**
+  String get questsFinish;
+
+  /// No description provided for @questsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest completed'**
+  String get questsCompleted;
+
+  /// No description provided for @questsDetailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'QUEST'**
+  String get questsDetailLabel;
+
+  /// No description provided for @questsEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'energy'**
+  String get questsEnergy;
+
+  /// No description provided for @questsWater.
+  ///
+  /// In en, this message translates to:
+  /// **'water'**
+  String get questsWater;
+
+  /// No description provided for @questsRecycle.
+  ///
+  /// In en, this message translates to:
+  /// **'recycling'**
+  String get questsRecycle;
+
+  /// No description provided for @questsCollaborative.
+  ///
+  /// In en, this message translates to:
+  /// **'collaborative'**
+  String get questsCollaborative;
+
+  /// No description provided for @questsRewardPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} EcoPoints'**
+  String questsRewardPoints(int count);
+
+  /// No description provided for @questsRewardGems.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 gem} other{{count} gems}}'**
+  String questsRewardGems(int count);
+
+  /// No description provided for @questsPercentCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% completed'**
+  String questsPercentCompleted(int percent);
+
+  /// No description provided for @questsAnswerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} / {minimum} characters minimum'**
+  String questsAnswerCount(int count, int minimum);
+
+  /// No description provided for @questsAnswerSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get questsAnswerSaved;
+
+  /// No description provided for @questsViewSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'View saved answers'**
+  String get questsViewSaved;
+
+  /// No description provided for @questsRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart quest'**
+  String get questsRestart;
+
+  /// No description provided for @questsActivitiesUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'These activities are unavailable here.'**
+  String get questsActivitiesUnavailable;
+
+  /// No description provided for @questsStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready... set...\nQuest started!'**
+  String get questsStarting;
+
+  /// No description provided for @questsCelebration.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest completed!\nGood job!'**
+  String get questsCelebration;
+
+  /// No description provided for @questsNice.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice!'**
+  String get questsNice;
+
+  /// No description provided for @questsDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily quest'**
+  String get questsDaily;
+
+  /// No description provided for @questsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest in progress'**
+  String get questsPending;
+
+  /// No description provided for @questsFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get questsFilters;
+
+  /// No description provided for @questsFilterCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get questsFilterCategory;
+
+  /// No description provided for @questsFilterType.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest type'**
+  String get questsFilterType;
+
+  /// No description provided for @questsFilterAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended age'**
+  String get questsFilterAge;
+
+  /// No description provided for @questsFilterTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated time'**
+  String get questsFilterTime;
+
+  /// No description provided for @questsFilterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get questsFilterApply;
+
+  /// No description provided for @questsFilterMinigame.
+  ///
+  /// In en, this message translates to:
+  /// **'Minigame'**
+  String get questsFilterMinigame;
+
+  /// No description provided for @questsFilterActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'Activities'**
+  String get questsFilterActivities;
+
+  /// No description provided for @questsFilterAgeRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Ages {range}'**
+  String questsFilterAgeRange(String range);
+
+  /// No description provided for @questsFilterUpTo15.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to 15 min'**
+  String get questsFilterUpTo15;
+
+  /// No description provided for @questsFilterOver60.
+  ///
+  /// In en, this message translates to:
+  /// **'More than 60 min'**
+  String get questsFilterOver60;
 }
 
 class _AppLocalizationsDelegate

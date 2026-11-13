@@ -30,6 +30,7 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/quests/
   fonts:
     - family: Poppins
       fonts:

@@ -12,10 +12,13 @@ import 'package:ecomind_parents/features/users/presentation/report/weekly_report
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-// Family tab of the profile: "No family yet" (frame 23) or the family (frame 17)
+// Family tab of the profile: "No family yet" (frame 23) or the family (frame 17).
+// Only a parent creates and manages the family (HU-019) and opens its report (HU-021);
+// a student reads it, as in the student app (frame 15).
 class FamilyTabContent extends StatelessWidget {
   final FamilyViewModel viewModel;
-  const new({super.key, required this.viewModel});
+  final bool canManage;
+  const new({super.key, required this.viewModel, required this.canManage});
 
   void openWeeklyReport(BuildContext context) {
     Navigator.push(
@@ -60,22 +63,27 @@ class FamilyTabContent extends StatelessWidget {
             children: [
               EmptyStateMessage(
                 title: l10n.familyEmptyTitle,
-                message: l10n.familyEmptyMessage,
+                message: canManage
+                    ? l10n.familyEmptyMessage
+                    : l10n.familyEmptyStudentMessage,
                 titleSize: 20,
               ),
-              const SizedBox(height: 8),
-              TextLink(
-                text: l10n.familyCreate,
-                fontSize: 14,
-                onPressed: () => CreateFamilyPage.open(context, viewModel),
-              ),
+              if (canManage) ...[
+                const SizedBox(height: 8),
+                TextLink(
+                  text: l10n.familyCreate,
+                  fontSize: 14,
+                  onPressed: () => CreateFamilyPage.open(context, viewModel),
+                ),
+              ],
             ],
           );
         }
         return _FamilyContent(
           family: family,
-          onManage: () => openManageFamily(context),
-          onWeeklyReport: () => openWeeklyReport(context),
+          // Null hides the link, so a student does not see it
+          onManage: canManage ? () => openManageFamily(context) : null,
+          onWeeklyReport: canManage ? () => openWeeklyReport(context) : null,
         );
       },
     );
@@ -89,8 +97,8 @@ class _FamilyContent extends StatelessWidget {
     required this.onWeeklyReport,
   });
   final Family family;
-  final VoidCallback onManage;
-  final VoidCallback onWeeklyReport;
+  final VoidCallback? onManage;
+  final VoidCallback? onWeeklyReport;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +124,8 @@ class _FamilyContent extends StatelessWidget {
                 ),
               ),
             ),
-            TextLink(text: l10n.familyManage, onPressed: onManage),
+            if (onManage != null)
+              TextLink(text: l10n.familyManage, onPressed: onManage),
           ],
         ),
         Text(
@@ -144,7 +153,8 @@ class _FamilyContent extends StatelessWidget {
                 ),
               ),
             ),
-            TextLink(text: l10n.weeklyReportLink, onPressed: onWeeklyReport),
+            if (onWeeklyReport != null)
+              TextLink(text: l10n.weeklyReportLink, onPressed: onWeeklyReport),
           ],
         ),
         const SizedBox(height: 4),
@@ -152,6 +162,7 @@ class _FamilyContent extends StatelessWidget {
           PersonRow(
             name: member.name,
             subtitle: member.subtitle(l10n),
+            avatarImageReference: member.avatarImageReference,
             trailing: member.isCurrentUser
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),

@@ -1,3 +1,5 @@
+import 'package:ecomind_parents/features/iam/domain/social_role.dart';
+import 'package:ecomind_parents/features/users/application/get_current_profile_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_notification_preferences_use_case.dart';
 import 'package:ecomind_parents/features/users/application/update_notification_preferences_use_case.dart';
 import 'package:ecomind_parents/features/users/domain/notification_preferences.dart';
@@ -7,8 +9,13 @@ import 'package:flutter/material.dart';
 class NotificationPreferencesViewModel extends ChangeNotifier {
   final GetNotificationPreferencesUseCase getPreferences;
   final UpdateNotificationPreferencesUseCase updatePreferences;
+  final GetCurrentProfileUseCase getCurrentProfile;
 
-  new({required this.getPreferences, required this.updatePreferences});
+  new({
+    required this.getPreferences,
+    required this.updatePreferences,
+    required this.getCurrentProfile,
+  });
 
   NotificationPreferencesState _state = NotificationPreferencesState();
   NotificationPreferencesState get state => _state;
@@ -23,6 +30,14 @@ class NotificationPreferencesViewModel extends ChangeNotifier {
     } catch (e) {
       // Without the saved values every category stays on, which is the default
       _state = _state.copyWith(isLoading: false);
+    }
+    try {
+      final profile = await getCurrentProfile.execute();
+      _state = _state.copyWith(
+        isStudent: profile.socialRole == SocialRole.student,
+      );
+    } catch (e) {
+      // Without the profile only the four categories that every user has are shown
     }
     notifyListeners();
   }
