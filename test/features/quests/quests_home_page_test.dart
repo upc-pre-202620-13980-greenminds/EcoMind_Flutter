@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/theme.dart';
 import 'package:ecomind_parents/features/iam/domain/social_role.dart';
@@ -80,6 +82,51 @@ void main() {
     expect(quests.searchedTitle, 'agua');
     expect(find.text(_Quests.recommended.title), findsOneWidget);
   });
+
+  testWidgets('shows detail, activities and rewards in separate stages', (
+    tester,
+  ) async {
+    final quests = _Quests(hasPending: false);
+    await openHome(tester, quests);
+    quests.loadingDetails = Completer<void>();
+    await tester.tap(find.text(_Quests.recommended.title));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('RETO'), findsOneWidget);
+    expect(find.text('agua'), findsOneWidget);
+    expect(find.text(_Quests.recommended.description), findsOneWidget);
+    expect(find.byType(CheckboxListTile), findsNothing);
+    expect(quests.detailsLoads, 0);
+
+    await tester.tap(find.text('Empezar reto'));
+    await tester.pump();
+    expect(quests.detailsLoads, 1);
+    expect(quests.started, isFalse);
+    quests.loadingDetails!.complete();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('¡Preparados, listos…\ncomenzó el reto!'), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 2200));
+    await tester.pumpAndSettle();
+    expect(find.text('0 % completado'), findsOneWidget);
+    quests.savingCheck = Completer<void>();
+    await tester.tap(find.byType(CheckboxListTile));
+    await tester.pump();
+    expect(
+      tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+      isTrue,
+    );
+    expect(find.text('0 % completado'), findsOneWidget);
+    quests.savingCheck!.complete();
+    await tester.pumpAndSettle();
+    expect(find.text('100 % completado'), findsOneWidget);
+    expect(quests.detailsLoads, 2);
+
+    await tester.tap(find.text('Finalizar reto'));
+    await tester.pumpAndSettle();
+    expect(find.text('¡Reto completado!\n¡Buen trabajo!'), findsOneWidget);
+    expect(find.text('+20 EcoPoints'), findsOneWidget);
+    expect(find.text('+3 gemas'), findsOneWidget);
+  });
 }
 
 class _Profile extends ChangeNotifier implements ProfileViewModel {
@@ -119,6 +166,9 @@ class _Quests implements QuestRepository {
     type: 'ACTIVITIES',
     minutes: 5,
     age: 8,
+    category: 'WATER',
+    ecopoints: 20,
+    gems: 3,
   );
   static const _pending = (
     quest: Quest(
@@ -134,6 +184,11 @@ class _Quests implements QuestRepository {
   final bool hasPending;
   int? openedAssignmentId;
   String? searchedTitle;
+  bool started = false;
+  bool checked = false;
+  Completer<void>? savingCheck;
+  Completer<void>? loadingDetails;
+  int detailsLoads = 0;
 
   @override
   Future<List<Quest>> getCatalog() async => [recommended, _pending.quest];
@@ -149,7 +204,30 @@ class _Quests implements QuestRepository {
 
   @override
   Future<QuestDetails> getDetails(Quest quest, {int? assignmentId}) async {
+    detailsLoads++;
+    await loadingDetails?.future;
     openedAssignmentId = assignmentId;
+    if (quest == recommended) {
+      return (
+        assignment: !started
+            ? null
+            : QuestAssignment(
+                id: 51,
+                questId: quest.id,
+                status: checked ? 'READY_TO_COMPLETE' : 'IN_PROGRESS',
+                progress: checked ? 100 : 0,
+              ),
+        activities: [
+          QuestActivity(
+            description: 'Revisen los caños',
+            type: 'CHECKBOX',
+            assignmentId: started ? 71 : null,
+            isComplete: checked,
+            minCharacters: 1,
+          ),
+        ],
+      );
+    }
     return (
       assignment: _pending.assignment,
       activities: const [
@@ -162,6 +240,37 @@ class _Quests implements QuestRepository {
         ),
       ],
     );
+  }
+
+  @override
+  Future<int> start(int questId) async {
+    expect(questId, recommended.id);
+    started = true;
+    return 51;
+  }
+
+  @override
+  Future<({QuestAssignment assignment, bool isComplete, String? response})>
+  submit(int activityId, Map<String, Object> value) async {
+    expect(activityId, 71);
+    await savingCheck?.future;
+    checked = value['checked'] == true;
+    return (
+      assignment: QuestAssignment(
+        id: 51,
+        questId: recommended.id,
+        status: checked ? 'READY_TO_COMPLETE' : 'IN_PROGRESS',
+        progress: checked ? 100 : 0,
+      ),
+      isComplete: checked,
+      response: null,
+    );
+  }
+
+  @override
+  Future<void> finish(int assignmentId) async {
+    expect(assignmentId, 51);
+    expect(checked, isTrue);
   }
 
   @override

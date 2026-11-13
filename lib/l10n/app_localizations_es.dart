@@ -758,6 +758,69 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get questsCompleted => 'Reto completado';
+
+  @override
+  String get questsDetailLabel => 'RETO';
+
+  @override
+  String get questsEnergy => 'energía';
+
+  @override
+  String get questsWater => 'agua';
+
+  @override
+  String get questsRecycle => 'reciclaje';
+
+  @override
+  String get questsCollaborative => 'colaborativo';
+
+  @override
+  String questsRewardPoints(int count) {
+    return '$count EcoPoints';
+  }
+
+  @override
+  String questsRewardGems(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gemas',
+      one: '1 gema',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String questsPercentCompleted(int percent) {
+    return '$percent % completado';
+  }
+
+  @override
+  String questsAnswerCount(int count, int minimum) {
+    return '$count / $minimum caracteres como mínimo';
+  }
+
+  @override
+  String get questsAnswerSaved => 'Guardado';
+
+  @override
+  String get questsViewSaved => 'Ver respuestas guardadas';
+
+  @override
+  String get questsRestart => 'Reiniciar reto';
+
+  @override
+  String get questsActivitiesUnavailable =>
+      'Estas actividades no están disponibles aquí.';
+
+  @override
+  String get questsStarting => '¡Preparados, listos…\ncomenzó el reto!';
+
+  @override
+  String get questsCelebration => '¡Reto completado!\n¡Buen trabajo!';
+
+  @override
+  String get questsNice => '¡Genial!';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

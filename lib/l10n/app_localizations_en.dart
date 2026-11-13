@@ -748,4 +748,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get questsCompleted => 'Quest completed';
+
+  @override
+  String get questsDetailLabel => 'QUEST';
+
+  @override
+  String get questsEnergy => 'energy';
+
+  @override
+  String get questsWater => 'water';
+
+  @override
+  String get questsRecycle => 'recycling';
+
+  @override
+  String get questsCollaborative => 'collaborative';
+
+  @override
+  String questsRewardPoints(int count) {
+    return '$count EcoPoints';
+  }
+
+  @override
+  String questsRewardGems(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gems',
+      one: '1 gem',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String questsPercentCompleted(int percent) {
+    return '$percent% completed';
+  }
+
+  @override
+  String questsAnswerCount(int count, int minimum) {
+    return '$count / $minimum characters minimum';
+  }
+
+  @override
+  String get questsAnswerSaved => 'Saved';
+
+  @override
+  String get questsViewSaved => 'View saved answers';
+
+  @override
+  String get questsRestart => 'Restart quest';
+
+  @override
+  String get questsActivitiesUnavailable =>
+      'These activities are unavailable here.';
+
+  @override
+  String get questsStarting => 'Ready... set...\nQuest started!';
+
+  @override
+  String get questsCelebration => 'Quest completed!\nGood job!';
+
+  @override
+  String get questsNice => 'Nice!';
 }

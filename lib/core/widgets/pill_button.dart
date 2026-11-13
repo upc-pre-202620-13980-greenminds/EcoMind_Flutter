@@ -7,10 +7,18 @@ class PillButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.isLoading = false,
+    this.enabled = true,
+    this.faceColor,
+    this.shadowColor,
+    this.buttonHeight = height,
   });
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
+  final bool enabled;
+  final Color? faceColor;
+  final Color? shadowColor;
+  final double buttonHeight;
 
   // Same height in the design and in the minimum touch target
   static const double height = 48;
@@ -20,25 +28,26 @@ class PillButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final faceColor = Theme.of(context).colorScheme.primary;
+    final faceColor = enabled
+        ? this.faceColor ?? Theme.of(context).colorScheme.primary
+        : const Color(0xffa4a4a4);
+    final base = enabled ? shadowColor ?? baseColor : Colors.grey;
+    final depth = buttonHeight * 0.1;
     final shape = const StadiumBorder();
 
     return Semantics(
       button: true,
-      enabled: !isLoading,
+      enabled: enabled && !isLoading,
       child: SizedBox(
-        height: height,
+        height: buttonHeight,
         width: double.infinity,
         child: Stack(
           children: [
             // Base: what is seen under the face
             Positioned.fill(
               top: depth,
-              child: const DecoratedBox(
-                decoration: ShapeDecoration(
-                  color: baseColor,
-                  shape: StadiumBorder(),
-                ),
+              child: DecoratedBox(
+                decoration: ShapeDecoration(color: base, shape: shape),
               ),
             ),
             // Face, with a lighter band at the top
@@ -68,7 +77,7 @@ class PillButton extends StatelessWidget {
                     ),
                   ),
                   child: InkWell(
-                    onTap: isLoading ? null : onPressed,
+                    onTap: isLoading || !enabled ? null : onPressed,
                     customBorder: shape,
                     child: Center(
                       child: isLoading
@@ -84,15 +93,15 @@ class PillButton extends StatelessWidget {
                               text,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
                                 color: Colors.white,
                                 shadows: [
                                   Shadow(
-                                    color: baseColor,
-                                    offset: Offset(0, 1.5),
+                                    color: base,
+                                    offset: const Offset(0, 1.5),
                                     blurRadius: 1.5,
                                   ),
                                 ],

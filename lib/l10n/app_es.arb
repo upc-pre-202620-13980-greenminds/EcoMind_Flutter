@@ -210,5 +210,21 @@
   "questsMinCharacters": "Mínimo {count} caracteres",
   "questsStart": "Empezar reto",
   "questsFinish": "Finalizar reto",
-  "questsCompleted": "Reto completado"
+  "questsCompleted": "Reto completado",
+  "questsDetailLabel": "RETO",
+  "questsEnergy": "energía",
+  "questsWater": "agua",
+  "questsRecycle": "reciclaje",
+  "questsCollaborative": "colaborativo",
+  "questsRewardPoints": "{count} EcoPoints",
+  "questsRewardGems": "{count, plural, one{1 gema} other{{count} gemas}}",
+  "questsPercentCompleted": "{percent} % completado",
+  "questsAnswerCount": "{count} / {minimum} caracteres como mínimo",
+  "questsAnswerSaved": "Guardado",
+  "questsViewSaved": "Ver respuestas guardadas",
+  "questsRestart": "Reiniciar reto",
+  "questsActivitiesUnavailable": "Estas actividades no están disponibles aquí.",
+  "questsStarting": "¡Preparados, listos…\ncomenzó el reto!",
+  "questsCelebration": "¡Reto completado!\n¡Buen trabajo!",
+  "questsNice": "¡Genial!"
 }

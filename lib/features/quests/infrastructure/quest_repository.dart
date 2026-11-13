@@ -46,18 +46,12 @@ class QuestRepository {
   }
 
   Future<QuestDetails> getDetails(Quest quest, {int? assignmentId}) async {
-    final data = await _request(
-      assignmentId == null
-          ? '/quest-users/me/quest/${quest.id}'
-          : '/quest-users/$assignmentId',
-      allowNotFound: assignmentId == null,
-    );
-    final assignment = data == null ? null : _assignment(data);
-    final rows =
-        (await _request('/activities/quest/${quest.id}') as List)
-            .cast<Map<String, dynamic>>()
-            .toList()
-          ..sort((a, b) => (a['order'] as int).compareTo(b['order'] as int));
+    final (assignment, activityData) = await (
+      _findAssignment(quest.id, assignmentId),
+      _request('/activities/quest/${quest.id}'),
+    ).wait;
+    final rows = (activityData as List).cast<Map<String, dynamic>>().toList()
+      ..sort((a, b) => (a['order'] as int).compareTo(b['order'] as int));
     final saved = <int, Map<String, dynamic>>{};
     if (assignment != null) {
       final items =
@@ -71,9 +65,11 @@ class QuestRepository {
       activities: rows.map((row) {
         final item = saved[row['id']];
         final config = item?['activityConfiguration'] as Map<String, dynamic>?;
+        final prompt = item?['activityDescription'] as String?;
         return QuestActivity(
-          description:
-              (item?['activityDescription'] ?? row['description']) as String,
+          description: prompt == null || prompt.trim().isEmpty
+              ? row['description'] as String
+              : prompt,
           type: row['type'] as String,
           assignmentId: item?['id'] as int?,
           isComplete: ((item?['progress'] as num?) ?? 0) >= 100,
@@ -84,13 +80,38 @@ class QuestRepository {
     );
   }
 
+  Future<QuestAssignment?> _findAssignment(
+    int questId,
+    int? assignmentId,
+  ) async {
+    final data = await _request(
+      assignmentId == null
+          ? '/quest-users/me/quest/$questId'
+          : '/quest-users/$assignmentId',
+      allowNotFound: assignmentId == null,
+    );
+    return data == null ? null : _assignment(data);
+  }
+
   Future<int> start(int questId) async {
     final data = await _request('/quest-users', body: {'questId': questId});
     return _assignment(data).id;
   }
 
-  Future<void> submit(int activityId, Map<String, Object> value) async {
-    await _request('/activity-users/$activityId/submit', body: {'data': value});
+  Future<({QuestAssignment assignment, bool isComplete, String? response})>
+  submit(int activityId, Map<String, Object> value) async {
+    final data = await _request(
+      '/activity-users/$activityId/submit',
+      body: {'data': value},
+    ) as Map<String, dynamic>;
+    final assignment = _assignment(
+      await _request('/quest-users/${data['questUserId']}'),
+    );
+    return (
+      assignment: assignment,
+      isComplete: (data['progress'] as num) >= 100,
+      response: data['responseText'] as String?,
+    );
   }
 
   Future<void> finish(int assignmentId) async {
@@ -143,11 +164,17 @@ class QuestRepository {
     type: json['type'] as String,
     age: json['age'] as int?,
     minutes: json['time'] as int?,
+    category: json['category'] as String?,
+    imageUrl: json['image'] as String?,
+    ecopoints: json['ecopoints'] as int? ?? 0,
+    gems: json['gemReward'] as int? ?? 0,
   );
 
   QuestAssignment _assignment(Map<String, dynamic> json) => QuestAssignment(
     id: json['id'] as int,
     questId: json['questId'] as int,
     status: json['status'] as String,
+    progress: (json['progress'] as num?)?.toDouble() ?? 0,
+    collaborativeSessionId: json['collaborativeSessionId'] as int?,
   );
 }

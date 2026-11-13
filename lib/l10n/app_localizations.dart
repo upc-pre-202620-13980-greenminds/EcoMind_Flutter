@@ -1374,6 +1374,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quest completed'**
   String get questsCompleted;
+
+  /// No description provided for @questsDetailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'QUEST'**
+  String get questsDetailLabel;
+
+  /// No description provided for @questsEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'energy'**
+  String get questsEnergy;
+
+  /// No description provided for @questsWater.
+  ///
+  /// In en, this message translates to:
+  /// **'water'**
+  String get questsWater;
+
+  /// No description provided for @questsRecycle.
+  ///
+  /// In en, this message translates to:
+  /// **'recycling'**
+  String get questsRecycle;
+
+  /// No description provided for @questsCollaborative.
+  ///
+  /// In en, this message translates to:
+  /// **'collaborative'**
+  String get questsCollaborative;
+
+  /// No description provided for @questsRewardPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} EcoPoints'**
+  String questsRewardPoints(int count);
+
+  /// No description provided for @questsRewardGems.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 gem} other{{count} gems}}'**
+  String questsRewardGems(int count);
+
+  /// No description provided for @questsPercentCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% completed'**
+  String questsPercentCompleted(int percent);
+
+  /// No description provided for @questsAnswerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} / {minimum} characters minimum'**
+  String questsAnswerCount(int count, int minimum);
+
+  /// No description provided for @questsAnswerSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get questsAnswerSaved;
+
+  /// No description provided for @questsViewSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'View saved answers'**
+  String get questsViewSaved;
+
+  /// No description provided for @questsRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart quest'**
+  String get questsRestart;
+
+  /// No description provided for @questsActivitiesUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'These activities are unavailable here.'**
+  String get questsActivitiesUnavailable;
+
+  /// No description provided for @questsStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready... set...\nQuest started!'**
+  String get questsStarting;
+
+  /// No description provided for @questsCelebration.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest completed!\nGood job!'**
+  String get questsCelebration;
+
+  /// No description provided for @questsNice.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice!'**
+  String get questsNice;
 }
 
 class _AppLocalizationsDelegate

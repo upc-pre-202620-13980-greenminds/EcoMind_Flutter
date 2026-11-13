@@ -7,6 +7,10 @@ class Quest {
     required this.type,
     this.age,
     this.minutes,
+    this.category,
+    this.imageUrl,
+    this.ecopoints = 0,
+    this.gems = 0,
   });
 
   final int id;
@@ -16,17 +20,29 @@ class Quest {
   final String type;
   final int? age;
   final int? minutes;
+  final String? category;
+  final String? imageUrl;
+  final int ecopoints;
+  final int gems;
 
   bool get canStart =>
       type == 'ACTIVITIES' || type == 'DAILY_QUEST' || type == 'COLLABORATIVE';
 }
 
 class QuestAssignment {
-  const new({required this.id, required this.questId, required this.status});
+  const new({
+    required this.id,
+    required this.questId,
+    required this.status,
+    this.progress = 0,
+    this.collaborativeSessionId,
+  });
 
   final int id;
   final int questId;
   final String status;
+  final double progress;
+  final int? collaborativeSessionId;
 
   bool get isPending =>
       status == 'IN_PROGRESS' || status == 'READY_TO_COMPLETE';
