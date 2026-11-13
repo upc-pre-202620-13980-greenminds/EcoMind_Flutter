@@ -4,6 +4,8 @@ import 'package:ecomind_parents/features/iam/domain/session_repository.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/main/main_top_bar.dart';
+import 'package:ecomind_parents/features/monetization/presentation/store/store_page.dart';
+import 'package:ecomind_parents/features/monetization/presentation/store/store_view_model.dart';
 import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.dart';
 import 'package:ecomind_parents/features/quests/presentation/quest_progress_page.dart';
 import 'package:ecomind_parents/features/quests/presentation/quests_home_page.dart';
@@ -35,10 +37,10 @@ class _MainPageState extends State<MainPage> {
       getIt<WeeklyReportViewModel>();
   final NotificationsViewModel notificationsViewModel =
       getIt<NotificationsViewModel>();
+  final StoreViewModel storeViewModel = getIt<StoreViewModel>();
   // Language used to load the inbox; it is loaded again if the language changes
   String? loadedLanguageTag;
 
-  // Store, Ranking, Progress and Community belong to other members
   late final questRepository = QuestRepository(
     sessionRepository: getIt<SessionRepository>(),
   );
@@ -48,7 +50,10 @@ class _MainPageState extends State<MainPage> {
   );
 
   List<Widget> get pages => [
-    const ComingSoonView(),
+    StorePage(
+      viewModel: storeViewModel,
+      onBalanceChanged: profileViewModel.loadProfile,
+    ),
     const ComingSoonView(),
     QuestsHomePage(
       profile: profileViewModel,
