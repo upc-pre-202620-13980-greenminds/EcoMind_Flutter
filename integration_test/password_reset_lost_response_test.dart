@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:integration_test/integration_test.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  _RecoveryTestBinding();
   const enabled = bool.fromEnvironment(
     'IAM_LOST_RESPONSE',
     defaultValue: false,
@@ -61,7 +61,22 @@ void main() {
       );
       final fields = find.byType(TextFormField);
       await tester.enterText(fields.at(0), password);
+      await tester.pump();
       await tester.enterText(fields.at(1), password);
+      await tester.pump();
+      final page = tester.widget<ResetPasswordPage>(
+        find.byType(ResetPasswordPage),
+      );
+      expect(
+        page.viewModel.state.password == password,
+        isTrue,
+        reason: 'Password input did not reach the form.',
+      );
+      expect(
+        page.viewModel.state.confirmPassword == password,
+        isTrue,
+        reason: 'Confirmation input did not reach the form.',
+      );
       await tester.ensureVisible(find.byType(PrimaryButton));
       await tester.tap(find.byType(PrimaryButton));
       await _until(
@@ -120,4 +135,10 @@ class _DropFirstResponseClient extends http.BaseClient {
 
   @override
   void close() => _inner.close();
+}
+
+// This network regression drives text fields through the test keyboard, not the IME.
+class _RecoveryTestBinding extends IntegrationTestWidgetsFlutterBinding {
+  @override
+  bool get registerTestTextInput => true;
 }
