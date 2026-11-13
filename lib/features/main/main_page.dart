@@ -23,9 +23,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // The parent application opens on the Profile section
-  int selectedIndex = 5;
-  final visitedTabs = <int>{5};
+  static const _questsTabIndex = 2;
+  int selectedIndex = _questsTabIndex;
+  final visitedTabs = <int>{_questsTabIndex};
 
   final ProfileViewModel profileViewModel = getIt<ProfileViewModel>();
   final FamilyViewModel familyViewModel = getIt<FamilyViewModel>();
@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage> {
       profile: profileViewModel,
       familyViewModel: familyViewModel,
       repository: questRepository,
-      isActive: selectedIndex == 2,
+      isActive: selectedIndex == _questsTabIndex,
     ),
     QuestProgressPage(
       repository: questRepository,
