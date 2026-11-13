@@ -879,6 +879,41 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get questsPending => 'Reto en curso';
+
+  @override
+  String get questsFilters => 'Filtros';
+
+  @override
+  String get questsFilterCategory => 'Categoría';
+
+  @override
+  String get questsFilterType => 'Tipo de reto';
+
+  @override
+  String get questsFilterAge => 'Edad recomendada';
+
+  @override
+  String get questsFilterTime => 'Tiempo estimado';
+
+  @override
+  String get questsFilterApply => 'Aplicar';
+
+  @override
+  String get questsFilterMinigame => 'Minijuego';
+
+  @override
+  String get questsFilterActivities => 'Actividades';
+
+  @override
+  String questsFilterAgeRange(String range) {
+    return '$range años';
+  }
+
+  @override
+  String get questsFilterUpTo15 => 'Hasta 15 min';
+
+  @override
+  String get questsFilterOver60 => 'Más de 60 min';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

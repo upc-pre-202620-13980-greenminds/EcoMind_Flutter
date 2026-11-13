@@ -244,5 +244,16 @@
   "questsCelebration": "¡Reto completado!\n¡Buen trabajo!",
   "questsNice": "¡Genial!",
   "questsDaily": "Reto diario",
-  "questsPending": "Reto en curso"
+  "questsPending": "Reto en curso",
+  "questsFilters": "Filtros",
+  "questsFilterCategory": "Categoría",
+  "questsFilterType": "Tipo de reto",
+  "questsFilterAge": "Edad recomendada",
+  "questsFilterTime": "Tiempo estimado",
+  "questsFilterApply": "Aplicar",
+  "questsFilterMinigame": "Minijuego",
+  "questsFilterActivities": "Actividades",
+  "questsFilterAgeRange": "{range} años",
+  "questsFilterUpTo15": "Hasta 15 min",
+  "questsFilterOver60": "Más de 60 min"
 }

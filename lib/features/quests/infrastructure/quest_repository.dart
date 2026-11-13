@@ -5,25 +5,54 @@ import 'package:ecomind_parents/core/api_config.dart';
 import 'package:ecomind_parents/core/api_exception.dart';
 import 'package:ecomind_parents/features/iam/domain/session_repository.dart';
 import 'package:ecomind_parents/features/quests/domain/quest.dart';
+import 'package:ecomind_parents/features/quests/domain/quest_filters.dart';
 import 'package:http/http.dart' as http;
 
 class QuestRepository {
-  const new({required SessionRepository sessionRepository})
+  new({required SessionRepository sessionRepository})
     : _sessions = sessionRepository;
 
   final SessionRepository _sessions;
+  static const _searchCacheDuration = Duration(minutes: 2);
+  ({String title, DateTime expires, Future<List<Quest>> data})? _titleSearch;
 
   Future<List<Quest>> getCatalog() async {
     final data = await _request('/quests') as List<dynamic>;
     return data.cast<Map<String, dynamic>>().map(_quest).toList();
   }
 
-  Future<List<Quest>> search(String title) async {
-    final data = await _request(
-      '/quests/search',
-      query: {'title': title},
-    ) as List<dynamic>;
-    return data.cast<Map<String, dynamic>>().map(_quest).toList();
+  Future<List<Quest>> search(
+    String title, {
+    QuestFilters filters = const QuestFilters(),
+  }) async {
+    return (await _searchByTitle(title))
+        .where((quest) => quest.type != 'FAMILY' && filters.matches(quest))
+        .toList();
+  }
+
+  Future<List<Quest>> _searchByTitle(String title) async {
+    final now = DateTime.now();
+    final cached = _titleSearch;
+    if (cached != null &&
+        cached.title == title &&
+        now.isBefore(cached.expires)) {
+      return cached.data;
+    }
+    final data = _request('/quests/search', query: {'title': title}).then(
+      (json) =>
+          (json as List).cast<Map<String, dynamic>>().map(_quest).toList(),
+    );
+    _titleSearch = (
+      title: title,
+      expires: now.add(_searchCacheDuration),
+      data: data,
+    );
+    try {
+      return await data;
+    } catch (_) {
+      if (identical(_titleSearch?.data, data)) _titleSearch = null;
+      rethrow;
+    }
   }
 
   Future<List<PendingQuest>> getPending() async {

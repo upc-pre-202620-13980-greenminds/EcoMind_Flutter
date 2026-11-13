@@ -869,4 +869,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get questsPending => 'Quest in progress';
+
+  @override
+  String get questsFilters => 'Filters';
+
+  @override
+  String get questsFilterCategory => 'Category';
+
+  @override
+  String get questsFilterType => 'Quest type';
+
+  @override
+  String get questsFilterAge => 'Recommended age';
+
+  @override
+  String get questsFilterTime => 'Estimated time';
+
+  @override
+  String get questsFilterApply => 'Apply';
+
+  @override
+  String get questsFilterMinigame => 'Minigame';
+
+  @override
+  String get questsFilterActivities => 'Activities';
+
+  @override
+  String questsFilterAgeRange(String range) {
+    return 'Ages $range';
+  }
+
+  @override
+  String get questsFilterUpTo15 => 'Up to 15 min';
+
+  @override
+  String get questsFilterOver60 => 'More than 60 min';
 }

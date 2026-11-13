@@ -4,6 +4,7 @@ import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/theme.dart';
 import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/quests/domain/quest.dart';
+import 'package:ecomind_parents/features/quests/domain/quest_filters.dart';
 import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.dart';
 import 'package:ecomind_parents/features/quests/presentation/quest_progress_page.dart';
 import 'package:ecomind_parents/features/quests/presentation/quests_home_page.dart';
@@ -186,6 +187,19 @@ void main() {
     await tester.pumpAndSettle();
     expect(quests.searchedTitle, 'agua');
     expect(find.text(_Quests.recommended.title), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Filtros'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Actividades'));
+    await tester.tap(find.text('Aplicar'));
+    await tester.pumpAndSettle();
+    expect(quests.searchedTitle, 'agua');
+    expect(quests.searchedFilters.types, {'ACTIVITIES'});
+
+    await tester.tap(find.byTooltip('Filtros'));
+    await tester.pumpAndSettle();
+    final selected = find.widgetWithText(CheckboxListTile, 'Actividades');
+    expect(tester.widget<CheckboxListTile>(selected).value, isTrue);
   });
 
   testWidgets(
@@ -434,6 +448,7 @@ class _Quests implements QuestRepository {
   );
   int? openedAssignmentId;
   String? searchedTitle;
+  QuestFilters searchedFilters = const QuestFilters();
   bool started = false;
   bool checked = false;
   Completer<void>? savingCheck;
@@ -450,8 +465,12 @@ class _Quests implements QuestRepository {
   ];
 
   @override
-  Future<List<Quest>> search(String title) async {
+  Future<List<Quest>> search(
+    String title, {
+    QuestFilters filters = const QuestFilters(),
+  }) async {
     searchedTitle = title;
+    searchedFilters = filters;
     return [recommended];
   }
 

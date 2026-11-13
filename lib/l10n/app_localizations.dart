@@ -1578,6 +1578,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quest in progress'**
   String get questsPending;
+
+  /// No description provided for @questsFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get questsFilters;
+
+  /// No description provided for @questsFilterCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get questsFilterCategory;
+
+  /// No description provided for @questsFilterType.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest type'**
+  String get questsFilterType;
+
+  /// No description provided for @questsFilterAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended age'**
+  String get questsFilterAge;
+
+  /// No description provided for @questsFilterTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated time'**
+  String get questsFilterTime;
+
+  /// No description provided for @questsFilterApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get questsFilterApply;
+
+  /// No description provided for @questsFilterMinigame.
+  ///
+  /// In en, this message translates to:
+  /// **'Minigame'**
+  String get questsFilterMinigame;
+
+  /// No description provided for @questsFilterActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'Activities'**
+  String get questsFilterActivities;
+
+  /// No description provided for @questsFilterAgeRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Ages {range}'**
+  String questsFilterAgeRange(String range);
+
+  /// No description provided for @questsFilterUpTo15.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to 15 min'**
+  String get questsFilterUpTo15;
+
+  /// No description provided for @questsFilterOver60.
+  ///
+  /// In en, this message translates to:
+  /// **'More than 60 min'**
+  String get questsFilterOver60;
 }
 
 class _AppLocalizationsDelegate
