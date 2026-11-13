@@ -25,11 +25,21 @@ void main() {
     'recovers a real committed reset when its first response is lost',
     (tester) async {
       // Opt-in: this changes only the account supplied by the private fixture.
-      final fixture = jsonDecode(
-        await File(
-          '/storage/emulated/0/Android/data/pe.greenminds.ecomind_parents/files/flutter-live-fixture.json',
-        ).readAsString(),
-      ) as Map<String, dynamic>;
+      const directory = '/data/user/0/pe.greenminds.ecomind_parents/files';
+      await Directory(directory).create(recursive: true);
+      final file = File('$directory/flutter-live-fixture.json');
+      final ready = File('$directory/recovery-test-ready');
+      await ready.writeAsString('ready');
+      final deadline = DateTime.now().add(const Duration(seconds: 90));
+      while (!await file.exists() && DateTime.now().isBefore(deadline)) {
+        await Future<void>.delayed(const Duration(milliseconds: 250));
+      }
+      if (!await file.exists())
+        throw TestFailure('Private fixture was not staged.');
+      final fixture =
+          jsonDecode(await file.readAsString()) as Map<String, dynamic>;
+      await file.delete();
+      await ready.delete();
       final email = fixture['email'] as String;
       final password = fixture['newPassword'] as String;
       final link = Uri.parse(fixture['recoveryLink'] as String);

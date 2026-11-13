@@ -43,7 +43,10 @@ not claim that the password stayed unchanged. Editing the password starts a new 
 Diagnostics contain only exception type, HTTP status and elapsed time.
 
 The opt-in lost-response check requires a private `flutter-live-fixture.json` in the app's
-external files directory, with `email`, `newPassword` and `recoveryLink` for an owned test account.
+internal `files` directory, with `email`, `newPassword` and `recoveryLink` for an owned test account.
+It creates `files/recovery-test-ready`, then waits up to 90 seconds for the fixture. Stage it
+through `adb exec-in run-as pe.greenminds.ecomind_parents` with mode 0600 and an atomic rename;
+this avoids external-storage permissions. The harness removes the file immediately after reading it.
 It forwards the real request, drops the first successful response, verifies the matching retry
 and signs in with the new password. It does not send a recovery email itself.
 
