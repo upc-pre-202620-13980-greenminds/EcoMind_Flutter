@@ -1,7 +1,7 @@
 import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/widgets/coming_soon_page.dart';
 import 'package:ecomind_parents/core/widgets/coming_soon_view.dart';
-import 'package:ecomind_parents/core/widgets/initials_avatar.dart';
+import 'package:ecomind_parents/core/widgets/user_avatar.dart';
 import 'package:ecomind_parents/core/widgets/pill_button.dart';
 import 'package:ecomind_parents/core/widgets/text_link.dart';
 import 'package:ecomind_parents/features/iam/domain/social_role.dart';
@@ -11,6 +11,10 @@ import 'package:ecomind_parents/features/iam/presentation/terms/terms_page.dart'
 import 'package:ecomind_parents/features/users/domain/user_profile.dart';
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_page.dart';
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/commitment/commitment_page.dart';
+import 'package:ecomind_parents/features/users/presentation/commitment/commitment_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/profile/commitment_card.dart';
+import 'package:ecomind_parents/features/users/presentation/profile/medals_section.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_state.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_stat.dart';
 import 'package:ecomind_parents/features/users/presentation/family/create_family/create_family_page.dart';
@@ -69,6 +73,22 @@ class ProfilePage extends StatelessWidget {
     }
   }
 
+  // Add (frame 05) or edit (frame 06) the personal commitment
+  Future<void> openCommitment(BuildContext context, String? commitment) async {
+    final String? saved = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CommitmentPage(
+          viewModel: getIt<CommitmentViewModel>(),
+          commitment: commitment,
+        ),
+      ),
+    );
+    if (saved != null) {
+      viewModel.onCommitmentSaved(saved);
+    }
+  }
+
   Future<void> signOut(BuildContext context) async {
     await viewModel.signOut();
     if (!context.mounted) {
@@ -120,14 +140,31 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               switch (state.selectedTab) {
+                // Parent (frame 24): weekly report, commitment and medals.
+                // Student (frame 01): commitment and medals.
                 ProfileTab.profile => Column(
                   children: [
-                    WeeklyReportCard(
-                      viewModel: weeklyReportViewModel,
-                      onViewReport: () => openWeeklyReport(context),
-                      onCreateFamily: () =>
-                          CreateFamilyPage.open(context, familyViewModel),
+                    if (profile.socialRole == SocialRole.parent) ...[
+                      WeeklyReportCard(
+                        viewModel: weeklyReportViewModel,
+                        onViewReport: () => openWeeklyReport(context),
+                        onCreateFamily: () =>
+                            CreateFamilyPage.open(context, familyViewModel),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    CommitmentCard(
+                      commitment: state.commitment,
+                      onAdd: () => openCommitment(context, null),
+                      onEdit: () => openCommitment(context, state.commitment),
                     ),
+                    const SizedBox(height: 16),
+                    MedalsSection(
+                      achievements: state.achievements,
+                      isLoading: state.isLoadingAchievements,
+                      failed: state.achievementsFailed,
+                    ),
+                    const SizedBox(height: 16),
                     TextLink(
                       text: AppLocalizations.of(context).termsTitle,
                       onPressed: () => Navigator.push(
@@ -144,6 +181,7 @@ class ProfilePage extends StatelessWidget {
                 ProfileTab.friends => const ComingSoonView(),
                 ProfileTab.family => FamilyTabContent(
                   viewModel: familyViewModel,
+                  canManage: profile.socialRole == SocialRole.parent,
                 ),
               },
               const SizedBox(height: 24),
@@ -207,7 +245,11 @@ class _ProfileHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 4),
-        InitialsAvatar(name: profile.name, size: 76),
+        UserAvatar(
+          name: profile.name,
+          imageReference: profile.avatarImageReference,
+          size: 76,
+        ),
         const SizedBox(height: 8),
         Text(
           profile.name,

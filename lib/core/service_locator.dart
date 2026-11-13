@@ -56,6 +56,15 @@ import 'package:ecomind_parents/features/users/infrastructure/remote/user_api.da
 import 'package:ecomind_parents/features/users/infrastructure/user_profile_repository_impl.dart';
 import 'package:ecomind_parents/features/users/presentation/edit_profile/edit_profile_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
+import 'package:ecomind_parents/features/users/application/get_commitment_use_case.dart';
+import 'package:ecomind_parents/features/users/application/get_my_achievements_use_case.dart';
+import 'package:ecomind_parents/features/users/application/save_commitment_use_case.dart';
+import 'package:ecomind_parents/features/users/domain/achievement_repository.dart';
+import 'package:ecomind_parents/features/users/domain/commitment_repository.dart';
+import 'package:ecomind_parents/features/users/infrastructure/achievement_repository_impl.dart';
+import 'package:ecomind_parents/features/users/infrastructure/commitment_repository_impl.dart';
+import 'package:ecomind_parents/features/users/infrastructure/local/commitment_dao.dart';
+import 'package:ecomind_parents/features/users/presentation/commitment/commitment_view_model.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -131,11 +140,47 @@ void setupDependencies() {
     () => UpdateProfileNameUseCase(repository: getIt<UserProfileRepository>()),
   );
 
+  getIt.registerLazySingleton<CommitmentDao>(
+    () => CommitmentDao(appDatabase: getIt<AppDatabase>()),
+  );
+
+  getIt.registerLazySingleton<CommitmentRepository>(
+    () => CommitmentRepositoryImpl(
+      dao: getIt<CommitmentDao>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetCommitmentUseCase>(
+    () => GetCommitmentUseCase(repository: getIt<CommitmentRepository>()),
+  );
+
+  getIt.registerLazySingleton<SaveCommitmentUseCase>(
+    () => SaveCommitmentUseCase(repository: getIt<CommitmentRepository>()),
+  );
+
+  getIt.registerFactory<CommitmentViewModel>(
+    () => CommitmentViewModel(saveCommitment: getIt<SaveCommitmentUseCase>()),
+  );
+
+  getIt.registerLazySingleton<AchievementRepository>(
+    () => AchievementRepositoryImpl(
+      gamificationApi: getIt<GamificationApi>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetMyAchievementsUseCase>(
+    () => GetMyAchievementsUseCase(repository: getIt<AchievementRepository>()),
+  );
+
   // Shared by MainPage, the top bar and the Profile tab
   getIt.registerLazySingleton<ProfileViewModel>(
     () => ProfileViewModel(
       getCurrentProfile: getIt<GetCurrentProfileUseCase>(),
       signOutUseCase: getIt<SignOutUseCase>(),
+      getCommitment: getIt<GetCommitmentUseCase>(),
+      getMyAchievements: getIt<GetMyAchievementsUseCase>(),
     ),
   );
 
@@ -245,6 +290,7 @@ void setupDependencies() {
     () => GetVisibleNotificationsUseCase(
       notificationRepository: getIt<NotificationRepository>(),
       preferencesRepository: getIt<NotificationPreferencesRepository>(),
+      profileRepository: getIt<UserProfileRepository>(),
     ),
   );
 
@@ -285,6 +331,7 @@ void setupDependencies() {
     () => NotificationPreferencesViewModel(
       getPreferences: getIt<GetNotificationPreferencesUseCase>(),
       updatePreferences: getIt<UpdateNotificationPreferencesUseCase>(),
+      getCurrentProfile: getIt<GetCurrentProfileUseCase>(),
     ),
   );
 
