@@ -34,8 +34,9 @@ void main() {
       while (!await file.exists() && DateTime.now().isBefore(deadline)) {
         await Future<void>.delayed(const Duration(milliseconds: 250));
       }
-      if (!await file.exists())
+      if (!await file.exists()) {
         throw TestFailure('Private fixture was not staged.');
+      }
       final fixture =
           jsonDecode(await file.readAsString()) as Map<String, dynamic>;
       await file.delete();
