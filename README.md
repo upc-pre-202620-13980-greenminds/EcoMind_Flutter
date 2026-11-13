@@ -32,3 +32,23 @@ On November 12 the normal debug APK built, analysis passed and 26 unit/widget te
 passed. The integration harness was analyzed but its separate Dart compilation
 stalled locally before test execution; no harness runtime pass is claimed. The
 installed normal APK was checked separately through Android SDK instrumentation.
+
+### Recovery connection failures
+
+The reset form retains a random confirmation identifier for an unchanged submission. Only
+confirmation requests retry once after a transport or server failure, within the existing
+120-second budget. The backend acknowledges the original change without consuming the link
+again. Exhausted retries show an unconfirmed result and clear the old local session; they do
+not claim that the password stayed unchanged. Editing the password starts a new confirmation.
+Diagnostics contain only exception type, HTTP status and elapsed time.
+
+The opt-in lost-response check requires a private `flutter-live-fixture.json` in the app's
+external files directory, with `email`, `newPassword` and `recoveryLink` for an owned test account.
+It forwards the real request, drops the first successful response, verifies the matching retry
+and signs in with the new password. It does not send a recovery email itself.
+
+```sh
+flutter test integration_test/password_reset_lost_response_test.dart -d <device> --dart-define=IAM_LOST_RESPONSE=true
+```
+
+Remove the fixture after the check. Never pass passwords or recovery links as build defines.

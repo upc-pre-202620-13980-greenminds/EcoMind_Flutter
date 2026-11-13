@@ -33,6 +33,32 @@ void main() {
       },
     );
 
+    test(
+      'an unconfirmed change clears the old session without claiming success',
+      () async {
+        final repository = _AuthRepositoryFake()
+          ..confirmHandler = (_, _) async {
+            throw const AuthException(AuthError.resetOutcomeUnknown);
+          };
+        final sessions = _SessionRepositoryFake();
+        final useCase = ConfirmPasswordRecoveryUseCase(
+          authRepository: repository,
+          sessionRepository: sessions,
+        );
+        await expectLater(
+          useCase.execute('token', 'Healthy123', confirmationId: 'A' * 43),
+          throwsA(
+            isA<AuthException>().having(
+              (error) => error.error,
+              'error',
+              AuthError.resetOutcomeUnknown,
+            ),
+          ),
+        );
+        expect(sessions.clearCount, 1);
+      },
+    );
+
     test('retains the local session when reset confirmation fails', () async {
       final token = List<String>.filled(43, 'B').join();
       final repository = _AuthRepositoryFake()
@@ -65,7 +91,11 @@ class _AuthRepositoryFake implements AuthRepository {
   Future<void> Function(String token, String password)? confirmHandler;
 
   @override
-  Future<void> confirmPasswordRecovery(String token, String newPassword) {
+  Future<void> confirmPasswordRecovery(
+    String token,
+    String newPassword, {
+    String? confirmationId,
+  }) {
     confirmed.add((token, newPassword));
     return confirmHandler?.call(token, newPassword) ?? Future<void>.value();
   }

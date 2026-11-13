@@ -405,6 +405,12 @@ abstract class AppLocalizations {
   /// **'This application is for parents. Students sign in with the EcoMind student app.'**
   String get errorStudentAccount;
 
+  /// No description provided for @errorResetOutcomeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t confirm the password change. Try signing in with your new password, or retry without changing it.'**
+  String get errorResetOutcomeUnknown;
+
   /// No description provided for @errorConnection.
   ///
   /// In en, this message translates to:

@@ -142,7 +142,11 @@ class _AuthRepositoryFake implements AuthRepository {
   }
 
   @override
-  Future<void> confirmPasswordRecovery(String token, String newPassword) async {
+  Future<void> confirmPasswordRecovery(
+    String token,
+    String newPassword, {
+    String? confirmationId,
+  }) async {
     throw UnimplementedError();
   }
 

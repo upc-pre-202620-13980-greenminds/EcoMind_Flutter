@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:ecomind_parents/core/api_config.dart';
@@ -8,6 +10,14 @@ import 'package:ecomind_parents/features/iam/infrastructure/remote/profile_role_
 import 'package:http/http.dart' as http;
 
 class IamApi {
+  final http.Client Function() _clientFactory;
+  final Duration confirmationTimeout;
+
+  IamApi({
+    http.Client Function()? clientFactory,
+    this.confirmationTimeout = ApiConfig.timeout,
+  }) : _clientFactory = clientFactory ?? http.Client.new;
+
   static const Map<String, String> _jsonHeaders = {
     'Content-Type': 'application/json',
   };
@@ -122,18 +132,64 @@ class IamApi {
     }
   }
 
-  // The token comes from the emailed link and can be used only once
-  Future<void> confirmPasswordRecovery(String token, String newPassword) async {
-    final http.Response response = await http
-        .post(
-          ApiConfig.uri('/api/v1/authentication/password-recovery/confirm'),
-          headers: _jsonHeaders,
-          body: jsonEncode({'token': token, 'newPassword': newPassword}),
-        )
-        .timeout(ApiConfig.timeout);
-
-    if (response.statusCode != HttpStatus.noContent) {
-      throw ApiException.fromResponse(response);
+  // A retry can acknowledge a committed change when its first response was lost.
+  Future<void> confirmPasswordRecovery(
+    String token,
+    String newPassword, {
+    String? confirmationId,
+  }) async {
+    final body = jsonEncode({
+      'token': token,
+      'newPassword': newPassword,
+      'confirmationId': ?confirmationId,
+    });
+    final attempts = confirmationId == null ? 1 : 2;
+    final attemptTimeout = confirmationTimeout ~/ attempts;
+    Object? uncertainError;
+    StackTrace? uncertainStack;
+    for (var attempt = 0; attempt < attempts; attempt++) {
+      // Closing each client also stops waiting on its response after a timeout.
+      final client = _clientFactory();
+      final stopwatch = Stopwatch()..start();
+      try {
+        final response = await client
+            .post(
+              ApiConfig.uri('/api/v1/authentication/password-recovery/confirm'),
+              headers: _jsonHeaders,
+              body: body,
+            )
+            .timeout(attemptTimeout);
+        if (response.statusCode != HttpStatus.noContent) {
+          throw ApiException.fromResponse(response);
+        }
+        return;
+      } catch (error, stack) {
+        // A later rejection cannot prove that an earlier ambiguous request failed.
+        if (uncertainError != null) {
+          Error.throwWithStackTrace(uncertainError, uncertainStack!);
+        }
+        final connectionError =
+            error is TimeoutException ||
+            error is IOException ||
+            error is http.ClientException;
+        final serverError = error is ApiException && error.statusCode >= 500;
+        if (connectionError || serverError) {
+          uncertainError = error;
+          uncertainStack = stack;
+          // Only type, status and duration: request bodies and links contain secrets.
+          developer.log(
+            'Confirmation attempt ${attempt + 1}: ${error.runtimeType}, '
+            'status=${error is ApiException ? error.statusCode : 0}, '
+            'elapsedMs=${stopwatch.elapsedMilliseconds}',
+            name: 'iam.recovery',
+          );
+        }
+        if ((!connectionError && !serverError) || attempt + 1 == attempts) {
+          rethrow;
+        }
+      } finally {
+        client.close();
+      }
     }
   }
 }

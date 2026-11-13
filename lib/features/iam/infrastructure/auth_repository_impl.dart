@@ -59,8 +59,34 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> confirmPasswordRecovery(String token, String newPassword) {
-    return _guard(() => api.confirmPasswordRecovery(token, newPassword));
+  Future<void> confirmPasswordRecovery(
+    String token,
+    String newPassword, {
+    String? confirmationId,
+  }) {
+    return _guardConfirmation(
+      () => api.confirmPasswordRecovery(
+        token,
+        newPassword,
+        confirmationId: confirmationId,
+      ),
+    );
+  }
+
+  Future<void> _guardConfirmation(Future<void> Function() request) async {
+    try {
+      await request();
+    } on ApiException catch (e) {
+      throw AuthException(
+        e.statusCode >= 500 ? AuthError.resetOutcomeUnknown : _errorFor(e.code),
+      );
+    } on TimeoutException {
+      throw const AuthException(AuthError.resetOutcomeUnknown);
+    } on IOException {
+      throw const AuthException(AuthError.resetOutcomeUnknown);
+    } on http.ClientException {
+      throw const AuthException(AuthError.resetOutcomeUnknown);
+    }
   }
 
   // Turns the errors of the network and of the backend into errors of the domain

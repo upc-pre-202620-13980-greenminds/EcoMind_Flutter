@@ -123,6 +123,79 @@ void main() {
       expect(sessions.clearCount, 1);
     });
 
+    test('an ambiguous result retries the same confirmation without retaining it after success', () async {
+      final repository = _AuthRepositoryFake();
+      repository.confirmHandler = (_, _) async {
+        if (repository.confirmed.length == 1) {
+          throw const AuthException(AuthError.resetOutcomeUnknown);
+        }
+      };
+      final sessions = _SessionRepositoryFake();
+      final model = _viewModel(repository, sessions)..openLink(token);
+      addTearDown(model.dispose);
+      model.onPasswordChange('Healthy123');
+      model.onConfirmPasswordChange('Healthy123');
+      await model.submit();
+      expect(model.state.errorMessage, AuthError.resetOutcomeUnknown);
+      expect(sessions.clearCount, 1);
+      expect(
+        repository.confirmationIds.single,
+        matches(RegExp(r'^[A-Za-z0-9_-]{43}$')),
+      );
+      await model.submit();
+      expect(repository.confirmationIds[1], repository.confirmationIds[0]);
+      expect(model.state.isCompleted, isTrue);
+      expect(model.state.password, isEmpty);
+      expect(sessions.clearCount, 2);
+    });
+
+    test('editing a password after a failed attempt starts a distinct confirmation', () async {
+      final repository = _AuthRepositoryFake()
+        ..confirmHandler = (_, _) async {
+          throw const AuthException(AuthError.resetOutcomeUnknown);
+        };
+      final sessions = _SessionRepositoryFake();
+      final model = _viewModel(repository, sessions)..openLink(token);
+      addTearDown(model.dispose);
+      model.onPasswordChange('Healthy123');
+      model.onConfirmPasswordChange('Healthy123');
+      await model.submit();
+      model.onPasswordChange('Different123');
+      model.onConfirmPasswordChange('Different123');
+      expect(model.state.errorMessage, AuthError.resetOutcomeUnknown);
+      await model.submit();
+      expect(repository.confirmationIds, hasLength(2));
+      expect(
+        repository.confirmationIds[1],
+        isNot(repository.confirmationIds[0]),
+      );
+    });
+
+    test(
+      'a later rejected token does not hide an earlier unconfirmed change',
+      () async {
+        final repository = _AuthRepositoryFake();
+        repository.confirmHandler = (_, _) async {
+          throw AuthException(
+            repository.confirmed.length == 1
+                ? AuthError.resetOutcomeUnknown
+                : AuthError.resetTokenInvalid,
+          );
+        };
+        final sessions = _SessionRepositoryFake();
+        final model = _viewModel(repository, sessions)..openLink(token);
+        addTearDown(model.dispose);
+        model.onPasswordChange('Healthy123');
+        model.onConfirmPasswordChange('Healthy123');
+        await model.submit();
+        await model.submit();
+        expect(model.state.errorMessage, AuthError.resetOutcomeUnknown);
+        expect(model.state.linkStatus, ResetLinkStatus.usable);
+        expect(model.state.isCompleted, isFalse);
+        expect(sessions.clearCount, 1);
+      },
+    );
+
     test('server password-policy rejection keeps the form editable', () async {
       final repository = _AuthRepositoryFake()
         ..confirmHandler = (_, _) async {
@@ -156,11 +229,17 @@ ResetPasswordViewModel _viewModel(
 
 class _AuthRepositoryFake implements AuthRepository {
   final List<(String, String)> confirmed = [];
+  final List<String?> confirmationIds = [];
   Future<void> Function(String token, String password)? confirmHandler;
 
   @override
-  Future<void> confirmPasswordRecovery(String token, String newPassword) {
+  Future<void> confirmPasswordRecovery(
+    String token,
+    String newPassword, {
+    String? confirmationId,
+  }) {
     confirmed.add((token, newPassword));
+    confirmationIds.add(confirmationId);
     return confirmHandler?.call(token, newPassword) ?? Future<void>.value();
   }
 

@@ -51,6 +51,7 @@
   "errorCodeExpired": "El código de verificación venció. Solicita uno nuevo.",
   "errorCodeAttempts": "Demasiados intentos. Solicita un código nuevo.",
   "errorStudentAccount": "Esta aplicación es para madres y padres. Los estudiantes inician sesión en la aplicación EcoMind para estudiantes.",
+  "errorResetOutcomeUnknown": "No pudimos confirmar el cambio de contraseña. Intenta iniciar sesión con tu nueva contraseña o reintenta sin cambiarla.",
   "errorConnection": "No se pudo conectar con el servidor. Inténtalo de nuevo.",
   "errorUnknown": "Ocurrió un problema. Inténtalo de nuevo.",
   "topBarGems": "{count} gemas",
