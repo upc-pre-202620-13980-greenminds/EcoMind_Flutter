@@ -6,7 +6,7 @@ class NotificationPreferencesDao {
   final AppDatabase appDatabase;
   const new({required this.appDatabase});
 
-  // One row per parent: the id of the row is the account id
+  // One row per user: the id of the row is the account id
   Future<NotificationPreferences?> getPreferences(int accountId) async {
     Database database = await appDatabase.database;
     List<Map<String, Object?>> maps = await database.query(
@@ -20,6 +20,8 @@ class NotificationPreferencesDao {
     final map = maps.first;
     // sqflite has no boolean type, so 1 is on and 0 is off
     return NotificationPreferences(
+      newQuests: map['new_quests'] == 1,
+      learningReminders: map['learning_reminders'] == 1,
       achievements: map['achievements'] == 1,
       weeklySummary: map['weekly_summary'] == 1,
       communityEvents: map['community_events'] == 1,
@@ -34,6 +36,8 @@ class NotificationPreferencesDao {
     Database database = await appDatabase.database;
     await database.insert('notification_preferences', {
       'id': accountId,
+      'new_quests': preferences.newQuests ? 1 : 0,
+      'learning_reminders': preferences.learningReminders ? 1 : 0,
       'achievements': preferences.achievements ? 1 : 0,
       'weekly_summary': preferences.weeklySummary ? 1 : 0,
       'community_events': preferences.communityEvents ? 1 : 0,
