@@ -1,4 +1,5 @@
 import 'package:ecomind_parents/features/users/domain/notification_category.dart';
+import 'package:ecomind_parents/features/users/domain/notification_type.dart';
 
 // "App" avoids a clash with the Notification class of Flutter
 class AppNotification {
@@ -8,6 +9,7 @@ class AppNotification {
   final String message;
   final bool isRead;
   final DateTime createdAt;
+  final NotificationType type;
 
   const new({
     required this.id,
@@ -16,6 +18,7 @@ class AppNotification {
     required this.message,
     required this.isRead,
     required this.createdAt,
+    this.type = NotificationType.unknown,
   });
 
   AppNotification markedAsRead() {
@@ -26,6 +29,7 @@ class AppNotification {
       message: message,
       isRead: true,
       createdAt: createdAt,
+      type: type,
     );
   }
 }

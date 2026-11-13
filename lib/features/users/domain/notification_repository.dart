@@ -4,6 +4,6 @@ import 'package:ecomind_parents/features/users/domain/app_notification.dart';
 abstract class NotificationRepository {
   // The texts come in the language given, the newest first
   Future<List<AppNotification>> getNotifications(String languageTag);
-  Future<void> markAsRead(int notificationId);
+  Future<void> markAsRead(int notificationId, String languageTag);
   Future<void> markAllAsRead();
 }

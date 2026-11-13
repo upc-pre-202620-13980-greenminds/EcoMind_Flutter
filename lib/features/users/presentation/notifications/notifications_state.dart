@@ -10,7 +10,7 @@ class NotificationsState {
     this.actionError,
   });
 
-  // Already filtered by the preferences of the parent
+  // Already filtered by the preferences of the role
   final List<AppNotification> notifications;
   final bool isLoading;
   final bool isMarkingAll;

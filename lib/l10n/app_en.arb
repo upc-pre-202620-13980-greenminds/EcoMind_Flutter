@@ -305,6 +305,8 @@
   "notificationsLabelProgress": "PROGRESS",
   "notificationsLabelEvents": "EVENTS",
   "notificationsLabelCommunity": "COMMUNITY",
+  "notificationsLabelQuests": "QUESTS",
+  "notificationsLabelLearning": "LEARNING",
   "notificationsTimeMinutes": "{minutes} min",
   "@notificationsTimeMinutes": {
     "placeholders": {

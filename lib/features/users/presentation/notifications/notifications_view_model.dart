@@ -3,6 +3,7 @@ import 'package:ecomind_parents/features/users/application/mark_all_notification
 import 'package:ecomind_parents/features/users/application/mark_notification_read_use_case.dart';
 import 'package:ecomind_parents/features/users/domain/app_notification.dart';
 import 'package:ecomind_parents/features/users/domain/users_exception.dart';
+import 'package:ecomind_parents/features/users/presentation/notifications/notification_tab.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_state.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,24 @@ class NotificationsViewModel extends ChangeNotifier {
 
   // Language of the application, sent so the backend writes the texts in it
   String _languageTag = 'en';
+
+  // Tab the main screen opens after a tap; it is read only once
+  NotificationTab? _requestedTab;
+
+  NotificationTab? takeRequestedTab() {
+    final tab = _requestedTab;
+    _requestedTab = null;
+    return tab;
+  }
+
+  // A tap marks the notification as read and, if it has one, asks for its tab
+  Future<void> open(AppNotification notification) async {
+    _requestedTab = tabFor(notification.type);
+    if (_requestedTab != null) {
+      notifyListeners();
+    }
+    await markAsRead(notification);
+  }
 
   Future<void> loadNotifications(String languageTag) async {
     _languageTag = languageTag;
@@ -70,7 +89,7 @@ class NotificationsViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await markNotificationRead.execute(notification.id);
+      await markNotificationRead.execute(notification.id, _languageTag);
     } on UsersException catch (e) {
       _state = _state.copyWith(notifications: previous, actionError: e.error);
       notifyListeners();

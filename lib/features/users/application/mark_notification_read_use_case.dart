@@ -5,7 +5,7 @@ class MarkNotificationReadUseCase {
 
   const new({required this.repository});
 
-  Future<void> execute(int notificationId) {
-    return repository.markAsRead(notificationId);
+  Future<void> execute(int notificationId, String languageTag) {
+    return repository.markAsRead(notificationId, languageTag);
   }
 }

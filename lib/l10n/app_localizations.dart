@@ -1269,6 +1269,18 @@ abstract class AppLocalizations {
   /// **'COMMUNITY'**
   String get notificationsLabelCommunity;
 
+  /// No description provided for @notificationsLabelQuests.
+  ///
+  /// In en, this message translates to:
+  /// **'QUESTS'**
+  String get notificationsLabelQuests;
+
+  /// No description provided for @notificationsLabelLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'LEARNING'**
+  String get notificationsLabelLearning;
+
   /// No description provided for @notificationsTimeMinutes.
   ///
   /// In en, this message translates to:
