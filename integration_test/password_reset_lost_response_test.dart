@@ -62,7 +62,13 @@ void main() {
         tester,
         () => find.byType(ResetPasswordPage).evaluate().isNotEmpty,
       );
-      final fields = find.byType(TextFormField);
+      await tester.pumpAndSettle();
+      final reset = find.byType(ResetPasswordPage);
+      final fields = find.descendant(
+        of: reset,
+        matching: find.byType(TextFormField),
+      );
+      expect(fields, findsNWidgets(2));
       for (var index = 0; index < 2; index++) {
         final input = find.descendant(
           of: fields.at(index),
@@ -84,14 +90,19 @@ void main() {
           reason: 'Password input did not reach the form.',
         );
       }
-      await tester.ensureVisible(find.byType(PrimaryButton));
-      await tester.tap(find.byType(PrimaryButton));
+      final submit = find.descendant(
+        of: reset,
+        matching: find.byType(PrimaryButton),
+      );
+      await tester.ensureVisible(submit);
+      await tester.tap(submit);
       await _until(
         tester,
         () =>
             find.text('Password updated').evaluate().isNotEmpty ||
             find.byType(FormErrorText).evaluate().isNotEmpty ||
-            find.text('Request a new link').evaluate().isNotEmpty,
+            find.text('Request a new link').evaluate().isNotEmpty ||
+            find.textContaining('The password must have').evaluate().isNotEmpty,
       );
       expect(find.byType(FormErrorText), findsNothing);
       expect(find.text('Password updated'), findsOneWidget);
