@@ -8,8 +8,10 @@ class FamilyMember {
   final String name;
   final FamilyRole role;
   final SocialRole socialRole;
-  // True for the parent who is signed in
+  // True for the user who is signed in
   final bool isCurrentUser;
+  // Avatar equipped in Store; null shows the initials
+  final String? avatarImageReference;
 
   const new({
     required this.id,
@@ -18,5 +20,6 @@ class FamilyMember {
     required this.role,
     required this.socialRole,
     required this.isCurrentUser,
+    this.avatarImageReference,
   });
 }

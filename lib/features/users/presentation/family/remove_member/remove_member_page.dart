@@ -1,5 +1,5 @@
 import 'package:ecomind_parents/core/widgets/form_error_text.dart';
-import 'package:ecomind_parents/core/widgets/initials_avatar.dart';
+import 'package:ecomind_parents/core/widgets/user_avatar.dart';
 import 'package:ecomind_parents/core/widgets/pill_button.dart';
 import 'package:ecomind_parents/features/main/secondary_scaffold.dart';
 import 'package:ecomind_parents/features/users/domain/family.dart';
@@ -69,7 +69,11 @@ class _RemoveMemberPageState extends State<RemoveMemberPage> {
             child: Column(
               children: [
                 const SizedBox(height: 24),
-                InitialsAvatar(name: member.name, size: 76),
+                UserAvatar(
+                  name: member.name,
+                  imageReference: member.avatarImageReference,
+                  size: 76,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   member.name,

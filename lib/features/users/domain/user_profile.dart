@@ -8,6 +8,8 @@ class UserProfile {
   final DateTime? lastStreakDate;
   final int ecopoints;
   final int gemBalance;
+  // Avatar equipped in Store; null shows the initials
+  final String? avatarImageReference;
 
   const new({
     required this.id,
@@ -17,9 +19,10 @@ class UserProfile {
     required this.lastStreakDate,
     required this.ecopoints,
     required this.gemBalance,
+    this.avatarImageReference,
   });
 
-  // Only the name can be edited by the parent; the rest comes from other contexts
+  // Only the name can be edited; the rest comes from other contexts
   UserProfile withName(String newName) {
     return UserProfile(
       id: id,
@@ -29,6 +32,7 @@ class UserProfile {
       lastStreakDate: lastStreakDate,
       ecopoints: ecopoints,
       gemBalance: gemBalance,
+      avatarImageReference: avatarImageReference,
     );
   }
 }

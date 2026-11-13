@@ -1,5 +1,5 @@
 import 'package:ecomind_parents/core/service_locator.dart';
-import 'package:ecomind_parents/core/widgets/initials_avatar.dart';
+import 'package:ecomind_parents/core/widgets/user_avatar.dart';
 import 'package:ecomind_parents/core/widgets/labeled_text_field.dart';
 import 'package:ecomind_parents/core/widgets/text_link.dart';
 import 'package:ecomind_parents/features/iam/domain/social_role.dart';
@@ -58,7 +58,11 @@ class MemberDetailPage extends StatelessWidget {
             Row(
               spacing: 12,
               children: [
-                InitialsAvatar(name: member.name, size: 56),
+                UserAvatar(
+                  name: member.name,
+                  imageReference: member.avatarImageReference,
+                  size: 56,
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

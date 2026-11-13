@@ -6,6 +6,8 @@ class UserProfileDto {
   final String? lastStreakDate;
   final int ecopoints;
   final int gemBalance;
+  // Image of the avatar equipped in Store; null when the user has none
+  final String? avatarImageReference;
 
   const new({
     required this.id,
@@ -15,6 +17,7 @@ class UserProfileDto {
     required this.lastStreakDate,
     required this.ecopoints,
     required this.gemBalance,
+    this.avatarImageReference,
   });
 
   factory UserProfileDto.fromJson(Map<String, dynamic> json) {
@@ -26,6 +29,7 @@ class UserProfileDto {
       lastStreakDate: json['lastStreakDate'],
       ecopoints: json['ecopoints'],
       gemBalance: json['gemBalance'],
+      avatarImageReference: json['avatarImageReference'],
     );
   }
 

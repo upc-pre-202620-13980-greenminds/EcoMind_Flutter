@@ -16,6 +16,7 @@ extension UserProfileDtoMapper on UserProfileDto {
           : DateTime.parse(lastStreakDate!),
       ecopoints: ecopoints,
       gemBalance: gemBalance,
+      avatarImageReference: avatarImageReference,
     );
   }
 }
@@ -31,6 +32,7 @@ extension UserProfileMapper on UserProfile {
       lastStreakDate: lastStreakDate?.toIso8601String().substring(0, 10),
       ecopoints: ecopoints,
       gemBalance: gemBalance,
+      avatarImageReference: avatarImageReference,
     );
   }
 }
