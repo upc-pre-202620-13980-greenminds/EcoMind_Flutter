@@ -28,6 +28,58 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navProgress => 'Progreso';
 
   @override
+  String get progressActive => 'En curso';
+
+  @override
+  String get progressFamily => 'Reto familiar';
+
+  @override
+  String get progressFinished => 'Terminados';
+
+  @override
+  String get progressSeeMore => 'Ver más';
+
+  @override
+  String get progressViewHistory => 'Ver historial';
+
+  @override
+  String get progressHistory => 'Historial de retos';
+
+  @override
+  String get progressEmptyActive => 'No tienes ninguna actividad activa.';
+
+  @override
+  String get progressEmptyFamily => '¡Crea un plan familiar para empezar!';
+
+  @override
+  String get progressEmptyFinished =>
+      'No has completado ninguna actividad. ¡Empieza una!';
+
+  @override
+  String get progressUnavailableQuest => 'Reto no disponible';
+
+  @override
+  String get progressMissingDate => 'Fecha de finalización no disponible';
+
+  @override
+  String progressCompletedOn(String date) {
+    return 'Completado el $date';
+  }
+
+  @override
+  String get progressLoadError =>
+      'No pudimos actualizar tu progreso. Desliza hacia abajo o vuelve a intentarlo.';
+
+  @override
+  String get progressCreateFamilyPlan => 'Crear plan familiar';
+
+  @override
+  String get progressShowCompletions => 'Mostrar otras finalizaciones';
+
+  @override
+  String get progressHideCompletions => 'Ocultar otras finalizaciones';
+
+  @override
   String get navCommunity => 'Comunidad';
 
   @override

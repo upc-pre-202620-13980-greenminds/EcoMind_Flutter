@@ -5,6 +5,7 @@ import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.d
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/main/main_top_bar.dart';
 import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.dart';
+import 'package:ecomind_parents/features/quests/presentation/quest_progress_page.dart';
 import 'package:ecomind_parents/features/quests/presentation/quests_home_page.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
@@ -35,17 +36,19 @@ class _MainPageState extends State<MainPage> {
   String? loadedLanguageTag;
 
   // Store, Ranking, Progress and Community belong to other members
+  late final questRepository = QuestRepository(
+    sessionRepository: getIt<SessionRepository>(),
+  );
+
   late final List<Widget> pages = [
     const ComingSoonView(),
     const ComingSoonView(),
     QuestsHomePage(
       profile: profileViewModel,
       familyViewModel: familyViewModel,
-      repository: QuestRepository(
-        sessionRepository: getIt<SessionRepository>(),
-      ),
+      repository: questRepository,
     ),
-    const ComingSoonView(),
+    QuestProgressPage(repository: questRepository),
     const ComingSoonView(),
     ProfilePage(
       viewModel: profileViewModel,

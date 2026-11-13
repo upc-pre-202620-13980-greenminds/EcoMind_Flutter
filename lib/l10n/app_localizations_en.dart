@@ -28,6 +28,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navProgress => 'Progress';
 
   @override
+  String get progressActive => 'In Progress';
+
+  @override
+  String get progressFamily => 'Family Quest';
+
+  @override
+  String get progressFinished => 'Finished';
+
+  @override
+  String get progressSeeMore => 'See more';
+
+  @override
+  String get progressViewHistory => 'View history';
+
+  @override
+  String get progressHistory => 'Quest history';
+
+  @override
+  String get progressEmptyActive => 'You have no active activities.';
+
+  @override
+  String get progressEmptyFamily => 'Create a family plan to start!';
+
+  @override
+  String get progressEmptyFinished =>
+      'You haven’t completed any activities yet. Start one!';
+
+  @override
+  String get progressUnavailableQuest => 'Unavailable quest';
+
+  @override
+  String get progressMissingDate => 'Completion date unavailable';
+
+  @override
+  String progressCompletedOn(String date) {
+    return 'Completed on $date';
+  }
+
+  @override
+  String get progressLoadError =>
+      'We couldn’t update your progress. Pull down or try again.';
+
+  @override
+  String get progressCreateFamilyPlan => 'Create family plan';
+
+  @override
+  String get progressShowCompletions => 'Show other completions';
+
+  @override
+  String get progressHideCompletions => 'Hide other completions';
+
+  @override
   String get navCommunity => 'Community';
 
   @override

@@ -6,6 +6,29 @@
   "navRanking": "Ranking",
   "navMainMenu": "Quests",
   "navProgress": "Progress",
+  "progressActive": "In Progress",
+  "progressFamily": "Family Quest",
+  "progressFinished": "Finished",
+  "progressSeeMore": "See more",
+  "progressViewHistory": "View history",
+  "progressHistory": "Quest history",
+  "progressEmptyActive": "You have no active activities.",
+  "progressEmptyFamily": "Create a family plan to start!",
+  "progressEmptyFinished": "You haven’t completed any activities yet. Start one!",
+  "progressUnavailableQuest": "Unavailable quest",
+  "progressMissingDate": "Completion date unavailable",
+  "progressCompletedOn": "Completed on {date}",
+  "progressLoadError": "We couldn’t update your progress. Pull down or try again.",
+  "progressCreateFamilyPlan": "Create family plan",
+  "progressShowCompletions": "Show other completions",
+  "progressHideCompletions": "Hide other completions",
+  "@progressCompletedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "navCommunity": "Community",
   "navProfile": "Profile",
   "topBarNotifications": "Notifications",

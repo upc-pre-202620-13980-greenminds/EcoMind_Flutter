@@ -5,6 +5,7 @@ import 'package:ecomind_parents/core/theme.dart';
 import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/quests/domain/quest.dart';
 import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.dart';
+import 'package:ecomind_parents/features/quests/presentation/quest_progress_page.dart';
 import 'package:ecomind_parents/features/quests/presentation/quests_home_page.dart';
 import 'package:ecomind_parents/features/users/domain/family.dart';
 import 'package:ecomind_parents/features/users/domain/family_member.dart';
@@ -58,6 +59,53 @@ void main() {
     );
     await tester.pumpAndSettle();
   }
+
+  testWidgets(
+    'shows progress, grouped history and the family plan placeholder',
+    (tester) async {
+      tester.view.physicalSize = const Size(360, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: QuestProgressPage(repository: _Quests(hasPending: true)),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('In Progress'), findsOneWidget);
+      expect(find.text('Ahorren energía en casa'), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is LinearProgressIndicator && widget.value == 0.4,
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('Family Quest'), findsOneWidget);
+
+      await tester.tap(find.text('Create family plan'));
+      await tester.pumpAndSettle();
+      expect(find.text('Coming soon'), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      final history = find.text('View history');
+      await tester.scrollUntilVisible(history, 150);
+      await tester.tap(history);
+      await tester.pumpAndSettle();
+      expect(find.text('Quest history'), findsOneWidget);
+      expect(find.text(_Quests.recommended.title), findsOneWidget);
+      await tester.tap(find.byTooltip('Show other completions'));
+      await tester.pumpAndSettle();
+      expect(find.byTooltip('Hide other completions'), findsOneWidget);
+    },
+  );
 
   testWidgets('greets the parent and resumes the saved assignment', (
     tester,
@@ -276,6 +324,30 @@ class _Notifications extends ChangeNotifier implements NotificationsViewModel {
 
 class _Quests implements QuestRepository {
   _Quests({required this.hasPending, this.hasDaily = false});
+
+  @override
+  Future<List<QuestProgressEntry>> getProgress() async => [
+    (
+      quest: _pending.quest,
+      assignment: const QuestAssignment(
+        id: 35,
+        questId: 1,
+        status: 'IN_PROGRESS',
+        progress: 40,
+      ),
+    ),
+    for (var day = 1; day <= 2; day++)
+      (
+        quest: recommended,
+        assignment: QuestAssignment(
+          id: 40 + day,
+          questId: recommended.id,
+          status: 'COMPLETED',
+          progress: 100,
+          endDate: DateTime(2026, 11, day),
+        ),
+      ),
+  ];
 
   static const recommended = Quest(
     id: 2,

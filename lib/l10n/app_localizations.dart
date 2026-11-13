@@ -135,6 +135,102 @@ abstract class AppLocalizations {
   /// **'Progress'**
   String get navProgress;
 
+  /// No description provided for @progressActive.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get progressActive;
+
+  /// No description provided for @progressFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Quest'**
+  String get progressFamily;
+
+  /// No description provided for @progressFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get progressFinished;
+
+  /// No description provided for @progressSeeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'See more'**
+  String get progressSeeMore;
+
+  /// No description provided for @progressViewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View history'**
+  String get progressViewHistory;
+
+  /// No description provided for @progressHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest history'**
+  String get progressHistory;
+
+  /// No description provided for @progressEmptyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no active activities.'**
+  String get progressEmptyActive;
+
+  /// No description provided for @progressEmptyFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a family plan to start!'**
+  String get progressEmptyFamily;
+
+  /// No description provided for @progressEmptyFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven’t completed any activities yet. Start one!'**
+  String get progressEmptyFinished;
+
+  /// No description provided for @progressUnavailableQuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable quest'**
+  String get progressUnavailableQuest;
+
+  /// No description provided for @progressMissingDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion date unavailable'**
+  String get progressMissingDate;
+
+  /// No description provided for @progressCompletedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed on {date}'**
+  String progressCompletedOn(String date);
+
+  /// No description provided for @progressLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t update your progress. Pull down or try again.'**
+  String get progressLoadError;
+
+  /// No description provided for @progressCreateFamilyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Create family plan'**
+  String get progressCreateFamilyPlan;
+
+  /// No description provided for @progressShowCompletions.
+  ///
+  /// In en, this message translates to:
+  /// **'Show other completions'**
+  String get progressShowCompletions;
+
+  /// No description provided for @progressHideCompletions.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide other completions'**
+  String get progressHideCompletions;
+
   /// No description provided for @navCommunity.
   ///
   /// In en, this message translates to:

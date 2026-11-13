@@ -60,6 +60,41 @@ class QuestRepository {
     return [?regular, ?daily];
   }
 
+  Future<List<QuestProgressEntry>> getProgress() async {
+    // The active lookup initializes today's daily quest before reading history.
+    final active = await _byStatus('IN_PROGRESS');
+    final (ready, completed) = await (
+      _byStatus('READY_TO_COMPLETE'),
+      _byStatus('COMPLETED'),
+    ).wait;
+    final assignments = {
+      for (final assignment in [...active, ...ready, ...completed])
+        assignment.id: assignment,
+    }.values;
+    final questIds = assignments
+        .map((assignment) => assignment.questId)
+        .toSet()
+        .toList();
+    final quests = <int, Quest>{};
+    const batchSize = 4;
+    for (var index = 0; index < questIds.length; index += batchSize) {
+      final batch = await Future.wait(
+        questIds.skip(index).take(batchSize).map((id) async {
+          final data = await _request('/quests/$id', allowNotFound: true);
+          return data == null ? null : _quest(data);
+        }),
+      );
+      for (final quest in batch.nonNulls) {
+        quests[quest.id] = quest;
+      }
+    }
+
+    return [
+      for (final assignment in assignments)
+        (quest: quests[assignment.questId], assignment: assignment),
+    ];
+  }
+
   Future<QuestDetails> getDetails(Quest quest, {int? assignmentId}) async {
     final (assignment, activityData) = await (
       _findAssignment(quest.id, assignmentId),
@@ -191,5 +226,6 @@ class QuestRepository {
     status: json['status'] as String,
     progress: (json['progress'] as num?)?.toDouble() ?? 0,
     collaborativeSessionId: json['collaborativeSessionId'] as int?,
+    endDate: DateTime.tryParse(json['endDate'] as String? ?? ''),
   );
 }

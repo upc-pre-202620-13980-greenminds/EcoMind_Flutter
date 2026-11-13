@@ -38,6 +38,7 @@ class QuestAssignment {
     required this.status,
     this.progress = 0,
     this.collaborativeSessionId,
+    this.endDate,
   });
 
   final int id;
@@ -45,12 +46,15 @@ class QuestAssignment {
   final String status;
   final double progress;
   final int? collaborativeSessionId;
+  final DateTime? endDate;
 
   bool get isPending =>
       status == 'IN_PROGRESS' || status == 'READY_TO_COMPLETE';
 }
 
 typedef PendingQuest = ({Quest quest, QuestAssignment assignment});
+
+typedef QuestProgressEntry = ({Quest? quest, QuestAssignment assignment});
 
 class QuestActivity {
   const new({
