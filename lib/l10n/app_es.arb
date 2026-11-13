@@ -226,5 +226,7 @@
   "questsActivitiesUnavailable": "Estas actividades no están disponibles aquí.",
   "questsStarting": "¡Preparados, listos…\ncomenzó el reto!",
   "questsCelebration": "¡Reto completado!\n¡Buen trabajo!",
-  "questsNice": "¡Genial!"
+  "questsNice": "¡Genial!",
+  "questsDaily": "Reto diario",
+  "questsPending": "Reto en curso"
 }

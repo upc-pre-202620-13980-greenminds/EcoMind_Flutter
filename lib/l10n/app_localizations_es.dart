@@ -821,6 +821,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get questsNice => '¡Genial!';
+
+  @override
+  String get questsDaily => 'Reto diario';
+
+  @override
+  String get questsPending => 'Reto en curso';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

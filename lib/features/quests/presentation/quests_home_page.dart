@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ecomind_parents/core/widgets/primary_button.dart';
 import 'package:ecomind_parents/core/widgets/text_link.dart';
 import 'package:ecomind_parents/features/quests/domain/quest.dart';
@@ -20,7 +22,7 @@ class QuestsHomePage extends StatefulWidget {
 }
 
 class _QuestsHomePageState extends State<QuestsHomePage> {
-  late Future<PendingQuest?> _pending = widget.repository.getPending();
+  late Future<List<PendingQuest>> _pending = widget.repository.getPending();
   late Future<List<Quest>> _catalog = widget.repository.getCatalog();
 
   void _reloadPending() {
@@ -106,22 +108,22 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
               },
             ),
           ),
-          FutureBuilder<PendingQuest?>(
+          FutureBuilder<List<PendingQuest>>(
             future: _pending,
             builder: (context, snapshot) {
-              final pending = snapshot.data;
+              final pending = snapshot.data ?? const <PendingQuest>[];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (pending != null)
+                  if (pending.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
-                      child: _PendingCard(
-                        quest: pending.quest,
+                      child: _PendingQuests(
+                        quests: pending,
                         green: green,
-                        onContinue: () => _openQuest(
-                          pending.quest,
-                          assignmentId: pending.assignment.id,
+                        onContinue: (item) => _openQuest(
+                          item.quest,
+                          assignmentId: item.assignment.id,
                         ),
                       ),
                     ),
@@ -133,7 +135,7 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
                         onRetry: _reloadPending,
                       ),
                     ),
-                  const SizedBox(height: 26),
+                  SizedBox(height: pending.length > 1 ? 12 : 26),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(
                       start: 16,
@@ -192,8 +194,11 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
                           ),
                         );
                       }
+                      final pendingIds = pending
+                          .map((item) => item.quest.id)
+                          .toSet();
                       final recommended = quests
-                          .where((quest) => quest.id != pending?.quest.id)
+                          .where((quest) => !pendingIds.contains(quest.id))
                           .toList();
                       if (recommended.isEmpty) {
                         return Padding(
@@ -218,6 +223,168 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
   }
 }
 
+class _PendingQuests extends StatefulWidget {
+  const _PendingQuests({
+    required this.quests,
+    required this.green,
+    required this.onContinue,
+  });
+
+  final List<PendingQuest> quests;
+  final Color green;
+  final ValueChanged<PendingQuest> onContinue;
+
+  @override
+  State<_PendingQuests> createState() => _PendingQuestsState();
+}
+
+class _PendingQuestsState extends State<_PendingQuests> {
+  static const _interval = Duration(seconds: 8);
+  static const _transition = Duration(milliseconds: 300);
+  final _controller = PageController();
+  Timer? _rotation;
+  int _page = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _scheduleRotation();
+  }
+
+  @override
+  void didUpdateWidget(_PendingQuests oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.quests.length != widget.quests.length) {
+      _page = 0;
+      _scheduleRotation();
+    }
+  }
+
+  void _scheduleRotation() {
+    _rotation?.cancel();
+    if (widget.quests.length < 2 || MediaQuery.disableAnimationsOf(context)) {
+      return;
+    }
+    _rotation = Timer(_interval, () {
+      if (ModalRoute.isCurrentOf(context) != false &&
+          _controller.hasClients &&
+          !_controller.position.isScrollingNotifier.value) {
+        _showPage(1 - _page);
+      }
+      _scheduleRotation();
+    });
+  }
+
+  void _showPage(int page) {
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _controller.jumpToPage(page);
+    } else {
+      _controller.animateToPage(
+        page,
+        duration: _transition,
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _rotation?.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final currentQuest = widget.quests[_page].quest;
+    final cards = [
+      for (final item in widget.quests)
+        _PendingCard(
+          quest: item.quest,
+          green: widget.green,
+          onContinue: () => widget.onContinue(item),
+        ),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: 12,
+      children: [
+        Semantics(
+          header: true,
+          child: Text(
+            currentQuest.isDaily ? l10n.questsDaily : l10n.questsPickUp,
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: widget.green,
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+        if (cards.length == 1)
+          cards.single
+        else ...[
+          Stack(
+            children: [
+              // Use the taller card's natural height so long text can wrap.
+              for (final card in cards)
+                Visibility(
+                  visible: false,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: card,
+                ),
+              Positioned.fill(
+                child: Listener(
+                  onPointerDown: (_) => _rotation?.cancel(),
+                  onPointerUp: (_) => _scheduleRotation(),
+                  onPointerCancel: (_) => _scheduleRotation(),
+                  child: PageView(
+                    controller: _controller,
+                    onPageChanged: (page) {
+                      setState(() => _page = page);
+                      _scheduleRotation();
+                    },
+                    children: cards,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var index = 0; index < cards.length; index++)
+                Semantics(
+                  selected: _page == index,
+                  child: IconButton(
+                    style: IconButton.styleFrom(
+                      fixedSize: const Size.square(28),
+                      minimumSize: const Size.square(28),
+                      padding: EdgeInsets.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    tooltip: widget.quests[index].quest.isDaily
+                        ? l10n.questsDaily
+                        : l10n.questsPending,
+                    onPressed: () => _showPage(index),
+                    icon: Icon(
+                      _page == index ? Icons.circle : Icons.circle_outlined,
+                      color: widget.green,
+                      size: 9,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+}
+
 class _PendingCard extends StatelessWidget {
   const _PendingCard({
     required this.quest,
@@ -233,57 +400,40 @@ class _PendingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: 12,
-      children: [
-        Semantics(
-          header: true,
-          child: Text(
-            l10n.questsPickUp,
-            style: text.titleMedium?.copyWith(
-              color: green,
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-        _QuestCard(
-          child: Padding(
-            padding: const EdgeInsets.all(14),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 14,
-              children: [
-                QuestTile(theme: quest.theme, size: 74),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    spacing: 8,
-                    children: [
-                      Text(
-                        quest.title,
-                        style: text.titleMedium?.copyWith(
-                          color: green,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      if (quest.description.isNotEmpty)
-                        Text(quest.description, style: text.bodyMedium),
-                      const SizedBox(height: 2),
-                      PrimaryButton(
-                        text: l10n.questsContinue,
-                        onPressed: onContinue,
-                      ),
-                    ],
+    return _QuestCard(
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 14,
+          children: [
+            QuestTile(theme: quest.theme, size: 74),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                spacing: 8,
+                children: [
+                  Text(
+                    quest.title,
+                    style: text.titleMedium?.copyWith(
+                      color: green,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
+                  if (quest.description.isNotEmpty)
+                    Text(quest.description, style: text.bodyMedium),
+                  const SizedBox(height: 2),
+                  PrimaryButton(
+                    text: l10n.questsContinue,
+                    onPressed: onContinue,
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

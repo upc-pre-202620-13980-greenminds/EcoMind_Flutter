@@ -1470,6 +1470,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nice!'**
   String get questsNice;
+
+  /// No description provided for @questsDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily quest'**
+  String get questsDaily;
+
+  /// No description provided for @questsPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest in progress'**
+  String get questsPending;
 }
 
 class _AppLocalizationsDelegate

@@ -26,23 +26,38 @@ class QuestRepository {
     return data.cast<Map<String, dynamic>>().map(_quest).toList();
   }
 
-  Future<PendingQuest?> getPending() async {
+  Future<List<PendingQuest>> getPending() async {
     // Reading IN_PROGRESS also lets the backend update the daily quest.
     final inProgress = await _byStatus('IN_PROGRESS');
     final ready = await _byStatus('READY_TO_COMPLETE');
     final assignments = [...inProgress, ...ready]
       ..sort((a, b) => b.id.compareTo(a.id));
 
-    for (final assignment in assignments) {
-      final data = await _request(
-        '/quests/${assignment.questId}',
-        allowNotFound: true,
+    PendingQuest? daily;
+    PendingQuest? regular;
+    const batchSize = 4;
+    for (var index = 0; index < assignments.length; index += batchSize) {
+      final batch = await Future.wait(
+        assignments.skip(index).take(batchSize).map((assignment) async {
+          final data = await _request(
+            '/quests/${assignment.questId}',
+            allowNotFound: true,
+          );
+          return data == null
+              ? null
+              : (quest: _quest(data), assignment: assignment);
+        }),
       );
-      if (data != null) {
-        return (quest: _quest(data), assignment: assignment);
+      for (final pending in batch.nonNulls) {
+        if (pending.quest.isDaily) {
+          daily ??= pending;
+        } else {
+          regular ??= pending;
+        }
       }
+      if (daily != null && regular != null) break;
     }
-    return null;
+    return [?regular, ?daily];
   }
 
   Future<QuestDetails> getDetails(Quest quest, {int? assignmentId}) async {

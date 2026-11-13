@@ -811,4 +811,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get questsNice => 'Nice!';
+
+  @override
+  String get questsDaily => 'Daily quest';
+
+  @override
+  String get questsPending => 'Quest in progress';
 }

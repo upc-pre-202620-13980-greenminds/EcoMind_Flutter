@@ -25,6 +25,8 @@ class Quest {
   final int ecopoints;
   final int gems;
 
+  bool get isDaily => type == 'DAILY_QUEST';
+
   bool get canStart =>
       type == 'ACTIVITIES' || type == 'DAILY_QUEST' || type == 'COLLABORATIVE';
 }

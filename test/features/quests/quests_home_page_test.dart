@@ -57,6 +57,8 @@ void main() {
     expect(find.text('5 min · Desde 8 años'), findsOneWidget);
     expect(tester.takeException(), isNull);
 
+    await tester.ensureVisible(find.text('Continuar reto'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Continuar reto'));
     await tester.pumpAndSettle();
     expect(quests.openedAssignmentId, 35);
@@ -82,6 +84,43 @@ void main() {
     expect(quests.searchedTitle, 'agua');
     expect(find.text(_Quests.recommended.title), findsOneWidget);
   });
+
+  testWidgets(
+    'rotates and swipes between the pending quest and the daily quest',
+    (tester) async {
+      final quests = _Quests(hasPending: true, hasDaily: true);
+      await openHome(tester, quests);
+      final carousel = find.byType(PageView);
+      final controller = tester.widget<PageView>(carousel).controller!;
+      expect(controller.page, 0);
+      await tester.pump(const Duration(seconds: 8));
+      await tester.pumpAndSettle();
+      expect(controller.page, 1);
+      expect(find.text('Reto diario').hitTestable(), findsOneWidget);
+
+      await tester.drag(carousel, const Offset(270, 0));
+      await tester.pumpAndSettle();
+      expect(controller.page, 0);
+      expect(find.text('Continúa donde te quedaste'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+
+      final dailyIndicator = find.byTooltip('Reto diario');
+      await tester.ensureVisible(dailyIndicator);
+      await tester.pumpAndSettle();
+      await tester.tap(dailyIndicator);
+      await tester.pumpAndSettle();
+      final continueDaily = find.descendant(
+        of: carousel,
+        matching: find.text('Continuar reto'),
+      );
+      expect(controller.page, 1);
+      await tester.ensureVisible(continueDaily);
+      await tester.pumpAndSettle();
+      await tester.tap(continueDaily);
+      await tester.pumpAndSettle();
+      expect(quests.openedAssignmentId, 36);
+    },
+  );
 
   testWidgets('shows detail, activities and rewards in separate stages', (
     tester,
@@ -156,7 +195,7 @@ class _Notifications extends ChangeNotifier implements NotificationsViewModel {
 }
 
 class _Quests implements QuestRepository {
-  _Quests({required this.hasPending});
+  _Quests({required this.hasPending, this.hasDaily = false});
 
   static const recommended = Quest(
     id: 2,
@@ -182,6 +221,17 @@ class _Quests implements QuestRepository {
   );
 
   final bool hasPending;
+  final bool hasDaily;
+  static const _daily = (
+    quest: Quest(
+      id: 3,
+      title: 'Separen sus residuos',
+      description: 'Clasifiquen los residuos de hoy.',
+      theme: 'CHECKBOX',
+      type: 'DAILY_QUEST',
+    ),
+    assignment: QuestAssignment(id: 36, questId: 3, status: 'IN_PROGRESS'),
+  );
   int? openedAssignmentId;
   String? searchedTitle;
   bool started = false;
@@ -194,7 +244,10 @@ class _Quests implements QuestRepository {
   Future<List<Quest>> getCatalog() async => [recommended, _pending.quest];
 
   @override
-  Future<PendingQuest?> getPending() async => hasPending ? _pending : null;
+  Future<List<PendingQuest>> getPending() async => [
+    if (hasPending) _pending,
+    if (hasDaily) _daily,
+  ];
 
   @override
   Future<List<Quest>> search(String title) async {

@@ -394,5 +394,7 @@
   "questsActivitiesUnavailable": "These activities are unavailable here.",
   "questsStarting": "Ready... set...\nQuest started!",
   "questsCelebration": "Quest completed!\nGood job!",
-  "questsNice": "Nice!"
+  "questsNice": "Nice!",
+  "questsDaily": "Daily quest",
+  "questsPending": "Quest in progress"
 }
