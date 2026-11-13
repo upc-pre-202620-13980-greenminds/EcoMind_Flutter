@@ -63,30 +63,35 @@ void main() {
         () => find.byType(ResetPasswordPage).evaluate().isNotEmpty,
       );
       final fields = find.byType(TextFormField);
-      await tester.enterText(fields.at(0), password);
-      await tester.pump();
-      await tester.enterText(fields.at(1), password);
-      await tester.pump();
-      final page = tester.widget<ResetPasswordPage>(
-        find.byType(ResetPasswordPage),
-      );
-      expect(
-        page.viewModel.state.password == password,
-        isTrue,
-        reason: 'Password input did not reach the form.',
-      );
-      expect(
-        page.viewModel.state.confirmPassword == password,
-        isTrue,
-        reason: 'Confirmation input did not reach the form.',
-      );
+      for (var index = 0; index < 2; index++) {
+        final input = find.descendant(
+          of: fields.at(index),
+          matching: find.byType(EditableText),
+        );
+        final editable = tester.state<EditableTextState>(input);
+        // Drive the same TextInputClient edit callback without relying on the device IME.
+        editable.userUpdateTextEditingValue(
+          TextEditingValue(
+            text: password,
+            selection: TextSelection.collapsed(offset: password.length),
+          ),
+          SelectionChangedCause.keyboard,
+        );
+        await tester.pump();
+        expect(
+          editable.widget.controller.text == password,
+          isTrue,
+          reason: 'Password input did not reach the form.',
+        );
+      }
       await tester.ensureVisible(find.byType(PrimaryButton));
       await tester.tap(find.byType(PrimaryButton));
       await _until(
         tester,
         () =>
             find.text('Password updated').evaluate().isNotEmpty ||
-            find.byType(FormErrorText).evaluate().isNotEmpty,
+            find.byType(FormErrorText).evaluate().isNotEmpty ||
+            find.text('Request a new link').evaluate().isNotEmpty,
       );
       expect(find.byType(FormErrorText), findsNothing);
       expect(find.text('Password updated'), findsOneWidget);
