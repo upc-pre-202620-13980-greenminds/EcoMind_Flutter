@@ -3,6 +3,8 @@ import 'package:ecomind_parents/core/widgets/coming_soon_view.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/main/main_top_bar.dart';
+import 'package:ecomind_parents/features/monetization/presentation/store/store_page.dart';
+import 'package:ecomind_parents/features/monetization/presentation/store/store_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
@@ -28,12 +30,16 @@ class _MainPageState extends State<MainPage> {
       getIt<WeeklyReportViewModel>();
   final NotificationsViewModel notificationsViewModel =
       getIt<NotificationsViewModel>();
+  final StoreViewModel storeViewModel = getIt<StoreViewModel>();
   // Language used to load the inbox; it is loaded again if the language changes
   String? loadedLanguageTag;
 
   // Store, Ranking, Main menu, Progress and Community belong to other members
   late final List<Widget> pages = [
-    const ComingSoonView(),
+    StorePage(
+      viewModel: storeViewModel,
+      onBalanceChanged: profileViewModel.loadProfile,
+    ),
     const ComingSoonView(),
     const ComingSoonView(),
     const ComingSoonView(),

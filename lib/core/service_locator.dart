@@ -18,6 +18,15 @@ import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_m
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/splash/splash_view_model.dart';
 import 'package:ecomind_parents/features/iam/presentation/verify_email/verify_email_view_model.dart';
+import 'package:ecomind_parents/features/monetization/application/buy_store_item_use_case.dart';
+import 'package:ecomind_parents/features/monetization/application/get_gem_balance_use_case.dart';
+import 'package:ecomind_parents/features/monetization/application/get_inventory_use_case.dart';
+import 'package:ecomind_parents/features/monetization/application/get_store_catalog_use_case.dart';
+import 'package:ecomind_parents/features/monetization/application/set_cosmetic_equipped_use_case.dart';
+import 'package:ecomind_parents/features/monetization/domain/monetization_repository.dart';
+import 'package:ecomind_parents/features/monetization/infrastructure/monetization_repository_impl.dart';
+import 'package:ecomind_parents/features/monetization/infrastructure/remote/monetization_api.dart';
+import 'package:ecomind_parents/features/monetization/presentation/store/store_view_model.dart';
 import 'package:ecomind_parents/features/users/application/add_family_member_use_case.dart';
 import 'package:ecomind_parents/features/users/application/create_family_use_case.dart';
 import 'package:ecomind_parents/features/users/application/get_current_profile_use_case.dart';
@@ -319,6 +328,39 @@ void setupDependencies() {
   getIt.registerFactory<ResetPasswordViewModel>(
     () => ResetPasswordViewModel(
       confirmPasswordRecovery: getIt<ConfirmPasswordRecoveryUseCase>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<MonetizationApi>(() => MonetizationApi());
+  getIt.registerLazySingleton<MonetizationRepository>(
+    () => MonetizationRepositoryImpl(
+      api: getIt<MonetizationApi>(),
+      sessionRepository: getIt<SessionRepository>(),
+    ),
+  );
+  getIt.registerLazySingleton<GetStoreCatalogUseCase>(
+    () => GetStoreCatalogUseCase(repository: getIt<MonetizationRepository>()),
+  );
+  getIt.registerLazySingleton<GetInventoryUseCase>(
+    () => GetInventoryUseCase(repository: getIt<MonetizationRepository>()),
+  );
+  getIt.registerLazySingleton<GetGemBalanceUseCase>(
+    () => GetGemBalanceUseCase(repository: getIt<MonetizationRepository>()),
+  );
+  getIt.registerLazySingleton<BuyStoreItemUseCase>(
+    () => BuyStoreItemUseCase(repository: getIt<MonetizationRepository>()),
+  );
+  getIt.registerLazySingleton<SetCosmeticEquippedUseCase>(
+    () =>
+        SetCosmeticEquippedUseCase(repository: getIt<MonetizationRepository>()),
+  );
+  getIt.registerLazySingleton<StoreViewModel>(
+    () => StoreViewModel(
+      getCatalog: getIt<GetStoreCatalogUseCase>(),
+      getInventory: getIt<GetInventoryUseCase>(),
+      getGemBalance: getIt<GetGemBalanceUseCase>(),
+      buyItem: getIt<BuyStoreItemUseCase>(),
+      setCosmeticEquipped: getIt<SetCosmeticEquippedUseCase>(),
     ),
   );
 }
