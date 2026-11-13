@@ -12,6 +12,8 @@ import 'package:ecomind_parents/features/users/presentation/notifications/notifi
 import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/report/weekly_report_view_model.dart';
+import 'package:ecomind_parents/features/community/infrastructure/community_repository.dart';
+import 'package:ecomind_parents/features/community/presentation/community_home_page.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +43,10 @@ class _MainPageState extends State<MainPage> {
     sessionRepository: getIt<SessionRepository>(),
   );
 
+  late final communityRepository = CommunityRepository(
+    sessionRepository: getIt<SessionRepository>(),
+  );
+
   List<Widget> get pages => [
     const ComingSoonView(),
     const ComingSoonView(),
@@ -54,7 +60,7 @@ class _MainPageState extends State<MainPage> {
       repository: questRepository,
       isActive: selectedIndex == 3,
     ),
-    const ComingSoonView(),
+    CommunityHomePage(repository: communityRepository),
     ProfilePage(
       viewModel: profileViewModel,
       familyViewModel: familyViewModel,
