@@ -1,4 +1,5 @@
 import 'package:ecomind_parents/features/iam/domain/auth_exception.dart';
+import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/iam/presentation/auth_messages.dart';
 
 class SignUpState {
@@ -7,6 +8,7 @@ class SignUpState {
     this.email = '',
     this.password = '',
     this.confirmPassword = '',
+    this.role,
     this.termsAccepted = false,
     this.isLoading = false,
     this.isCodeSent = false,
@@ -14,6 +16,7 @@ class SignUpState {
     this.emailError,
     this.passwordError,
     this.confirmPasswordError,
+    this.roleError,
     this.termsError,
     this.errorMessage,
   });
@@ -22,6 +25,8 @@ class SignUpState {
   final String email;
   final String password;
   final String confirmPassword;
+  // Null until the user chooses Student or Parent
+  final SocialRole? role;
   final bool termsAccepted;
   final bool isLoading;
   // True when the backend accepted the registration and sent the code
@@ -30,6 +35,7 @@ class SignUpState {
   final FieldError? emailError;
   final FieldError? passwordError;
   final FieldError? confirmPasswordError;
+  final FieldError? roleError;
   final FieldError? termsError;
   final AuthError? errorMessage;
 
@@ -39,6 +45,7 @@ class SignUpState {
     String? email,
     String? password,
     String? confirmPassword,
+    SocialRole? role,
     bool? termsAccepted,
     bool? isLoading,
     bool? isCodeSent,
@@ -46,6 +53,7 @@ class SignUpState {
     FieldError? emailError,
     FieldError? passwordError,
     FieldError? confirmPasswordError,
+    FieldError? roleError,
     FieldError? termsError,
     AuthError? errorMessage,
   }) {
@@ -54,6 +62,7 @@ class SignUpState {
       email: email ?? this.email,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
+      role: role ?? this.role,
       termsAccepted: termsAccepted ?? this.termsAccepted,
       isLoading: isLoading ?? this.isLoading,
       isCodeSent: isCodeSent ?? this.isCodeSent,
@@ -61,6 +70,7 @@ class SignUpState {
       emailError: emailError,
       passwordError: passwordError,
       confirmPasswordError: confirmPasswordError,
+      roleError: roleError,
       termsError: termsError,
       errorMessage: errorMessage,
     );

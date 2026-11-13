@@ -11,6 +11,7 @@ enum FieldError {
   passwordMismatch,
   termsRequired,
   codeFormat,
+  roleRequired,
 }
 
 extension FieldErrorText on FieldError {
@@ -24,6 +25,7 @@ extension FieldErrorText on FieldError {
       FieldError.passwordMismatch => l10n.errorPasswordMismatch,
       FieldError.termsRequired => l10n.errorTermsRequired,
       FieldError.codeFormat => l10n.errorCodeFormat,
+      FieldError.roleRequired => l10n.errorRoleRequired,
     };
   }
 }
@@ -32,7 +34,6 @@ extension AuthErrorText on AuthError {
   String text(AppLocalizations l10n) {
     return switch (this) {
       AuthError.invalidCredentials => l10n.errorInvalidCredentials,
-      AuthError.notParent => l10n.errorStudentAccount,
       AuthError.emailConflict => l10n.errorEmailConflict,
       AuthError.passwordPolicy => l10n.errorPasswordPolicy,
       AuthError.codeInvalid => l10n.errorCodeInvalid,

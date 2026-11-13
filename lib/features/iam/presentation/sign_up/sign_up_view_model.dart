@@ -2,6 +2,7 @@ import 'package:ecomind_parents/features/iam/application/sign_up_use_case.dart';
 import 'package:ecomind_parents/features/iam/domain/account_rules.dart';
 import 'package:ecomind_parents/features/iam/domain/auth_exception.dart';
 import 'package:ecomind_parents/features/iam/domain/registration.dart';
+import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/iam/presentation/auth_messages.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_up/sign_up_state.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class SignUpViewModel extends ChangeNotifier {
     name: _state.name,
     email: _state.email,
     password: _state.password,
+    // Only read after submit, when the role was already validated
+    role: _state.role!,
   );
 
   // Each change clears the error of its own field and keeps the others
@@ -27,6 +30,7 @@ class SignUpViewModel extends ChangeNotifier {
       emailError: _state.emailError,
       passwordError: _state.passwordError,
       confirmPasswordError: _state.confirmPasswordError,
+      roleError: _state.roleError,
       termsError: _state.termsError,
     );
     notifyListeners();
@@ -38,6 +42,7 @@ class SignUpViewModel extends ChangeNotifier {
       nameError: _state.nameError,
       passwordError: _state.passwordError,
       confirmPasswordError: _state.confirmPasswordError,
+      roleError: _state.roleError,
       termsError: _state.termsError,
     );
     notifyListeners();
@@ -49,6 +54,7 @@ class SignUpViewModel extends ChangeNotifier {
       nameError: _state.nameError,
       emailError: _state.emailError,
       confirmPasswordError: _state.confirmPasswordError,
+      roleError: _state.roleError,
       termsError: _state.termsError,
     );
     notifyListeners();
@@ -60,6 +66,7 @@ class SignUpViewModel extends ChangeNotifier {
       nameError: _state.nameError,
       emailError: _state.emailError,
       passwordError: _state.passwordError,
+      roleError: _state.roleError,
       termsError: _state.termsError,
     );
     notifyListeners();
@@ -72,6 +79,19 @@ class SignUpViewModel extends ChangeNotifier {
       emailError: _state.emailError,
       passwordError: _state.passwordError,
       confirmPasswordError: _state.confirmPasswordError,
+      roleError: _state.roleError,
+    );
+    notifyListeners();
+  }
+
+  void onRoleSelected(SocialRole role) {
+    _state = _state.copyWith(
+      role: role,
+      nameError: _state.nameError,
+      emailError: _state.emailError,
+      passwordError: _state.passwordError,
+      confirmPasswordError: _state.confirmPasswordError,
+      termsError: _state.termsError,
     );
     notifyListeners();
   }
@@ -121,6 +141,9 @@ class SignUpViewModel extends ChangeNotifier {
         _state.confirmPassword == _state.password
         ? null
         : FieldError.passwordMismatch;
+    final FieldError? roleError = _state.role == null
+        ? FieldError.roleRequired
+        : null;
     final FieldError? termsError = _state.termsAccepted
         ? null
         : FieldError.termsRequired;
@@ -130,6 +153,7 @@ class SignUpViewModel extends ChangeNotifier {
       emailError: emailError,
       passwordError: passwordError,
       confirmPasswordError: confirmPasswordError,
+      roleError: roleError,
       termsError: termsError,
     );
     notifyListeners();
@@ -138,6 +162,7 @@ class SignUpViewModel extends ChangeNotifier {
       emailError,
       passwordError,
       confirmPasswordError,
+      roleError,
       termsError,
     ].every((error) => error == null);
   }

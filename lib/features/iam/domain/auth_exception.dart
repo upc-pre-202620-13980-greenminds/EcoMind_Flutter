@@ -1,6 +1,5 @@
 enum AuthError {
   invalidCredentials,
-  notParent,
   emailConflict,
   passwordPolicy,
   codeInvalid,

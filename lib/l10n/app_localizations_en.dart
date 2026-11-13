@@ -218,8 +218,92 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorCodeAttempts => 'Too many attempts. Request a new code.';
 
   @override
-  String get errorStudentAccount =>
-      'This application is for parents. Students sign in with the EcoMind student app.';
+  String get signUpRoleLabel => 'I am a';
+
+  @override
+  String get errorRoleRequired => 'Select a role.';
+
+  @override
+  String get commitmentTitle => 'My commitment';
+
+  @override
+  String get commitmentEmpty => 'Set a personal commitment to keep you going.';
+
+  @override
+  String get commitmentAdd => 'Add commitment';
+
+  @override
+  String get commitmentAddTitle => 'Add commitment';
+
+  @override
+  String get commitmentEditTitle => 'Edit commitment';
+
+  @override
+  String get commitmentSubtitle =>
+      'What sustainable habit do you want to keep?';
+
+  @override
+  String get commitmentLabel => 'My commitment';
+
+  @override
+  String get commitmentPlaceholder => 'Write your commitment';
+
+  @override
+  String get commitmentSave => 'Save commitment';
+
+  @override
+  String get commitmentRetry => 'Retry';
+
+  @override
+  String get commitmentCancel => 'Cancel';
+
+  @override
+  String get commitmentRequired => 'Write a commitment before saving.';
+
+  @override
+  String commitmentLength(int max) {
+    return 'Your commitment can have up to $max characters.';
+  }
+
+  @override
+  String commitmentCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
+  String commitmentCounterDescription(int count, int max) {
+    return '$count of $max characters';
+  }
+
+  @override
+  String get commitmentSaveFailed => 'Couldn’t save your commitment.';
+
+  @override
+  String get commitmentSaveFailedHint => 'Your text is still here. Try again.';
+
+  @override
+  String get medalsTitle => 'Medals and achievements';
+
+  @override
+  String get medalsEmpty => 'You have no medals yet.';
+
+  @override
+  String get familyEmptyStudentMessage =>
+      'A parent can create a family and add you as a member.';
+
+  @override
+  String get preferencesQuests => 'New and daily quests';
+
+  @override
+  String get preferencesQuestsDescription =>
+      'New quests available and daily quests';
+
+  @override
+  String get preferencesLearning => 'Learning reminders';
+
+  @override
+  String get preferencesLearningDescription =>
+      'Pending materials you haven’t reviewed';
 
   @override
   String get errorResetOutcomeUnknown =>

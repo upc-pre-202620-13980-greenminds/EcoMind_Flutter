@@ -221,8 +221,93 @@ class AppLocalizationsEs extends AppLocalizations {
       'Demasiados intentos. Solicita un código nuevo.';
 
   @override
-  String get errorStudentAccount =>
-      'Esta aplicación es para madres y padres. Los estudiantes inician sesión en la aplicación EcoMind para estudiantes.';
+  String get signUpRoleLabel => 'Soy';
+
+  @override
+  String get errorRoleRequired => 'Selecciona un rol.';
+
+  @override
+  String get commitmentTitle => 'Mi compromiso';
+
+  @override
+  String get commitmentEmpty =>
+      'Define un compromiso personal que te mantenga en marcha.';
+
+  @override
+  String get commitmentAdd => 'Añadir compromiso';
+
+  @override
+  String get commitmentAddTitle => 'Añadir compromiso';
+
+  @override
+  String get commitmentEditTitle => 'Editar compromiso';
+
+  @override
+  String get commitmentSubtitle => '¿Qué hábito sostenible quieres mantener?';
+
+  @override
+  String get commitmentLabel => 'Mi compromiso';
+
+  @override
+  String get commitmentPlaceholder => 'Escribe tu compromiso';
+
+  @override
+  String get commitmentSave => 'Guardar compromiso';
+
+  @override
+  String get commitmentRetry => 'Reintentar';
+
+  @override
+  String get commitmentCancel => 'Cancelar';
+
+  @override
+  String get commitmentRequired => 'Escribe un compromiso antes de guardar.';
+
+  @override
+  String commitmentLength(int max) {
+    return 'Tu compromiso puede tener hasta $max caracteres.';
+  }
+
+  @override
+  String commitmentCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
+  String commitmentCounterDescription(int count, int max) {
+    return '$count de $max caracteres';
+  }
+
+  @override
+  String get commitmentSaveFailed => 'No se pudo guardar tu compromiso.';
+
+  @override
+  String get commitmentSaveFailedHint =>
+      'Tu texto sigue aquí. Inténtalo de nuevo.';
+
+  @override
+  String get medalsTitle => 'Medallas y logros';
+
+  @override
+  String get medalsEmpty => 'Aún no tienes medallas.';
+
+  @override
+  String get familyEmptyStudentMessage =>
+      'Tu madre o tu padre puede crear una familia y añadirte como miembro.';
+
+  @override
+  String get preferencesQuests => 'Misiones nuevas y diarias';
+
+  @override
+  String get preferencesQuestsDescription =>
+      'Misiones nuevas disponibles y misiones diarias';
+
+  @override
+  String get preferencesLearning => 'Recordatorios de aprendizaje';
+
+  @override
+  String get preferencesLearningDescription =>
+      'Materiales pendientes que aún no revisas';
 
   @override
   String get errorResetOutcomeUnknown =>
