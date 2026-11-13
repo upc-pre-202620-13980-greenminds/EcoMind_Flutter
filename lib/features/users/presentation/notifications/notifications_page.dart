@@ -6,6 +6,7 @@ import 'package:ecomind_parents/features/main/secondary_scaffold.dart';
 import 'package:ecomind_parents/features/users/domain/users_exception.dart';
 import 'package:ecomind_parents/features/users/presentation/notification_preferences/notification_preferences_page.dart';
 import 'package:ecomind_parents/features/users/presentation/notification_preferences/notification_preferences_view_model.dart';
+import 'package:ecomind_parents/features/users/presentation/notifications/notification_tab.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notification_tile.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
@@ -109,7 +110,16 @@ class NotificationsPage extends StatelessWidget {
                         return NotificationTile(
                           notification: notification,
                           now: now,
-                          onTap: () => viewModel.markAsRead(notification),
+                          onTap: () {
+                            viewModel.open(notification);
+                            // The main screen changes to the tab; the inbox closes over it
+                            if (tabFor(notification.type) != null) {
+                              Navigator.popUntil(
+                                context,
+                                (route) => route.isFirst,
+                              );
+                            }
+                          },
                         );
                       },
                     ),

@@ -78,6 +78,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     profileViewModel.addListener(onProfileChanged);
     familyViewModel.addListener(onFamilyChanged);
+    notificationsViewModel.addListener(onNotificationsChanged);
     // The top bar needs the balances even when another tab is open
     profileViewModel.loadProfile();
     // Loaded on every start, so a new parent never sees the previous family
@@ -99,6 +100,7 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     profileViewModel.removeListener(onProfileChanged);
     familyViewModel.removeListener(onFamilyChanged);
+    notificationsViewModel.removeListener(onNotificationsChanged);
     super.dispose();
   }
 
@@ -106,6 +108,17 @@ class _MainPageState extends State<MainPage> {
   void onFamilyChanged() {
     if (!familyViewModel.state.isLoading) {
       weeklyReportViewModel.loadReport(familyViewModel.state.family);
+    }
+  }
+
+  // A tapped notification opens the tab that shows what it talks about
+  void onNotificationsChanged() {
+    final tab = notificationsViewModel.takeRequestedTab();
+    if (tab != null && mounted) {
+      setState(() {
+        visitedTabs.add(tab.mainTabIndex);
+        selectedIndex = tab.mainTabIndex;
+      });
     }
   }
 

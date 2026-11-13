@@ -670,6 +670,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationsLabelCommunity => 'COMMUNITY';
 
   @override
+  String get notificationsLabelQuests => 'QUESTS';
+
+  @override
+  String get notificationsLabelLearning => 'LEARNING';
+
+  @override
   String notificationsTimeMinutes(int minutes) {
     return '$minutes min';
   }

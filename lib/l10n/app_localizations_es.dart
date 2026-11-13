@@ -679,6 +679,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get notificationsLabelCommunity => 'COMUNIDAD';
 
   @override
+  String get notificationsLabelQuests => 'MISIONES';
+
+  @override
+  String get notificationsLabelLearning => 'APRENDIZAJE';
+
+  @override
   String notificationsTimeMinutes(int minutes) {
     return '$minutes min';
   }
@@ -1008,4 +1014,10 @@ class AppLocalizationsEs extends AppLocalizations {
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).
 class AppLocalizationsEs419 extends AppLocalizationsEs {
   AppLocalizationsEs419() : super('es_419');
+
+  @override
+  String get notificationsLabelQuests => 'MISIONES';
+
+  @override
+  String get notificationsLabelLearning => 'APRENDIZAJE';
 }

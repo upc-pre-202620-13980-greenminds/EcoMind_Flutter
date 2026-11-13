@@ -14,16 +14,20 @@ class NotificationRepositoryImpl implements NotificationRepository {
   @override
   Future<List<AppNotification>> getNotifications(String languageTag) {
     return guardUsersRequest(sessionRepository, (session) async {
-      final dtos = await api.getNotifications(session.accessToken, languageTag);
-      return dtos.map((dto) => dto.toDomain()).toList();
+      final jsons = await api.getNotifications(
+        session.accessToken,
+        languageTag,
+      );
+      return notificationsFromJson(jsons);
     });
   }
 
   @override
-  Future<void> markAsRead(int notificationId) {
+  Future<void> markAsRead(int notificationId, String languageTag) {
     return guardUsersRequest(
       sessionRepository,
-      (session) => api.markAsRead(session.accessToken, notificationId),
+      (session) =>
+          api.markAsRead(session.accessToken, notificationId, languageTag),
     );
   }
 

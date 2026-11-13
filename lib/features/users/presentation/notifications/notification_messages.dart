@@ -2,7 +2,7 @@ import 'package:ecomind_parents/features/users/domain/notification_category.dart
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 
 extension NotificationCategoryLabel on NotificationCategory {
-  // Green label above the title; the hidden categories never reach the inbox
+  // Green label above the title; the unknown categories never reach the inbox
   String label(AppLocalizations l10n) {
     return switch (this) {
       NotificationCategory.achievementsAndBadges =>
@@ -10,6 +10,8 @@ extension NotificationCategoryLabel on NotificationCategory {
       NotificationCategory.weeklyProgressSummary =>
         l10n.notificationsLabelProgress,
       NotificationCategory.communityEvents => l10n.notificationsLabelEvents,
+      NotificationCategory.newAndDailyQuests => l10n.notificationsLabelQuests,
+      NotificationCategory.learningReminders => l10n.notificationsLabelLearning,
       _ => l10n.notificationsLabelCommunity,
     };
   }
