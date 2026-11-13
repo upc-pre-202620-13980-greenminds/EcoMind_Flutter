@@ -1,4 +1,4 @@
-import 'package:ecomind_parents/core/widgets/initials_avatar.dart';
+import 'package:ecomind_parents/core/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
 
 // Row of a friend or a family member: avatar, name, subtitle and an optional action
@@ -7,10 +7,12 @@ class PersonRow extends StatelessWidget {
     super.key,
     required this.name,
     required this.subtitle,
+    this.avatarImageReference,
     this.trailing,
   });
   final String name;
   final String subtitle;
+  final String? avatarImageReference;
   final Widget? trailing;
 
   @override
@@ -25,7 +27,7 @@ class PersonRow extends StatelessWidget {
           child: Row(
             spacing: 12,
             children: [
-              InitialsAvatar(name: name),
+              UserAvatar(name: name, imageReference: avatarImageReference),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

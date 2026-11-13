@@ -6,7 +6,7 @@ import 'package:ecomind_parents/features/users/infrastructure/local/notification
 class NotificationPreferencesRepositoryImpl
     implements NotificationPreferencesRepository {
   final NotificationPreferencesDao dao;
-  // The preferences are kept per parent, so two accounts on one phone do not mix them
+  // The preferences are kept per user, so two accounts on one phone do not mix them
   final SessionRepository sessionRepository;
 
   const new({required this.dao, required this.sessionRepository});

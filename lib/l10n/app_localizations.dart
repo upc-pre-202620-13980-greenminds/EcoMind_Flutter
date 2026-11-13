@@ -495,11 +495,161 @@ abstract class AppLocalizations {
   /// **'Too many attempts. Request a new code.'**
   String get errorCodeAttempts;
 
-  /// No description provided for @errorStudentAccount.
+  /// No description provided for @signUpRoleLabel.
   ///
   /// In en, this message translates to:
-  /// **'This application is for parents. Students sign in with the EcoMind student app.'**
-  String get errorStudentAccount;
+  /// **'I am a'**
+  String get signUpRoleLabel;
+
+  /// No description provided for @errorRoleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a role.'**
+  String get errorRoleRequired;
+
+  /// No description provided for @commitmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My commitment'**
+  String get commitmentTitle;
+
+  /// No description provided for @commitmentEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a personal commitment to keep you going.'**
+  String get commitmentEmpty;
+
+  /// No description provided for @commitmentAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add commitment'**
+  String get commitmentAdd;
+
+  /// No description provided for @commitmentAddTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add commitment'**
+  String get commitmentAddTitle;
+
+  /// No description provided for @commitmentEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit commitment'**
+  String get commitmentEditTitle;
+
+  /// No description provided for @commitmentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What sustainable habit do you want to keep?'**
+  String get commitmentSubtitle;
+
+  /// No description provided for @commitmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'My commitment'**
+  String get commitmentLabel;
+
+  /// No description provided for @commitmentPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your commitment'**
+  String get commitmentPlaceholder;
+
+  /// No description provided for @commitmentSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save commitment'**
+  String get commitmentSave;
+
+  /// No description provided for @commitmentRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get commitmentRetry;
+
+  /// No description provided for @commitmentCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commitmentCancel;
+
+  /// No description provided for @commitmentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a commitment before saving.'**
+  String get commitmentRequired;
+
+  /// No description provided for @commitmentLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Your commitment can have up to {max} characters.'**
+  String commitmentLength(int max);
+
+  /// No description provided for @commitmentCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{max}'**
+  String commitmentCounter(int count, int max);
+
+  /// No description provided for @commitmentCounterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {max} characters'**
+  String commitmentCounterDescription(int count, int max);
+
+  /// No description provided for @commitmentSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your commitment.'**
+  String get commitmentSaveFailed;
+
+  /// No description provided for @commitmentSaveFailedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your text is still here. Try again.'**
+  String get commitmentSaveFailedHint;
+
+  /// No description provided for @medalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Medals and achievements'**
+  String get medalsTitle;
+
+  /// No description provided for @medalsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no medals yet.'**
+  String get medalsEmpty;
+
+  /// No description provided for @familyEmptyStudentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A parent can create a family and add you as a member.'**
+  String get familyEmptyStudentMessage;
+
+  /// No description provided for @preferencesQuests.
+  ///
+  /// In en, this message translates to:
+  /// **'New and daily quests'**
+  String get preferencesQuests;
+
+  /// No description provided for @preferencesQuestsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'New quests available and daily quests'**
+  String get preferencesQuestsDescription;
+
+  /// No description provided for @preferencesLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning reminders'**
+  String get preferencesLearning;
+
+  /// No description provided for @preferencesLearningDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending materials you haven’t reviewed'**
+  String get preferencesLearningDescription;
 
   /// No description provided for @errorResetOutcomeUnknown.
   ///

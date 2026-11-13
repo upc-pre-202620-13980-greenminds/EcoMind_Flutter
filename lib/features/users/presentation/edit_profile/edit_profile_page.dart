@@ -1,4 +1,4 @@
-import 'package:ecomind_parents/core/widgets/initials_avatar.dart';
+import 'package:ecomind_parents/core/widgets/user_avatar.dart';
 import 'package:ecomind_parents/core/widgets/labeled_text_field.dart';
 import 'package:ecomind_parents/core/widgets/pill_button.dart';
 import 'package:ecomind_parents/core/widgets/screen_header.dart';
@@ -72,7 +72,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
-                        InitialsAvatar(name: state.name, size: 76),
+                        UserAvatar(
+                          name: state.name,
+                          imageReference: profile.avatarImageReference,
+                          size: 76,
+                        ),
                         const SizedBox(height: 24),
                         LabeledTextField(
                           label: l10n.editProfileNameLabel,

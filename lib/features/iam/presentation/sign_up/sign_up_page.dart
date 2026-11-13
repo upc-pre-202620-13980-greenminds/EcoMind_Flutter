@@ -1,7 +1,9 @@
 import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/widgets/form_error_text.dart';
 import 'package:ecomind_parents/core/widgets/labeled_text_field.dart';
+import 'package:ecomind_parents/core/widgets/option_selector.dart';
 import 'package:ecomind_parents/core/widgets/primary_button.dart';
+import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/iam/presentation/auth_messages.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
@@ -11,6 +13,9 @@ import 'package:ecomind_parents/features/iam/presentation/verify_email/verify_em
 import 'package:ecomind_parents/features/iam/presentation/verify_email/verify_email_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+
+// Options of the role selector, as in the student app and HU-056
+const List<SocialRole> _roles = [SocialRole.student, SocialRole.parent];
 
 class SignUpPage extends StatefulWidget {
   final SignUpViewModel viewModel;
@@ -109,6 +114,19 @@ class _SignUpPageState extends State<SignUpPage> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       autofillHints: const [AutofillHints.email],
+                      enabled: !state.isLoading,
+                    ),
+                    const SizedBox(height: 8),
+                    // The order of the list is the order of the options on screen
+                    OptionSelector(
+                      label: l10n.signUpRoleLabel,
+                      options: [l10n.roleStudent, l10n.roleParent],
+                      selectedIndex: state.role == null
+                          ? null
+                          : _roles.indexOf(state.role!),
+                      onSelected: (index) =>
+                          viewModel.onRoleSelected(_roles[index]),
+                      errorText: state.roleError?.text(l10n),
                       enabled: !state.isLoading,
                     ),
                     const SizedBox(height: 8),

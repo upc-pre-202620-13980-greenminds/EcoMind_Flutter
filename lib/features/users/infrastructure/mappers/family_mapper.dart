@@ -31,6 +31,7 @@ extension FamilyMemberDtoMapper on FamilyMemberDto {
           ? SocialRole.parent
           : SocialRole.student,
       isCurrentUser: userId == currentUserId,
+      avatarImageReference: profile?.avatarImageReference,
     );
   }
 }
