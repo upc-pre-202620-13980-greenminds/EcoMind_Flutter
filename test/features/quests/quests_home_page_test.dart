@@ -107,6 +107,46 @@ void main() {
     },
   );
 
+  testWidgets('keeps progress visible while refreshing on tab return', (
+    tester,
+  ) async {
+    final active = ValueNotifier(true);
+    addTearDown(active.dispose);
+    final quests = _Quests(hasPending: true)
+      ..loadingProgress = Completer<void>();
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Scaffold(
+          body: ValueListenableBuilder(
+            valueListenable: active,
+            builder: (context, isActive, _) =>
+                QuestProgressPage(repository: quests, isActive: isActive),
+          ),
+        ),
+      ),
+    );
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.byType(LinearProgressIndicator), findsNothing);
+
+    quests.loadingProgress!.complete();
+    await tester.pumpAndSettle();
+    expect(find.text('Ahorren energía en casa'), findsOneWidget);
+
+    quests.loadingProgress = Completer<void>();
+    active.value = false;
+    await tester.pump();
+    active.value = true;
+    await tester.pump();
+    expect(find.text('Ahorren energía en casa'), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+
+    quests.loadingProgress!.complete();
+    await tester.pumpAndSettle();
+  });
+
   testWidgets('greets the parent and resumes the saved assignment', (
     tester,
   ) async {
@@ -258,10 +298,13 @@ void main() {
     await tester.pump();
     expect(quests.detailsLoads, 1);
     expect(quests.started, isFalse);
+    expect(find.byType(LinearProgressIndicator), findsNothing);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    final back = tester.widget<IconButton>(
+      find.widgetWithIcon(IconButton, Icons.chevron_left),
+    );
+    expect(back.onPressed, isNotNull);
     quests.loadingDetails!.complete();
-    await tester.pump(const Duration(milliseconds: 100));
-    expect(find.text('¡Preparados, listos…\ncomenzó el reto!'), findsOneWidget);
-    await tester.pump(const Duration(milliseconds: 2200));
     await tester.pumpAndSettle();
     expect(find.text('0 % completado'), findsOneWidget);
     quests.savingCheck = Completer<void>();
@@ -325,29 +368,34 @@ class _Notifications extends ChangeNotifier implements NotificationsViewModel {
 class _Quests implements QuestRepository {
   _Quests({required this.hasPending, this.hasDaily = false});
 
+  Completer<void>? loadingProgress;
+
   @override
-  Future<List<QuestProgressEntry>> getProgress() async => [
-    (
-      quest: _pending.quest,
-      assignment: const QuestAssignment(
-        id: 35,
-        questId: 1,
-        status: 'IN_PROGRESS',
-        progress: 40,
-      ),
-    ),
-    for (var day = 1; day <= 2; day++)
+  Future<List<QuestProgressEntry>> getProgress() async {
+    await loadingProgress?.future;
+    return [
       (
-        quest: recommended,
-        assignment: QuestAssignment(
-          id: 40 + day,
-          questId: recommended.id,
-          status: 'COMPLETED',
-          progress: 100,
-          endDate: DateTime(2026, 11, day),
+        quest: _pending.quest,
+        assignment: const QuestAssignment(
+          id: 35,
+          questId: 1,
+          status: 'IN_PROGRESS',
+          progress: 40,
         ),
       ),
-  ];
+      for (var day = 1; day <= 2; day++)
+        (
+          quest: recommended,
+          assignment: QuestAssignment(
+            id: 40 + day,
+            questId: recommended.id,
+            status: 'COMPLETED',
+            progress: 100,
+            endDate: DateTime(2026, 11, day),
+          ),
+        ),
+    ];
+  }
 
   static const recommended = Quest(
     id: 2,
@@ -408,10 +456,14 @@ class _Quests implements QuestRepository {
   }
 
   @override
-  Future<QuestDetails> getDetails(Quest quest, {int? assignmentId}) async {
+  Future<QuestDetails> getDetails(
+    Quest quest, {
+    int? assignmentId,
+    QuestAssignment? knownAssignment,
+  }) async {
     detailsLoads++;
     await loadingDetails?.future;
-    openedAssignmentId = assignmentId;
+    openedAssignmentId = knownAssignment?.id ?? assignmentId;
     if (quest == recommended) {
       return (
         assignment: !started
@@ -448,10 +500,10 @@ class _Quests implements QuestRepository {
   }
 
   @override
-  Future<int> start(int questId) async {
+  Future<QuestAssignment> start(int questId) async {
     expect(questId, recommended.id);
     started = true;
-    return 51;
+    return QuestAssignment(id: 51, questId: questId, status: 'IN_PROGRESS');
   }
 
   @override

@@ -7,9 +7,10 @@ import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class QuestProgressPage extends StatefulWidget {
-  const new({super.key, required this.repository});
+  const new({super.key, required this.repository, this.isActive = true});
 
   final QuestRepository repository;
+  final bool isActive;
 
   @override
   State<QuestProgressPage> createState() => _QuestProgressPageState();
@@ -18,6 +19,14 @@ class QuestProgressPage extends StatefulWidget {
 class _QuestProgressPageState extends State<QuestProgressPage> {
   late Future<List<QuestProgressEntry>> _progress = widget.repository
       .getProgress();
+
+  @override
+  void didUpdateWidget(QuestProgressPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!oldWidget.isActive && widget.isActive) {
+      _progress = widget.repository.getProgress();
+    }
+  }
 
   Future<void> _refresh() async {
     setState(() => _progress = widget.repository.getProgress());
@@ -66,6 +75,12 @@ class _QuestProgressPageState extends State<QuestProgressPage> {
     return FutureBuilder(
       future: _progress,
       builder: (context, snapshot) {
+        if (!snapshot.hasData &&
+            snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(semanticsLabel: l10n.loading),
+          );
+        }
         final entries = snapshot.data ?? const <QuestProgressEntry>[];
         final pending =
             entries.where((entry) => entry.assignment.isPending).toList()
@@ -117,8 +132,6 @@ class _QuestProgressPageState extends State<QuestProgressPage> {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
             children: [
-              if (snapshot.connectionState == ConnectionState.waiting)
-                LinearProgressIndicator(semanticsLabel: l10n.loading),
               if (snapshot.hasError) ...[
                 Text(
                   l10n.progressLoadError,

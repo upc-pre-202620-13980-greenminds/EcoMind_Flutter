@@ -6,7 +6,7 @@ import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-enum _QuestStage { detail, starting, activities, finished }
+enum _QuestStage { detail, activities, finished }
 
 class QuestDetailsPage extends StatefulWidget {
   const new({
@@ -36,7 +36,6 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
   ({int activityId, bool checked})? _pendingCheck;
   final _drafts = <int, String>{};
   Timer? _autosave;
-  Timer? _startAnimation;
 
   @override
   void initState() {
@@ -47,14 +46,14 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
   @override
   void dispose() {
     _autosave?.cancel();
-    _startAnimation?.cancel();
     super.dispose();
   }
 
-  Future<void> _load() async {
+  Future<void> _load({QuestAssignment? knownAssignment}) async {
     final details = await widget.repository.getDetails(
       widget.quest,
       assignmentId: _assignmentId,
+      knownAssignment: knownAssignment,
     );
     if (mounted) setState(() => _details = details);
   }
@@ -87,15 +86,16 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
       setState(() => _stage = _QuestStage.activities);
       return;
     }
-    _assignmentId = await widget.repository.start(widget.quest.id);
-    await _load();
+    // Re-read the assignment on retry if creating it timed out.
+    setState(() => _details = null);
+    final assignment = await widget.repository.start(widget.quest.id);
+    if (!mounted) return;
+    _assignmentId = assignment.id;
+    await _load(knownAssignment: assignment);
     if (!mounted) return;
     _drafts.clear();
     _finishAttempted = false;
-    setState(() => _stage = _QuestStage.starting);
-    _startAnimation = Timer(const Duration(milliseconds: 2200), () {
-      setState(() => _stage = _QuestStage.activities);
-    });
+    setState(() => _stage = _QuestStage.activities);
   });
 
   bool get _canWrite =>
@@ -192,18 +192,17 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final colors = Theme.of(context).colorScheme;
-    if (_stage == _QuestStage.starting || _stage == _QuestStage.finished) {
-      return _Celebration(
-        quest: widget.quest,
-        finished: _stage == _QuestStage.finished,
-      );
+    if (_stage == _QuestStage.finished) {
+      return _Celebration(quest: widget.quest);
     }
     final showActivities = _stage == _QuestStage.activities;
+    final loadingActivities = showActivities && _details == null;
+    final canGoBack = !_busy || !showActivities || loadingActivities;
     return PopScope(
-      canPop: !_busy && (!showActivities || widget.assignmentId != null),
+      canPop: canGoBack && (!showActivities || widget.assignmentId != null),
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop &&
-            !_busy &&
+            canGoBack &&
             showActivities &&
             widget.assignmentId == null) {
           _back();
@@ -219,7 +218,7 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: IconButton(
-                    onPressed: _busy ? null : _back,
+                    onPressed: canGoBack ? _back : null,
                     tooltip: MaterialLocalizations.of(context)
                         .backButtonTooltip,
                     icon: const Icon(Icons.chevron_left, size: 32),
@@ -252,15 +251,20 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
                         _QuestHeading(quest: widget.quest),
-                        if (showActivities)
-                          ..._activityContent(context)
-                        else
+                        if (showActivities) ...[
+                          if (loadingActivities && _busy)
+                            Center(
+                              child: CircularProgressIndicator(
+                                semanticsLabel: l10n.loading,
+                              ),
+                            ),
+                          ..._activityContent(context),
+                        ] else
                           ..._detailContent(context),
                       ],
                     ),
                   ),
                 ),
-                if (_busy && showActivities) const LinearProgressIndicator(),
                 ..._actions(context),
               ],
             ),
@@ -390,8 +394,7 @@ class _QuestDetailsPageState extends State<QuestDetailsPage> {
               : completed
               ? l10n.questsRestart
               : l10n.questsStart,
-          enabled:
-              !_busy && !_error && (details == null || _supportsActivities),
+          enabled: !_error && (details == null || _supportsActivities),
           isLoading: _busy,
           onPressed: _start,
         ),
@@ -614,74 +617,63 @@ class _QuestButton extends StatelessWidget {
 }
 
 class _Celebration extends StatelessWidget {
-  const _Celebration({required this.quest, required this.finished});
+  const _Celebration({required this.quest});
 
   final Quest quest;
-  final bool finished;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return PopScope(
-      canPop: finished,
-      child: Scaffold(
-        body: SafeArea(
-          minimum: const EdgeInsets.fromLTRB(28, 0, 28, 28),
-          child: Column(
-            children: [
-              Expanded(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text(
-                          finished
-                              ? l10n.questsCelebration
-                              : l10n.questsStarting,
-                          style: theme.textTheme.headlineSmall,
-                          textAlign: TextAlign.center,
+    return Scaffold(
+      body: SafeArea(
+        minimum: const EdgeInsets.fromLTRB(28, 0, 28, 28),
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(
+                        l10n.questsCelebration,
+                        style: theme.textTheme.headlineSmall,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(begin: .82, end: 1),
+                        duration: const Duration(milliseconds: 520),
+                        curve: Curves.easeOutBack,
+                        builder: (context, value, child) =>
+                            Transform.scale(scale: value, child: child),
+                        child: Image.asset(
+                          'assets/quests/img_quest_completed.png',
+                          width: 240,
+                          height: 240,
+                          excludeFromSemantics: true,
                         ),
-                        const SizedBox(height: 24),
-                        TweenAnimationBuilder<double>(
-                          tween: Tween(begin: .82, end: 1),
-                          duration: const Duration(milliseconds: 520),
-                          curve: Curves.easeOutBack,
-                          builder: (context, value, child) =>
-                              Transform.scale(scale: value, child: child),
-                          child: Image.asset(
-                            finished
-                                ? 'assets/quests/img_quest_completed.png'
-                                : 'assets/quests/img_quest_started.png',
-                            width: 240,
-                            height: 240,
-                            excludeFromSemantics: true,
-                          ),
+                      ),
+                      Text(
+                        '+${l10n.questsRewardPoints(quest.ecopoints)}',
+                        style: TextStyle(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w700,
                         ),
-                        if (finished) ...[
-                          Text(
-                            '+${l10n.questsRewardPoints(quest.ecopoints)}',
-                            style: TextStyle(
-                              color: theme.colorScheme.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          if (quest.gems > 0)
-                            Text('+${l10n.questsRewardGems(quest.gems)}'),
-                        ],
-                      ],
-                    ),
+                      ),
+                      if (quest.gems > 0)
+                        Text('+${l10n.questsRewardGems(quest.gems)}'),
+                    ],
                   ),
                 ),
               ),
-              if (finished)
-                _QuestButton(
-                  label: l10n.questsNice,
-                  green: true,
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-            ],
-          ),
+            ),
+            _QuestButton(
+              label: l10n.questsNice,
+              green: true,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
         ),
       ),
     );

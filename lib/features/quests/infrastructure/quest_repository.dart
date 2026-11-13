@@ -62,20 +62,19 @@ class QuestRepository {
 
   Future<List<QuestProgressEntry>> getProgress() async {
     // The active lookup initializes today's daily quest before reading history.
-    final active = await _byStatus('IN_PROGRESS');
-    final (ready, completed) = await (
-      _byStatus('READY_TO_COMPLETE'),
-      _byStatus('COMPLETED'),
+    final (assignmentsByStatus, catalog) = await (
+      _progressAssignments(),
+      getCatalog(),
     ).wait;
     final assignments = {
-      for (final assignment in [...active, ...ready, ...completed])
-        assignment.id: assignment,
+      for (final assignment in assignmentsByStatus) assignment.id: assignment,
     }.values;
+    final quests = {for (final quest in catalog) quest.id: quest};
     final questIds = assignments
         .map((assignment) => assignment.questId)
         .toSet()
+        .where((id) => !quests.containsKey(id))
         .toList();
-    final quests = <int, Quest>{};
     const batchSize = 4;
     for (var index = 0; index < questIds.length; index += batchSize) {
       final batch = await Future.wait(
@@ -95,17 +94,32 @@ class QuestRepository {
     ];
   }
 
-  Future<QuestDetails> getDetails(Quest quest, {int? assignmentId}) async {
-    final (assignment, activityData) = await (
-      _findAssignment(quest.id, assignmentId),
+  Future<List<QuestAssignment>> _progressAssignments() async {
+    final active = await _byStatus('IN_PROGRESS');
+    final (ready, completed) = await (
+      _byStatus('READY_TO_COMPLETE'),
+      _byStatus('COMPLETED'),
+    ).wait;
+    return [...active, ...ready, ...completed];
+  }
+
+  Future<QuestDetails> getDetails(
+    Quest quest, {
+    int? assignmentId,
+    QuestAssignment? knownAssignment,
+  }) async {
+    final (assignment, activityData, savedActivities) = await (
+      knownAssignment == null
+          ? _findAssignment(quest.id, assignmentId)
+          : Future.value(knownAssignment),
       _request('/activities/quest/${quest.id}'),
+      _savedActivities(knownAssignment?.id ?? assignmentId),
     ).wait;
     final rows = (activityData as List).cast<Map<String, dynamic>>().toList()
       ..sort((a, b) => (a['order'] as int).compareTo(b['order'] as int));
     final saved = <int, Map<String, dynamic>>{};
     if (assignment != null) {
-      final items =
-          await _request('/activity-users/quest-user/${assignment.id}') as List;
+      final items = savedActivities ?? (await _savedActivities(assignment.id))!;
       for (final item in items.cast<Map<String, dynamic>>()) {
         saved[item['activityId'] as int] = item;
       }
@@ -130,6 +144,11 @@ class QuestRepository {
     );
   }
 
+  Future<List<dynamic>?> _savedActivities(int? assignmentId) async {
+    if (assignmentId == null) return null;
+    return await _request('/activity-users/quest-user/$assignmentId') as List;
+  }
+
   Future<QuestAssignment?> _findAssignment(
     int questId,
     int? assignmentId,
@@ -143,9 +162,9 @@ class QuestRepository {
     return data == null ? null : _assignment(data);
   }
 
-  Future<int> start(int questId) async {
+  Future<QuestAssignment> start(int questId) async {
     final data = await _request('/quest-users', body: {'questId': questId});
-    return _assignment(data).id;
+    return _assignment(data);
   }
 
   Future<({QuestAssignment assignment, bool isComplete, String? response})>

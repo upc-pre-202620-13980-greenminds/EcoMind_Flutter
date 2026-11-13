@@ -18,11 +18,13 @@ class QuestsHomePage extends StatefulWidget {
     required this.profile,
     required this.familyViewModel,
     required this.repository,
+    this.isActive = true,
   });
 
   final ProfileViewModel profile;
   final FamilyViewModel familyViewModel;
   final QuestRepository repository;
+  final bool isActive;
 
   @override
   State<QuestsHomePage> createState() => _QuestsHomePageState();
@@ -31,6 +33,14 @@ class QuestsHomePage extends StatefulWidget {
 class _QuestsHomePageState extends State<QuestsHomePage> {
   late Future<List<PendingQuest>> _pending = widget.repository.getPending();
   late Future<List<Quest>> _catalog = widget.repository.getCatalog();
+
+  @override
+  void didUpdateWidget(QuestsHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!oldWidget.isActive && widget.isActive) {
+      _pending = widget.repository.getPending();
+    }
+  }
 
   void _reloadPending() {
     setState(() {
@@ -131,6 +141,7 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
                       child: _PendingQuests(
                         quests: pending,
                         green: green,
+                        isActive: widget.isActive,
                         onContinue: (item) => _openQuest(
                           item.quest,
                           assignmentId: item.assignment.id,
@@ -291,8 +302,10 @@ class _PendingQuests extends StatefulWidget {
     required this.quests,
     required this.green,
     required this.onContinue,
+    required this.isActive,
   });
 
+  final bool isActive;
   final List<PendingQuest> quests;
   final Color green;
   final ValueChanged<PendingQuest> onContinue;
@@ -319,13 +332,18 @@ class _PendingQuestsState extends State<_PendingQuests> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.quests.length != widget.quests.length) {
       _page = 0;
+    }
+    if (oldWidget.isActive != widget.isActive ||
+        oldWidget.quests.length != widget.quests.length) {
       _scheduleRotation();
     }
   }
 
   void _scheduleRotation() {
     _rotation?.cancel();
-    if (widget.quests.length < 2 || MediaQuery.disableAnimationsOf(context)) {
+    if (!widget.isActive ||
+        widget.quests.length < 2 ||
+        MediaQuery.disableAnimationsOf(context)) {
       return;
     }
     _rotation = Timer(_interval, () {

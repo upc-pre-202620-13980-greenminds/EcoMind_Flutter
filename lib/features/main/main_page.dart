@@ -25,6 +25,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   // The parent application opens on the Profile section
   int selectedIndex = 5;
+  final visitedTabs = <int>{5};
 
   final ProfileViewModel profileViewModel = getIt<ProfileViewModel>();
   final FamilyViewModel familyViewModel = getIt<FamilyViewModel>();
@@ -40,15 +41,19 @@ class _MainPageState extends State<MainPage> {
     sessionRepository: getIt<SessionRepository>(),
   );
 
-  late final List<Widget> pages = [
+  List<Widget> get pages => [
     const ComingSoonView(),
     const ComingSoonView(),
     QuestsHomePage(
       profile: profileViewModel,
       familyViewModel: familyViewModel,
       repository: questRepository,
+      isActive: selectedIndex == 2,
     ),
-    QuestProgressPage(repository: questRepository),
+    QuestProgressPage(
+      repository: questRepository,
+      isActive: selectedIndex == 3,
+    ),
     const ComingSoonView(),
     ProfilePage(
       viewModel: profileViewModel,
@@ -109,6 +114,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final tabs = pages;
 
     return Scaffold(
       body: SafeArea(
@@ -116,7 +122,20 @@ class _MainPageState extends State<MainPage> {
         child: Column(
           children: [
             const MainTopBar(),
-            Expanded(child: pages[selectedIndex]),
+            Expanded(
+              child: IndexedStack(
+                index: selectedIndex,
+                children: [
+                  for (var index = 0; index < tabs.length; index++)
+                    TickerMode(
+                      enabled: index == selectedIndex,
+                      child: visitedTabs.contains(index)
+                          ? tabs[index]
+                          : const SizedBox.shrink(),
+                    ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -132,6 +151,7 @@ class _MainPageState extends State<MainPage> {
             selectedIndex: selectedIndex,
             onDestinationSelected: (value) {
               setState(() {
+                visitedTabs.add(value);
                 selectedIndex = value;
               });
             },
