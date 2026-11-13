@@ -22,7 +22,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navRanking => 'Ranking';
 
   @override
-  String get navMainMenu => 'Main menu';
+  String get navMainMenu => 'Quests';
 
   @override
   String get navProgress => 'Progress';
@@ -683,4 +683,69 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resetSuccessMessage =>
       'Your password was changed. Sign in with your new password.';
+
+  @override
+  String get questsWelcome => 'Welcome back';
+
+  @override
+  String questsWelcomeName(String name) {
+    return 'Welcome back, $name';
+  }
+
+  @override
+  String get questsPickUp => 'Pick up where you left off';
+
+  @override
+  String get questsContinue => 'Continue quest';
+
+  @override
+  String get questsRecommended => 'Recommended quests';
+
+  @override
+  String get questsSearch => 'Search';
+
+  @override
+  String get questsSearchHint => 'Search by title';
+
+  @override
+  String questsMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String questsAge(int age) {
+    return 'Ages $age+';
+  }
+
+  @override
+  String get questsRetry => 'Try again';
+
+  @override
+  String get questsEmpty => 'There are no recommendations right now.';
+
+  @override
+  String get questsNoResults => 'No quests found.';
+
+  @override
+  String get questsPendingError => 'Could not load your pending quest.';
+
+  @override
+  String get questsCatalogError => 'Could not load the recommendations.';
+
+  @override
+  String get questsResponse => 'Your answer';
+
+  @override
+  String questsMinCharacters(int count) {
+    return 'Minimum $count characters';
+  }
+
+  @override
+  String get questsStart => 'Start quest';
+
+  @override
+  String get questsFinish => 'Finish quest';
+
+  @override
+  String get questsCompleted => 'Quest completed';
 }

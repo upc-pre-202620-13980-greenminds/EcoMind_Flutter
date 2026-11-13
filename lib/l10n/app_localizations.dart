@@ -126,7 +126,7 @@ abstract class AppLocalizations {
   /// No description provided for @navMainMenu.
   ///
   /// In en, this message translates to:
-  /// **'Main menu'**
+  /// **'Quests'**
   String get navMainMenu;
 
   /// No description provided for @navProgress.
@@ -1260,6 +1260,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your password was changed. Sign in with your new password.'**
   String get resetSuccessMessage;
+
+  /// No description provided for @questsWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get questsWelcome;
+
+  /// No description provided for @questsWelcomeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back, {name}'**
+  String questsWelcomeName(String name);
+
+  /// No description provided for @questsPickUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up where you left off'**
+  String get questsPickUp;
+
+  /// No description provided for @questsContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue quest'**
+  String get questsContinue;
+
+  /// No description provided for @questsRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended quests'**
+  String get questsRecommended;
+
+  /// No description provided for @questsSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get questsSearch;
+
+  /// No description provided for @questsSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by title'**
+  String get questsSearchHint;
+
+  /// No description provided for @questsMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String questsMinutes(int minutes);
+
+  /// No description provided for @questsAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Ages {age}+'**
+  String questsAge(int age);
+
+  /// No description provided for @questsRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get questsRetry;
+
+  /// No description provided for @questsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no recommendations right now.'**
+  String get questsEmpty;
+
+  /// No description provided for @questsNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No quests found.'**
+  String get questsNoResults;
+
+  /// No description provided for @questsPendingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your pending quest.'**
+  String get questsPendingError;
+
+  /// No description provided for @questsCatalogError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the recommendations.'**
+  String get questsCatalogError;
+
+  /// No description provided for @questsResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get questsResponse;
+
+  /// No description provided for @questsMinCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum {count} characters'**
+  String questsMinCharacters(int count);
+
+  /// No description provided for @questsStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start quest'**
+  String get questsStart;
+
+  /// No description provided for @questsFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish quest'**
+  String get questsFinish;
+
+  /// No description provided for @questsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Quest completed'**
+  String get questsCompleted;
 }
 
 class _AppLocalizationsDelegate

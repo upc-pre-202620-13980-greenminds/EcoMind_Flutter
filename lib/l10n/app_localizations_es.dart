@@ -22,7 +22,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navRanking => 'Ranking';
 
   @override
-  String get navMainMenu => 'Menú principal';
+  String get navMainMenu => 'Retos';
 
   @override
   String get navProgress => 'Progreso';
@@ -693,6 +693,71 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get resetSuccessMessage =>
       'Tu contraseña se cambió. Inicia sesión con tu contraseña nueva.';
+
+  @override
+  String get questsWelcome => 'Bienvenido de vuelta';
+
+  @override
+  String questsWelcomeName(String name) {
+    return 'Bienvenido de vuelta, $name';
+  }
+
+  @override
+  String get questsPickUp => 'Continúa donde te quedaste';
+
+  @override
+  String get questsContinue => 'Continuar reto';
+
+  @override
+  String get questsRecommended => 'Retos recomendados';
+
+  @override
+  String get questsSearch => 'Buscar';
+
+  @override
+  String get questsSearchHint => 'Buscar por título';
+
+  @override
+  String questsMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String questsAge(int age) {
+    return 'Desde $age años';
+  }
+
+  @override
+  String get questsRetry => 'Reintentar';
+
+  @override
+  String get questsEmpty => 'Por ahora no hay retos recomendados.';
+
+  @override
+  String get questsNoResults => 'No encontramos retos.';
+
+  @override
+  String get questsPendingError => 'No pudimos cargar tu reto pendiente.';
+
+  @override
+  String get questsCatalogError => 'No pudimos cargar los retos recomendados.';
+
+  @override
+  String get questsResponse => 'Tu respuesta';
+
+  @override
+  String questsMinCharacters(int count) {
+    return 'Mínimo $count caracteres';
+  }
+
+  @override
+  String get questsStart => 'Empezar reto';
+
+  @override
+  String get questsFinish => 'Finalizar reto';
+
+  @override
+  String get questsCompleted => 'Reto completado';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).

@@ -1,8 +1,11 @@
 import 'package:ecomind_parents/core/service_locator.dart';
 import 'package:ecomind_parents/core/widgets/coming_soon_view.dart';
+import 'package:ecomind_parents/features/iam/domain/session_repository.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_page.dart';
 import 'package:ecomind_parents/features/iam/presentation/sign_in/sign_in_view_model.dart';
 import 'package:ecomind_parents/features/main/main_top_bar.dart';
+import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.dart';
+import 'package:ecomind_parents/features/quests/presentation/quests_home_page.dart';
 import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_page.dart';
@@ -31,11 +34,16 @@ class _MainPageState extends State<MainPage> {
   // Language used to load the inbox; it is loaded again if the language changes
   String? loadedLanguageTag;
 
-  // Store, Ranking, Main menu, Progress and Community belong to other members
+  // Store, Ranking, Progress and Community belong to other members
   late final List<Widget> pages = [
     const ComingSoonView(),
     const ComingSoonView(),
-    const ComingSoonView(),
+    QuestsHomePage(
+      profile: profileViewModel,
+      repository: QuestRepository(
+        sessionRepository: getIt<SessionRepository>(),
+      ),
+    ),
     const ComingSoonView(),
     const ComingSoonView(),
     ProfilePage(
