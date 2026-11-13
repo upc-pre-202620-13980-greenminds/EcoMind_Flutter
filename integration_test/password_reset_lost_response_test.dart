@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:integration_test/integration_test.dart';
 
 void main() {
-  _RecoveryTestBinding();
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   const enabled = bool.fromEnvironment(
     'IAM_LOST_RESPONSE',
     defaultValue: false,
@@ -24,6 +24,9 @@ void main() {
   testWidgets(
     'recovers a real committed reset when its first response is lost',
     (tester) async {
+      // The integration runner already owns the binding. Register only its test keyboard.
+      tester.testTextInput.register();
+      addTearDown(tester.testTextInput.unregister);
       // Opt-in: this changes only the account supplied by the private fixture.
       const directory = '/data/user/0/pe.greenminds.ecomind_parents/files';
       await Directory(directory).create(recursive: true);
@@ -135,10 +138,4 @@ class _DropFirstResponseClient extends http.BaseClient {
 
   @override
   void close() => _inner.close();
-}
-
-// This network regression drives text fields through the test keyboard, not the IME.
-class _RecoveryTestBinding extends IntegrationTestWidgetsFlutterBinding {
-  @override
-  bool get registerTestTextInput => true;
 }
