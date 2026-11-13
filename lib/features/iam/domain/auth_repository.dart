@@ -17,5 +17,9 @@ abstract class AuthRepository {
   // The backend answers the same way whether or not the email has an account.
   // languageTag, when given, asks for the email in that language.
   Future<void> requestPasswordRecovery(String email, {String? languageTag});
-  Future<void> confirmPasswordRecovery(String token, String newPassword);
+  Future<void> confirmPasswordRecovery(
+    String token,
+    String newPassword, {
+    String? confirmationId,
+  });
 }

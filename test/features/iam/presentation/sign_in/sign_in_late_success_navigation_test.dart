@@ -113,8 +113,9 @@ class _DelayedAuthRepository implements AuthRepository {
   @override
   Future<void> confirmPasswordRecovery(
     String token,
-    String newPassword,
-  ) async {}
+    String newPassword, {
+    String? confirmationId,
+  }) async {}
 
   @override
   Future<void> signUp(

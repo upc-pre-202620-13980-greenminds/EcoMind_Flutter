@@ -173,6 +173,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Esta aplicación es para madres y padres. Los estudiantes inician sesión en la aplicación EcoMind para estudiantes.';
 
   @override
+  String get errorResetOutcomeUnknown =>
+      'No pudimos confirmar el cambio de contraseña. Intenta iniciar sesión con tu nueva contraseña o reintenta sin cambiarla.';
+
+  @override
   String get errorConnection =>
       'No se pudo conectar con el servidor. Inténtalo de nuevo.';
 

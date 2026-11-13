@@ -173,8 +173,9 @@ class _TestAuthRepository implements AuthRepository {
   @override
   Future<void> confirmPasswordRecovery(
     String token,
-    String newPassword,
-  ) async {}
+    String newPassword, {
+    String? confirmationId,
+  }) async {}
 
   @override
   Future<Session> signIn(String email, String password) async =>

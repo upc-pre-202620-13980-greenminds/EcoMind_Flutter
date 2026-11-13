@@ -58,6 +58,7 @@
   "errorCodeExpired": "The verification code has expired. Request a new one.",
   "errorCodeAttempts": "Too many attempts. Request a new code.",
   "errorStudentAccount": "This application is for parents. Students sign in with the EcoMind student app.",
+  "errorResetOutcomeUnknown": "We couldn't confirm the password change. Try signing in with your new password, or retry without changing it.",
   "errorConnection": "Could not connect to the server. Try again.",
   "errorUnknown": "Something went wrong. Try again.",
   "topBarGems": "{count} gems",

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:ecomind_parents/features/iam/application/confirm_password_recovery_use_case.dart';
 import 'package:ecomind_parents/features/iam/domain/account_rules.dart';
 import 'package:ecomind_parents/features/iam/domain/auth_exception.dart';
@@ -15,11 +18,15 @@ class ResetPasswordViewModel extends ChangeNotifier {
 
   // Kept only in memory and only while it can still be used
   String? _token;
+  String? _confirmationId;
+  bool _outcomeUncertain = false;
   bool _isDisposed = false;
 
   // Called once by the page with the token read from the link, or null
   void openLink(String? token) {
     _token = token;
+    _confirmationId = null;
+    _outcomeUncertain = false;
     _state = ResetPasswordState(
       linkStatus: token == null
           ? ResetLinkStatus.malformed
@@ -29,9 +36,12 @@ class ResetPasswordViewModel extends ChangeNotifier {
   }
 
   void onPasswordChange(String password) {
+    if (_state.isLoading) return;
+    if (password != _state.password) _confirmationId = null;
     _state = _state.copyWith(
       password: password,
       confirmPasswordError: _state.confirmPasswordError,
+      errorMessage: _outcomeUncertain ? AuthError.resetOutcomeUnknown : null,
     );
     _notify();
   }
@@ -40,6 +50,7 @@ class ResetPasswordViewModel extends ChangeNotifier {
     _state = _state.copyWith(
       confirmPassword: confirmPassword,
       passwordError: _state.passwordError,
+      errorMessage: _outcomeUncertain ? AuthError.resetOutcomeUnknown : null,
     );
     _notify();
   }
@@ -64,15 +75,33 @@ class ResetPasswordViewModel extends ChangeNotifier {
       return;
     }
 
-    _state = _state.copyWith(isLoading: true);
+    _state = _state.copyWith(
+      isLoading: true,
+      errorMessage: _outcomeUncertain ? AuthError.resetOutcomeUnknown : null,
+    );
     _notify();
 
     try {
-      await confirmPasswordRecovery.execute(token, _state.password);
+      // Retain this identifier for an unchanged form, including a manual retry.
+      final random = Random.secure();
+      _confirmationId ??= base64UrlEncode(
+        List<int>.generate(32, (_) => random.nextInt(256)),
+      ).replaceAll('=', '');
+      await confirmPasswordRecovery.execute(
+        token,
+        _state.password,
+        confirmationId: _confirmationId,
+      );
       _forgetSecrets();
       _state = ResetPasswordState(isCompleted: true);
     } on AuthException catch (e) {
-      if (e.error == AuthError.resetTokenInvalid) {
+      if (e.error == AuthError.resetOutcomeUnknown || _outcomeUncertain) {
+        _outcomeUncertain = true;
+        _state = _state.copyWith(
+          isLoading: false,
+          errorMessage: AuthError.resetOutcomeUnknown,
+        );
+      } else if (e.error == AuthError.resetTokenInvalid) {
         // Expired or already used: only a new link can help
         _forgetSecrets();
         _state = ResetPasswordState(linkStatus: ResetLinkStatus.rejected);
@@ -89,7 +118,9 @@ class ResetPasswordViewModel extends ChangeNotifier {
     } catch (e) {
       _state = _state.copyWith(
         isLoading: false,
-        errorMessage: AuthError.unknown,
+        errorMessage: _outcomeUncertain
+            ? AuthError.resetOutcomeUnknown
+            : AuthError.unknown,
       );
     }
     if (_isDisposed) {
@@ -114,6 +145,7 @@ class ResetPasswordViewModel extends ChangeNotifier {
     _state = _state.copyWith(
       passwordError: passwordError,
       confirmPasswordError: confirmPasswordError,
+      errorMessage: _outcomeUncertain ? AuthError.resetOutcomeUnknown : null,
     );
     _notify();
     return passwordError == null && confirmPasswordError == null;
@@ -121,6 +153,8 @@ class ResetPasswordViewModel extends ChangeNotifier {
 
   void _forgetSecrets() {
     _token = null;
+    _confirmationId = null;
+    _outcomeUncertain = false;
   }
 
   // The page may close while a request is still running
