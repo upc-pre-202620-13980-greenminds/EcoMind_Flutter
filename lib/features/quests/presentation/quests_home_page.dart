@@ -7,14 +7,21 @@ import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.
 import 'package:ecomind_parents/features/quests/presentation/quest_details_page.dart';
 import 'package:ecomind_parents/features/quests/presentation/quest_search_page.dart';
 import 'package:ecomind_parents/features/quests/presentation/quest_tile.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_view_model.dart';
 import 'package:ecomind_parents/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class QuestsHomePage extends StatefulWidget {
-  const new({super.key, required this.profile, required this.repository});
+  const new({
+    super.key,
+    required this.profile,
+    required this.familyViewModel,
+    required this.repository,
+  });
 
   final ProfileViewModel profile;
+  final FamilyViewModel familyViewModel;
   final QuestRepository repository;
 
   @override
@@ -43,8 +50,11 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
       _catalog = widget.repository.getCatalog();
     });
     // The builders render each request's own error state.
-    await Future.wait<Object?>([_pending, _catalog])
-        .then<void>((_) {}, onError: (Object _) {});
+    await Future.wait<Object?>([
+      _pending,
+      _catalog,
+      widget.familyViewModel.loadFamily(),
+    ]).then<void>((_) {}, onError: (Object _) {});
   }
 
   Future<void> _openQuest(Quest quest, {int? assignmentId}) async {
@@ -214,6 +224,59 @@ class _QuestsHomePageState extends State<QuestsHomePage> {
                     },
                   ),
                 ],
+              );
+            },
+          ),
+          ListenableBuilder(
+            listenable: widget.familyViewModel,
+            builder: (context, _) {
+              final members = widget.familyViewModel.state.family?.otherMembers;
+              if (members == null || members.isEmpty) {
+                return const SizedBox.shrink();
+              }
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 20,
+                  children: [
+                    Semantics(
+                      header: true,
+                      child: Text(
+                        'My family activity',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: green,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 19,
+                        ),
+                      ),
+                    ),
+                    for (final member in members)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 8,
+                        children: [
+                          Semantics(
+                            header: true,
+                            child: Text(
+                              member.name,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: green,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 19,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'No registred activity',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
               );
             },
           ),

@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage> {
     const ComingSoonView(),
     QuestsHomePage(
       profile: profileViewModel,
+      familyViewModel: familyViewModel,
       repository: QuestRepository(
         sessionRepository: getIt<SessionRepository>(),
       ),

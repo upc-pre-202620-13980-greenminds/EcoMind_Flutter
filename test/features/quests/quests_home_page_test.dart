@@ -6,7 +6,12 @@ import 'package:ecomind_parents/features/iam/domain/social_role.dart';
 import 'package:ecomind_parents/features/quests/domain/quest.dart';
 import 'package:ecomind_parents/features/quests/infrastructure/quest_repository.dart';
 import 'package:ecomind_parents/features/quests/presentation/quests_home_page.dart';
+import 'package:ecomind_parents/features/users/domain/family.dart';
+import 'package:ecomind_parents/features/users/domain/family_member.dart';
+import 'package:ecomind_parents/features/users/domain/family_role.dart';
 import 'package:ecomind_parents/features/users/domain/user_profile.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_state.dart';
+import 'package:ecomind_parents/features/users/presentation/family/family_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_state.dart';
 import 'package:ecomind_parents/features/users/presentation/notifications/notifications_view_model.dart';
 import 'package:ecomind_parents/features/users/presentation/profile/profile_state.dart';
@@ -18,7 +23,13 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final profile = _Profile();
 
-  Future<void> openHome(WidgetTester tester, _Quests quests) async {
+  Future<void> openHome(
+    WidgetTester tester,
+    _Quests quests, {
+    Family? family,
+  }) async {
+    final familyViewModel = _FamilyViewModel(family);
+    addTearDown(familyViewModel.dispose);
     tester.view.physicalSize = const Size(360, 800);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
@@ -36,7 +47,11 @@ void main() {
           body: MediaQuery(
             data: MediaQueryData.fromView(tester.view)
                 .copyWith(textScaler: const TextScaler.linear(1.5)),
-            child: QuestsHomePage(profile: profile, repository: quests),
+            child: QuestsHomePage(
+              profile: profile,
+              familyViewModel: familyViewModel,
+              repository: quests,
+            ),
           ),
         ),
       ),
@@ -122,6 +137,60 @@ void main() {
     },
   );
 
+  testWidgets('shows each family member’s activity section inline', (
+    tester,
+  ) async {
+    await openHome(
+      tester,
+      _Quests(hasPending: false),
+      family: const Family(
+        id: 1,
+        name: 'Familia',
+        commitment: '',
+        members: [
+          FamilyMember(
+            id: 1,
+            userId: 10,
+            name: 'Diego',
+            role: FamilyRole.parent,
+            socialRole: SocialRole.parent,
+            isCurrentUser: true,
+          ),
+          FamilyMember(
+            id: 2,
+            userId: 20,
+            name: 'Lucía',
+            role: FamilyRole.child,
+            socialRole: SocialRole.student,
+            isCurrentUser: false,
+          ),
+          FamilyMember(
+            id: 3,
+            userId: 30,
+            name: 'Mateo',
+            role: FamilyRole.child,
+            socialRole: SocialRole.student,
+            isCurrentUser: false,
+          ),
+        ],
+      ),
+    );
+
+    await tester.scrollUntilVisible(
+      find.text('Mateo'),
+      150,
+      scrollable: find.byWidgetPredicate(
+        (widget) =>
+            widget is Scrollable && widget.axisDirection == AxisDirection.down,
+      ),
+    );
+    expect(find.text('My family activity'), findsOneWidget);
+    expect(find.text('Lucía'), findsOneWidget);
+    expect(find.text('Mateo'), findsOneWidget);
+    expect(find.text('Diego'), findsNothing);
+    expect(find.text('No registred activity'), findsNWidgets(2));
+  });
+
   testWidgets('shows detail, activities and rewards in separate stages', (
     tester,
   ) async {
@@ -166,6 +235,17 @@ void main() {
     expect(find.text('+20 EcoPoints'), findsOneWidget);
     expect(find.text('+3 gemas'), findsOneWidget);
   });
+}
+
+class _FamilyViewModel extends ChangeNotifier implements FamilyViewModel {
+  _FamilyViewModel(Family? family)
+    : state = FamilyState(family: family, hasLoaded: true);
+
+  @override
+  final FamilyState state;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class _Profile extends ChangeNotifier implements ProfileViewModel {
