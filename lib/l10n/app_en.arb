@@ -1,0 +1,466 @@
+{
+  "@@locale": "en",
+  "appTitle": "EcoMind",
+  "logoDescription": "EcoMind logo",
+  "navStore": "Store",
+  "navRanking": "Ranking",
+  "navMainMenu": "Quests",
+  "navProgress": "Progress",
+  "progressActive": "In Progress",
+  "progressFamily": "Family Quest",
+  "progressFinished": "Finished",
+  "progressSeeMore": "See more",
+  "progressViewHistory": "View history",
+  "progressHistory": "Quest history",
+  "progressEmptyActive": "You have no active activities.",
+  "progressEmptyFamily": "Create a family plan to start!",
+  "progressEmptyFinished": "You haven’t completed any activities yet. Start one!",
+  "progressUnavailableQuest": "Unavailable quest",
+  "progressMissingDate": "Completion date unavailable",
+  "progressCompletedOn": "Completed on {date}",
+  "progressLoadError": "We couldn’t update your progress. Pull down or try again.",
+  "progressCreateFamilyPlan": "Create family plan",
+  "progressShowCompletions": "Show other completions",
+  "progressHideCompletions": "Hide other completions",
+  "@progressCompletedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "navCommunity": "Community",
+  "navProfile": "Profile",
+  "topBarNotifications": "Notifications",
+  "topBarSettings": "Settings",
+  "comingSoonTitle": "Coming soon",
+  "comingSoonMessage": "This section will be available soon.",
+  "loading": "Loading",
+  "signInEmailLabel": "Email",
+  "signInPasswordLabel": "Password",
+  "signInButton": "Sign in",
+  "signInNoAccount": "Don't have an account?",
+  "signInSignUpLink": "Sign up",
+  "signInVerifyEmailHint": "If you just signed up, verify your email first.",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "signUpNameLabel": "Name",
+  "signUpConfirmPasswordLabel": "Confirm password",
+  "signUpTermsPrefix": "I agree to the",
+  "signUpTermsLink": "terms & policy",
+  "signUpTermsCheckbox": "I agree to the terms and policy",
+  "signUpButton": "Sign up",
+  "signUpHaveAccount": "Already have an account?",
+  "termsTitle": "Terms & policy",
+  "termsBody": "Version 1.2 · Updated November 12, 2026\n\n1. About EcoMind\nEcoMind is an academic sustainability and learning application developed by the GreenMinds project team as part of a UPC university course. These terms cover account access and the activities, family, community, learning and reward features available in this build. Availability may vary while the project is developed.\n\n2. Accounts and acceptance\nRegister with information you are authorized to use. Read these terms and the privacy information below before selecting the acceptance checkbox. Keep your password, email verification codes and recovery links private. Your email is used to verify registration and recover access. Sign out after using a shared device. Stopping use of the app does not delete your account; see section 7. If you do not agree, do not complete registration or stop using the account.\n\n3. Children and responsible adults\nChildren may participate only with the involvement and any legally required authorization of a parent or guardian. School use should be coordinated by a responsible adult. Linking accounts as a family does not verify that a participant is a legal parent or guardian. Selecting Student or Parent is a profile choice; it does not verify age, guardianship or parental authorization. Do not provide information about another child without the necessary authority.\n\n4. Information used by the app\nRegistration uses a name, email, password and profile role. The server stores a password hash; the app keeps session credentials on the device while you are signed in. Depending on the features you use, the server also keeps profile details, family and friendship relationships, commitments, activity and progress records, points and achievements, community participation, learning preferences and purchase or gem transaction records. Only provide information needed for the activity you choose.\n\n5. Purpose and visibility\nThese records support account access, verification and recovery, the features you request, progress and rewards, and project validation. Your name, avatar, posts, reactions, shared achievements or participation may be visible to other participants through the relevant family, friend or community features. Do not treat community content as private. Do not publish passwords, recovery links, precise home locations, sensitive information or images of other people without permission. Accepting these terms does not authorize unrelated marketing or unrestricted use of personal images.\n\n6. Service providers and payments\nAzure hosts the configured backend and database and processes stored app records. Azure Communication Services Email processes the recipient address and verification or recovery message. Resend may be used if configured in another project environment. Cloudinary processes event images uploaded through the community features. Development versions may record verification codes and recovery tokens in server logs visible to the project team; use test accounts for shared demonstrations. The payment screens in this academic build use a sandbox and have not been validated for real purchases. Do not enter real card or bank account details; use only designated payment test data. Minors must involve their responsible adult. Never send payment details through community posts or support messages.\n\n7. Control of your information\nSigning out removes session credentials from this device; it does not erase the server account or shared records. It does not end sessions on other devices or invalidate access credentials already issued by the server before they expire. Contact the project team if you suspect your account or device is compromised. Uninstalling the app also does not erase backend data. This build does not provide a self-service account deletion or data export screen. You may request access, correction or deletion of your information, or object to a use of your information, through the GreenMinds project contact who provided this academic build, using that private course or project channel. Identify the account email, but never send a password, code or recovery link. Requests require manual handling and appropriate identity verification. App data is used for the stated features and academic validation; no fixed automatic deletion schedule for account records is implemented in this build.\n\n8. Participation, content and safety\nTreat other participants respectfully. Do not harass, impersonate others, manipulate activity results, misuse accounts or attempt unauthorized access. Complete activities honestly and choose actions that are safe and appropriate for your age and surroundings. Respect the authors, sources and licenses of educational materials and content you share. Activities are educational guidance and do not replace professional safety advice or emergency services.\n\n9. Points, rewards and environmental claims\nEcoPoints, gems, streaks, rankings and achievements describe participation within EcoMind. They are not cash, investments or proof of measured environmental savings. Completing an activity does not by itself certify a reduction in water, energy, emissions or waste. Any stated estimate must be interpreted with its source and limitations.\n\n10. Project availability and updates\nEcoMind is an academic project and may contain incomplete features, interruptions or errors. Do not use it as the only record of essential information. Updates to these terms will identify their version and date and can be read from registration or your account. Nothing in these terms removes rights that cannot be waived under applicable law. Contact the GreenMinds team through the private project channel used to receive this build for account, privacy or content concerns.",
+  "verifyEmailSubtitle": "You're almost there!",
+  "verifyEmailMessage": "We've sent an email to {email}. Please check your inbox and enter the code.",
+  "@verifyEmailMessage": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "verifyEmailCodeLabel": "Confirmation code",
+  "verifyEmailButton": "Confirm email",
+  "verifyEmailResend": "Resend code",
+  "verifyEmailCodeResent": "We sent you a new code.",
+  "verifyEmailGoBack": "Go back",
+  "errorEmailRequired": "Enter your email address.",
+  "errorEmailInvalid": "Enter a valid email address.",
+  "errorPasswordRequired": "Enter your password.",
+  "errorInvalidCredentials": "The email or password is incorrect.",
+  "errorNameInvalid": "Enter your name (2 to 120 characters).",
+  "errorPasswordPolicy": "The password must have 8 to 72 characters, with at least one letter and one digit.",
+  "errorPasswordMismatch": "The passwords do not match.",
+  "errorTermsRequired": "You must accept the terms and policy.",
+  "errorEmailConflict": "This email address is already registered.",
+  "errorCodeFormat": "Enter the 6-digit code.",
+  "errorCodeInvalid": "The verification code is not valid.",
+  "errorCodeExpired": "The verification code has expired. Request a new one.",
+  "errorCodeAttempts": "Too many attempts. Request a new code.",
+  "signUpRoleLabel": "I am a",
+  "errorRoleRequired": "Select a role.",
+  "commitmentTitle": "My commitment",
+  "commitmentEmpty": "Set a personal commitment to keep you going.",
+  "commitmentAdd": "Add commitment",
+  "commitmentAddTitle": "Add commitment",
+  "commitmentEditTitle": "Edit commitment",
+  "commitmentSubtitle": "What sustainable habit do you want to keep?",
+  "commitmentLabel": "My commitment",
+  "commitmentPlaceholder": "Write your commitment",
+  "commitmentSave": "Save commitment",
+  "commitmentRetry": "Retry",
+  "commitmentCancel": "Cancel",
+  "commitmentRequired": "Write a commitment before saving.",
+  "commitmentLength": "Your commitment can have up to {max} characters.",
+  "@commitmentLength": {"placeholders": {"max": {"type": "int"}}},
+  "commitmentCounter": "{count}/{max}",
+  "@commitmentCounter": {"placeholders": {"count": {"type": "int"}, "max": {"type": "int"}}},
+  "commitmentCounterDescription": "{count} of {max} characters",
+  "@commitmentCounterDescription": {"placeholders": {"count": {"type": "int"}, "max": {"type": "int"}}},
+  "commitmentSaveFailed": "Couldn’t save your commitment.",
+  "commitmentSaveFailedHint": "Your text is still here. Try again.",
+  "medalsTitle": "Medals and achievements",
+  "medalsEmpty": "You have no medals yet.",
+  "familyEmptyStudentMessage": "A parent can create a family and add you as a member.",
+  "preferencesQuests": "New and daily quests",
+  "preferencesQuestsDescription": "New quests available and daily quests",
+  "preferencesLearning": "Learning reminders",
+  "preferencesLearningDescription": "Pending materials you haven’t reviewed",
+  "errorResetOutcomeUnknown": "We couldn't confirm the password change. Try signing in with your new password, or retry without changing it.",
+  "errorConnection": "Could not connect to the server. Try again.",
+  "errorUnknown": "Something went wrong. Try again.",
+  "topBarGems": "{count} gems",
+  "@topBarGems": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "topBarEcopoints": "{count} ecopoints",
+  "@topBarEcopoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "profileTitle": "Your profile",
+  "profileEdit": "Edit",
+  "roleParent": "Parent",
+  "roleStudent": "Student",
+  "profileStatStreak": "Day streak",
+  "profileStatEcopoints": "EcoPoints",
+  "profileStatGems": "Gems",
+  "profileStatDescription": "{value}, {label}",
+  "@profileStatDescription": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "profileShare": "Share",
+  "profileFavorites": "Favorites",
+  "profileTabProfile": "Profile",
+  "profileTabFriends": "Friends",
+  "profileTabFamily": "Family",
+  "profileTryAgain": "Try again",
+  "profileErrorTitle": "Couldn’t load your profile",
+  "profileErrorMessage": "Your information is currently unavailable.\nTry again to reload it.",
+  "signOut": "Sign out",
+  "editProfileTitle": "Edit profile",
+  "editProfileNameLabel": "Name",
+  "editProfileNamePlaceholder": "Write name",
+  "editProfileRoleLabel": "Role",
+  "editProfileSave": "Save changes",
+  "editProfileCancel": "Cancel",
+  "editProfileNameRequired": "Enter your name.",
+  "editProfileNameLength": "The name must have 2 to 120 characters.",
+  "editProfileSaveFailed": "Couldn’t save your changes.",
+  "editProfileSaveFailedHint": "Your text is still here. Try again.",
+  "cancel": "Cancel",
+  "tabError": "This information could not be loaded.",
+  "familyEmptyTitle": "No family yet",
+  "familyEmptyMessage": "Create your family to bring everyone together.",
+  "familyCreate": "Create family",
+  "familyManage": "Manage",
+  "familyMembersCount": "Members · {count}",
+  "@familyMembersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "familyManagerRole": "Parent · family manager",
+  "familyRoleParent": "Parent",
+  "familyRoleChild": "Child",
+  "familyYou": "You",
+  "createFamilyTitle": "Create family",
+  "familyNameLabel": "Family name",
+  "familyNamePlaceholder": "Write family name",
+  "familyCommitmentLabel": "Family commitment",
+  "familyCommitmentPlaceholder": "Write family commitment",
+  "familyNameRequired": "Enter a family name.",
+  "familyCommitmentRequired": "Enter a family commitment.",
+  "familyRequiredInfo": "Complete the required information.",
+  "createFamilySave": "Save changes",
+  "errorCreatorNotParent": "Only a parent account can create a family.",
+  "errorAlreadyInFamily": "You already belong to a family.",
+  "errorFamilyFull": "A family can have up to 5 members.",
+  "manageFamilyTitle": "Manage family",
+  "manageMembersTitle": "Members",
+  "manageAddMember": "Add member",
+  "manageEditMember": "Edit",
+  "manageEditMemberDescription": "Open {name}",
+  "@manageEditMemberDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "manageNoMembers": "No other members yet.",
+  "inviteTitle": "Invite a friend",
+  "inviteChooseFriend": "Choose a friend",
+  "inviteSearchHint": "Search your friends",
+  "inviteFriendSubtitle": "Friend",
+  "inviteButton": "Invite",
+  "inviteButtonDescription": "Add {name} to the family",
+  "@inviteButtonDescription": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteEmpty": "None of your friends can join right now. Friends who already belong to a family are not shown.",
+  "inviteAdded": "{name} was added to the family.",
+  "@inviteAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "memberTitle": "Family member",
+  "memberRoleLabel": "Role in the family",
+  "memberRoleHelp": "This describes their place in the family.\nIt does not change their account role.",
+  "removeMemberAction": "Remove member",
+  "removeMemberTitle": "Remove member",
+  "removeMemberMessage": "Remove {name} from {family}?\nThey will no longer belong to this family.",
+  "@removeMemberMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "family": {
+        "type": "String"
+      }
+    }
+  },
+  "conflictTitle": "Add family member",
+  "conflictHeading": "Already in a family",
+  "conflictMessage": "A user can belong to only one active family at a time.",
+  "conflictBack": "Back to members",
+  "weeklyReportTitle": "Family weekly report",
+  "weeklyReportView": "View report",
+  "weeklyReportLink": "Weekly report",
+  "weeklyReportThisWeek": "This week",
+  "weeklyReportProgress": "Weekly progress",
+  "weeklyReportQuests": "{completed} of {total} quests completed",
+  "@weeklyReportQuests": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyReportAchievements": "{count, plural, =1{1 achievement earned this week} other{{count} achievements earned this week}}",
+  "@weeklyReportAchievements": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyReportNoData": "There is not enough data to generate a report this week.",
+  "weeklyReportNoFamily": "Create your family to see its weekly report.",
+  "topBarNotificationsUnread": "{count, plural, =1{Notifications, 1 unread} other{Notifications, {count} unread}}",
+  "@topBarNotificationsUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "topBarNotificationsCurrent": "Notifications. You are already in Notifications.",
+  "notificationsTitle": "Notifications",
+  "notificationsUnread": "{count, plural, =1{1 unread} other{{count} unread}}",
+  "@notificationsUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsAllRead": "All caught up",
+  "notificationsMarkAll": "Mark all as read",
+  "notificationsEmptyTitle": "No notifications yet",
+  "notificationsEmptyMessage": "You’ll be notified about family achievements, weekly reports and community events.",
+  "notificationsErrorTitle": "Couldn’t load your notifications",
+  "notificationsErrorMessage": "Your notifications are currently unavailable. Try again to reload them.",
+  "notificationsActionFailed": "Couldn’t update your notifications. Try again.",
+  "notificationsLabelAchievements": "ACHIEVEMENTS",
+  "notificationsLabelProgress": "PROGRESS",
+  "notificationsLabelEvents": "EVENTS",
+  "notificationsLabelCommunity": "COMMUNITY",
+  "notificationsLabelQuests": "QUESTS",
+  "notificationsLabelLearning": "LEARNING",
+  "notificationsTimeMinutes": "{minutes} min",
+  "@notificationsTimeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsTimeHours": "{hours} h",
+  "@notificationsTimeHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsTimeYesterday": "Yesterday",
+  "notificationsTimeDays": "{days, plural, =1{1 day} other{{days} days}}",
+  "@notificationsTimeDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsRowUnread": "Unread. {category}. {title}. {message}. {time}",
+  "@notificationsRowUnread": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationsRowRead": "{category}. {title}. {message}. {time}",
+  "@notificationsRowRead": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "preferencesTitle": "Notification preferences",
+  "preferencesDescription": "Choose which notifications you want to receive.",
+  "preferencesAchievements": "Achievements and badges",
+  "preferencesAchievementsDescription": "Family badges and achievements",
+  "preferencesWeekly": "Weekly progress summary",
+  "preferencesWeeklyDescription": "Your family weekly report",
+  "preferencesEvents": "Family community events",
+  "preferencesEventsDescription": "Events for families published in your community",
+  "preferencesActivity": "Community activity",
+  "preferencesActivityDescription": "Reactions, shared achievements and community goals",
+  "preferencesSaveFailed": "Couldn’t save your preference. Try again.",
+  "errorResetTokenInvalid": "This reset link has expired or was already used. Request a new link to reset your password.",
+  "errorEmailDelivery": "We couldn't send the email right now. Try again in a few minutes.",
+  "signInForgotPassword": "Forgot your password?",
+  "recoveryTitle": "Reset your password",
+  "recoveryMessage": "Enter the email of your parent account and we'll send you a link to create a new password.",
+  "recoveryButton": "Send link",
+  "recoveryBackToSignIn": "Back to sign in",
+  "recoverySentTitle": "Check your email",
+  "recoverySentMessage": "If {email} belongs to an EcoMind parent account, you'll receive a link to reset your password. Open it on this device. If you don't see it, check your spam folder.",
+  "@recoverySentMessage": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "recoveryResend": "Send the link again",
+  "recoveryLinkResent": "If the account exists, we sent a new link.",
+  "recoveryChangeEmail": "Use a different email",
+  "resetTitle": "Create a new password",
+  "resetMessage": "Choose a new password for your EcoMind account.",
+  "resetPasswordLabel": "New password",
+  "resetConfirmPasswordLabel": "Confirm new password",
+  "resetButton": "Save new password",
+  "resetInvalidTitle": "This link isn't valid",
+  "resetInvalidMessage": "The link is incomplete or damaged. Request a new link to reset your password.",
+  "resetRequestNewLink": "Request a new link",
+  "resetSuccessTitle": "Password updated",
+  "resetSuccessMessage": "Your password was changed. Sign in with your new password.",
+  "questsWelcome": "Welcome back",
+  "questsWelcomeName": "Welcome back, {name}",
+  "@questsWelcomeName": {"placeholders":{"name":{"type":"String"}}},
+  "questsPickUp": "Pick up where you left off",
+  "questsContinue": "Continue quest",
+  "questsRecommended": "Recommended quests",
+  "questsSearch": "Search",
+  "questsSearchHint": "Search by title",
+  "questsMinutes": "{minutes} min",
+  "@questsMinutes": {"placeholders":{"minutes":{"type":"int"}}},
+  "questsAge": "Ages {age}+",
+  "@questsAge": {"placeholders":{"age":{"type":"int"}}},
+  "questsRetry": "Try again",
+  "questsEmpty": "There are no recommendations right now.",
+  "questsNoResults": "No quests found.",
+  "questsPendingError": "Could not load your pending quest.",
+  "questsCatalogError": "Could not load the recommendations.",
+  "questsResponse": "Your answer",
+  "questsMinCharacters": "Minimum {count} characters",
+  "@questsMinCharacters": {"placeholders":{"count":{"type":"int"}}},
+  "questsStart": "Start quest",
+  "questsFinish": "Finish quest",
+  "questsCompleted": "Quest completed",
+  "questsDetailLabel": "QUEST",
+  "questsEnergy": "energy",
+  "questsWater": "water",
+  "questsRecycle": "recycling",
+  "questsCollaborative": "collaborative",
+  "questsRewardPoints": "{count} EcoPoints",
+  "@questsRewardPoints": {"placeholders":{"count":{"type":"int"}}},
+  "questsRewardGems": "{count, plural, one{1 gem} other{{count} gems}}",
+  "@questsRewardGems": {"placeholders":{"count":{"type":"int"}}},
+  "questsPercentCompleted": "{percent}% completed",
+  "@questsPercentCompleted": {"placeholders":{"percent":{"type":"int"}}},
+  "questsAnswerCount": "{count} / {minimum} characters minimum",
+  "@questsAnswerCount": {"placeholders":{"count":{"type":"int"},"minimum":{"type":"int"}}},
+  "questsAnswerSaved": "Saved",
+  "questsViewSaved": "View saved answers",
+  "questsRestart": "Restart quest",
+  "questsActivitiesUnavailable": "These activities are unavailable here.",
+  "questsStarting": "Ready... set...\nQuest started!",
+  "questsCelebration": "Quest completed!\nGood job!",
+  "questsNice": "Nice!",
+  "questsDaily": "Daily quest",
+  "questsPending": "Quest in progress",
+  "questsFilters": "Filters",
+  "questsFilterCategory": "Category",
+  "questsFilterType": "Quest type",
+  "questsFilterAge": "Recommended age",
+  "questsFilterTime": "Estimated time",
+  "questsFilterApply": "Apply",
+  "questsFilterMinigame": "Minigame",
+  "questsFilterActivities": "Activities",
+  "questsFilterAgeRange": "Ages {range}",
+  "questsFilterUpTo15": "Up to 15 min",
+  "questsFilterOver60": "More than 60 min",
+  "@questsFilterAgeRange": {"placeholders":{"range":{"type":"String"}}}
+}

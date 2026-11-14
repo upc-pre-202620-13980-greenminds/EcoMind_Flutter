@@ -1,0 +1,1 @@
+enum FamilyRole { parent, child }

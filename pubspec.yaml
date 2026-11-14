@@ -1,5 +1,5 @@
 name: ecomind_parents
-description: "A new Flutter project."
+description: "EcoMind application for parents."
 publish_to: 'none'
 version: 0.1.0+1
 
@@ -9,11 +9,48 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  http: ^1.6.0
+  get_it: ^9.3.0
+  sqflite: ^2.4.5
+  path: ^1.9.1
+  app_links: ^7.2.2
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
+  generate: true
+  assets:
+    - assets/images/
+    - assets/quests/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/poppins_light.ttf
+          weight: 300
+        - asset: assets/fonts/poppins_regular.ttf
+          weight: 400
+        - asset: assets/fonts/poppins_medium.ttf
+          weight: 500
+        - asset: assets/fonts/poppins_semibold.ttf
+          weight: 600
+        - asset: assets/fonts/poppins_bold.ttf
+          weight: 700
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter_regular.ttf
+          weight: 400
+        - asset: assets/fonts/inter_medium.ttf
+          weight: 500
+        - asset: assets/fonts/inter_semibold.ttf
+          weight: 600
+        - asset: assets/fonts/inter_bold.ttf
+          weight: 700
